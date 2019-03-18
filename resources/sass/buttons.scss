@@ -1,0 +1,135 @@
+/* --------------SLIDE IN BUTTON-----------------*/
+
+@mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65,0,.076,1)) {
+  transition: $property $duration $ease;
+}
+
+button.slider {
+  position: relative;
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  &.slidein {
+    padding-top: 2.2rem;
+    padding-bottom: 2.2rem;
+    width: 13rem;
+    height: auto;
+    .circle {
+      @include transition(all, 0.45s, cubic-bezier(0.65,0,.076,1));
+      position: relative;
+      margin: 0;
+      width: 3rem;
+      height: 3rem;
+      background: $black;
+      border-radius: 1.625rem;
+      .icon {
+        @include transition(all, 0.45s, cubic-bezier(0.65,0,.076,1));
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        background: $white;
+        &.arrow {
+          @include transition(all, 0.45s, cubic-bezier(0.65,0,.076,1));
+          left: 0.625rem;
+          width: 1.125rem;
+          height: 0.125rem;
+          background: none;
+          &::before {
+            position: absolute;
+            content: '';
+            top: -0.25rem;
+            right: 0.0625rem;
+            width: 0.625rem;
+            height: 0.625rem;
+            border-top: 0.125rem solid #fff;
+            border-right: 0.125rem solid #fff;
+            transform: rotate(45deg);
+          }
+        }
+      }
+    }
+    .button-text {
+      @include transition(all, 0.45s, cubic-bezier(0.65,0,.076,1));
+      position: absolute;
+      top: 1.4rem;
+      left: 10;
+      right: 1rem;
+      bottom: 0;
+      padding: 0.75rem 0;
+      margin: 0 0 0 1.85rem;
+      color: $black;
+      font-weight: 700;
+      line-height: 1.6;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+  &:hover {
+    .circle {
+      width: 100%;
+      .icon {
+        &.arrow {
+        background: $white;
+        transform: translate(1rem, 0);
+        }
+      }
+    }
+    .button-text {
+      color: $white;
+    }
+  }
+  &.reset {
+    width:33rem;
+  }
+}
+
+/*Event Button*/
+
+.event-ticket-button button {
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: normal;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: 800;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 24px;
+    padding-right: 24px;
+    min-width: 77.66563145999496px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background: #FF5A5F;
+    border-color: transparent;
+    color: #ffffff;
+}
+
+/*heart button*/
+
+.hearted {
+  fill:#FF5A5F; 
+  fill-opacity:1;
+  stroke:#FF5A5F; 
+  height: 24px; 
+  width: 24px; 
+  display: block; 
+  overflow: visible;
+  stroke-width:2;
+}
+.unhearted {
+  fill:#484848; 
+  fill-opacity:.5;
+  stroke:#FFF; 
+  height: 24px; 
+  width: 24px; 
+  display: block; 
+  overflow: visible;
+  stroke-width:2;
+}
+
+

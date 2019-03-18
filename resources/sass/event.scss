@@ -1,0 +1,52 @@
+.event-container {
+
+}
+.event-background-image {
+    padding: 14%;
+    width: 20%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: fixed;
+}
+.event-details {
+    padding-left:35%;
+}
+.event-details-section {
+    border-bottom: 1px solid $border-color;
+    padding-top:2rem;
+    padding-bottom: 2rem;
+    & h3 {
+        padding-top:1rem;
+        padding-bottom: 1rem;
+    }
+    &.organizer {
+        display: grid;
+        grid-template-columns: .8fr .2fr;
+        grid-gap: 5rem;
+    }
+}
+.event-title h2 {
+    font-size: 4rem;
+}
+.event-tickets {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    right: 0;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    background-color: white;
+}
+.event-ticket-button {
+    float: right;
+    padding-right: 3rem;
+    padding-left: 3rem;
+}
+.event-price {
+    float: right;
+    vertical-align: middle;
+    padding-top: 1rem;
+}
+

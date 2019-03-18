@@ -1,0 +1,101 @@
+#nav-bar{
+	position:relative;
+	border-bottom: 1px solid $line-color;
+	display:grid;
+	align-items: center;
+  background-color: $nav-background;
+	grid-template-columns: 10rem auto;
+	grid-template-rows: 7rem;
+	grid-template-areas: 
+	"logo"
+	"menu"
+}
+
+/*NavMenu Bar Content*/
+
+logo {
+
+}
+
+menu {
+	text-align: right;
+	padding-right: 2rem;
+
+}
+
+.desktop-menu-item {
+	display: inline-block;
+	padding: 0 2rem 0 2rem;
+}
+
+
+/* NavLogo Bar Content*/
+
+.desktop-logo {
+	padding-left: 2rem;
+}
+
+.header {
+  position: absolute;
+  width: 100%;
+  margin-top: -3.5rem;
+  padding-left: 2rem
+}
+
+.header ul {
+  margin-top: .5rem;
+  margin-left: -2rem;
+  list-style: none;
+  overflow: hidden;
+  background-color: #2a484a;
+}
+
+.header li a {
+  display: block;
+  padding: 2rem 2rem;
+  color:white;
+
+  &:hover {
+  	background-color: #436e71;
+  }
+}
+
+
+.down-arrow{
+    color: #767676 !important;
+    display: inline-block !important;
+    font-size: 1.1rem !important;
+    padding-bottom: 2rem;
+}
+
+/* menu */
+
+.header .menu {
+  clear: both;
+  max-height: 0;
+  transition: max-height .2s ease-out;
+}
+
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  min-height: 100vh;
+}
+
+/*Mobile Screen Size*/
+
+@media screen and (max-width: 767px)  {
+	.desktop-menu-item {
+		display: none;
+	}
+	.desktop-logo {
+		display: none;
+	}
+}
+@media screen and (min-width: 768px) {
+	.mobile-logo {
+		display:none;
+	}
+}
