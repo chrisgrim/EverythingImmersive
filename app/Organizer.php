@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Organizer extends Model
 {
 	protected $fillable = [
-		'organizationName', 'organizationDescription', 
+		'organizationName', 'organizationDescription','slug', 'organizer_id',
 	];
     
     public function events() 
@@ -17,5 +17,13 @@ class Organizer extends Model
     public function likes() 
     {
         return $this->HasMany(Likes::class);
+    }
+    public function users() 
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

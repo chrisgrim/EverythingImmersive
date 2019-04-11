@@ -27,7 +27,7 @@
 			},
 
 			endpoint() {
-				return 'favorite/' + this.event.slug + '/favorites';
+				return '/favorite/' + this.event.slug + '/favorites';
 			}
 		},
 
@@ -43,7 +43,7 @@
 			},
 			destroy() {
 				axios.delete(this.endpoint);
-
+				console.log(this.endpoint);
 				this.isFavorited = false;
 			}
 		}

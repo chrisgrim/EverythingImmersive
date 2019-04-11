@@ -22,9 +22,11 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $categories = Category::whereHas('events')->latest()->get();
+        $categories = Category::whereHas('events')->oldest()->get();
         
         $events = Event::where('approved', true)->paginate(15);
+
+        //return $events;
         return view('events.index',compact('events','categories'));
     }
 
@@ -109,7 +111,11 @@ class EventsController extends Controller
         Storage::delete('public/' . $event->eventImagePath);
         Storage::delete('public/' . $event->thumbImagePath);
         $event->delete();
-        return redirect('/');
+        return redirect()->back();
+    }
+    public function cities(Request $request)
+    {
+        return $request;
     }
 
 }

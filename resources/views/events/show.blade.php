@@ -26,14 +26,23 @@
 					<div class="event-description">
 						<h3>What to expect with the immersive event</h3>
 					</div>
+					<div>
+						<p>immersive score:</p>
+					</div>
+					<div class="immersive-score">
+						<h3 title="A score rating of 1-10 of how interactive this event is.">{{ $event->immersiveScore }}</h3>
+					</div>
 					<div class="event-description-body">
 						<p> {{ $event->eventDescription}}</p>
 					</div>
 				</div>
 				<div class="event-details-section organizer">
 					<div class="event-description-body">
-						<h3>About {{ $organizer->organizationName }}</h3>
+						<a href="/organizer/{{$organizer->slug}}">
+							<h3>About {{ $organizer->organizationName }}</h3>
+						</a>
 						<p> {{ $organizer->organizationDescription}}</p>
+						
 					</div>
 					<div class="organizer-description box1">
 						<img src="/storage/WebsiteFiles/logo.png">

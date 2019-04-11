@@ -10,6 +10,10 @@
 			<a href="/approve-events/events/unapproved/{{ $event->slug }}">
 			<button> Unapprove</button>
 			</a>
+			<a href="/RSS/Approve/{{ $event->slug }}">
+			<button> Rss Feed</button>
+			</a>
+
 		</div>
 
 		<div class="event-container">

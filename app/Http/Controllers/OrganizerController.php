@@ -46,7 +46,7 @@ class OrganizerController extends Controller
      */
     public function show(Organizer $organizer)
     {
-        //
+        return view('organization.show', compact('organizer'));
     }
 
     /**

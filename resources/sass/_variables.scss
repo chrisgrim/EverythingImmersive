@@ -7,9 +7,10 @@ $font-family-sans-serif: "Nunito", sans-serif;
 $font-size-base: 1.8rem;
 $line-height-base: 1.6;
 $basic-font: 'Open Sans', sans-serif;
+$basic-font-1: 'Montserrat', sans-serif;
 
 // Colors
-$blue: #3490de;
+$blue: #a3d4ff;
 $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66D9b;
@@ -22,6 +23,8 @@ $cyan: #6cb2eb;
 $bg: #f3f8fa;
 $white: #fff;
 $black: #fc428c;
+$circle-color: green;
+$outside-color: #a3d4ff; 
 $line-color: #dedede;
 $nav-background: #fff;
 $footer-background: #fff;
@@ -29,16 +32,10 @@ $default-font-color: #484848;
 $light-font-color: #b3b5bf;
 $border-color:#e5e5e5;
 
-.link {
-	&.remember a{
-		font-size: 1rem;
-	}
-	& a {
-		font-family: $basic-font;
-		color: $default-font-color;
-		text-decoration: none;
-		}
+html { 
+  font-size: 62.5%; 
 }
+
 h2 {
 	padding: 0rem 0rem 0rem 0rem;
 	font-size: 2.3rem;
@@ -53,4 +50,8 @@ h3 {
 	font-weight: 500;
 	color:$default-font-color;
 }
+
+
+
+
 

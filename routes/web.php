@@ -11,7 +11,11 @@
 |
 */
 
+Route::GET('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::GET('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
 Route::RESOURCE('/categories', 'CategoryController');
+Route::RESOURCE('/organizer', 'OrganizerController');
 Route::RESOURCE('/events', 'EventsController');
 Route::GET('/', 'EventsController@index');
 
@@ -20,17 +24,29 @@ Route::GET('/', 'EventsController@index');
 Route::GET('/contact', 'ContactController@create')->name('create');
 Route::POST('/contactstore', 'ContactController@store')->name('store_contact');
 
+Route::get('/search', 'SearchController@search');
 
 Auth::routes();
 
-// Likes Button
+Route::get('/logout', 'Auth\LoginController@logout');
+
+// favorites Button
+Route::GET('myFavorites/{user}', 'FavoritesController@index');
 Route::POST('favorite/{event}/favorites', 'FavoritesController@store');
 Route::DELETE('favorite/{event}/favorites', 'FavoritesController@destroy');
+Route::GET('favorite/{event}/login', 'FavoritesController@loginToFavorite');
+
+//cities
+Route::GET('/cities/{cities}', 'EventsController@cities');
 
 // Profile 
-
 Route::RESOURCE('/user', 'ProfilesController');
 
+//Admin
+Route::GET('/website-stats', 'AdminController@index');
+
+//RSS
+Route::GET('/RSS/Approve/{event}', 'RssController@index');
 
 // Approved Events Section
 Route::Get('/approve-events/events/unapproved/{event}', 'ApproveEventsController@unapprovedReason');

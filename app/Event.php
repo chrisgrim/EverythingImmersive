@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-    	'eventTitle','eventDescription','eventWebsite','eventPrice','eventTicketUrl','eventStreetNumber','eventCity','eventState','eventCountry','eventZipcode','slug','eventImagePath','thumbImagePath','eventLong','eventLat','user_id', 'eventStreetAddress', 'category_id', 'organizer_id', 'eventExpectations', 'approved',
+    	'eventTitle','eventDescription','eventWebsite','eventPrice','eventTicketUrl','eventStreetNumber','eventCity','eventState','eventCountry','eventZipcode','slug','eventImagePath','thumbImagePath','eventLong','eventLat','user_id', 'eventStreetAddress', 'category_id', 'organizer_id', 'eventExpectations', 'approved', 'immersiveScore'
 
     ];
     protected $appends = ['isFavorited'];
@@ -49,7 +49,13 @@ class Event extends Model
     {
         return $this->favorites()->where('user_id', auth()->id())->delete();
     }
-
+    public function isCompleted()
+    {
+        $attributes = ['eventTitle','eventDescription','eventWebsite','eventPrice','eventTicketUrl','eventCity','slug','eventImagePath','thumbImagePath','user_id', 'category_id', 'organizer_id', 'eventExpectations', 'immersiveScore'];
+        foreach ($attributes as $attribute) {
+            return !empty($this->$attribute);
+        }
+    }
     public function getRouteKeyName()
     {
     	return 'slug';

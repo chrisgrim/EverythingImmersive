@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProfilesController extends Controller
 {
@@ -37,16 +36,13 @@ class ProfilesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(User $user)
+    public function store(Request $request, User $user)
     {
         $this->validate(request(), [
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
         ]);
-        if ($user->image_path==NULL){
-            //
-        } else {
-            Storage::delete('public/' . $user->image_path);
-        }
+        auth()->user()->deleteUserImage();
+
         $path = request()->file('avatar')->store('avatars', 'public');
         auth()->user()->update([
             'avatar_path' => $path,
@@ -98,7 +94,7 @@ class ProfilesController extends Controller
     public function destroy(User $user)
     {   
         $this->authorize('update', $user);
-        Storage::delete('public/' . $user->image_path);
+        auth()->user()->deleteUserImage();
         $user->delete();
         return redirect('/');
     }

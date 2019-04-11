@@ -1,3 +1,9 @@
+.autocomplete-result.is-active,
+  .autocomplete-result:hover {
+    background-color: #4AAE9B;
+    color: white;
+  }
+
 .create-container h2 {
 	padding:0rem;
 }
@@ -5,4 +11,34 @@
     text-decoration: none;
     color: black;
     font-size: 1.6rem;
+}
+.create-background {
+    height: 100rem;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -3rem;
+}
+.create-front-section {
+	width:60rem;
+	position: absolute;
+	top:50%;
+	left:10%;
+	&-title h1{
+		line-height: 4rem;
+		padding-bottom: 2rem;
+	}
+}
+.create-guide-title h2 {
+	padding-top: 0rem;
+}
+.grid-background-image p{
+	position: absolute;
+	margin-left: -20px;
+    margin-top: -15px;
+}
+.edit-create-text {
+	padding-left: 2rem;
+	&-title h3{
+	}
 }

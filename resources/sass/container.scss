@@ -43,11 +43,11 @@ footer {
 	grid-area:footer;
 }
 
-#create-event-container{
-	display:grid;
-	grid-template-columns: 30rem 1fr;
-	grid-template-areas: 
-	"guide form-section"
+#create-event-container {
+    display: grid;
+    grid-template-columns: 30rem 1fr;
+    grid-template-areas: "guide form-section";
+    padding-bottom: 5rem;
 }
 guide {
 	grid-area: guide;
@@ -69,6 +69,7 @@ form-section {
     width: 100rem;
     margin: auto;
     padding: 1rem;
+    padding-bottom: 4rem;
 }
 .form-container {
 	width:500px;

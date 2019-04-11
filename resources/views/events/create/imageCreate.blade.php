@@ -1,26 +1,28 @@
 @extends('events.createWalkthrough')
 @section('createGuide')
-<div>
-	<h2> Add some Images</h2>
-</div>
-<div>
-	<p>Choose an image that best shows off your event</p>
-</div>
-<div>
-@include ('layouts.error')
-<form method="POST" action="/create-your-event/{{$event->slug}}/images" class="floating-form" enctype="multipart/form-data">
-	@method('PATCH')
-    @csrf
+<div class="create-container">
     <div>
-        <input type="file" name="eventImage" accept="image/*">
+    	<h2> Add a cover image</h2>
     </div>
-    <div class="">
-        <button type="submit" class="slider slidein">
-            <div class="circle">
-                <span class="icon arrow"></span>
-            </div>
-            <p class="button-text">Save and Continue</p>
-        </button>
+    <div>
+    	<p>Choose an image that best shows off your event</p>
     </div>
-</form>
+    <div id="app">
+        {{-- <div>
+            <featured-image :event="{{ $event }}"></featured-image>
+        </div> --}}
+    </div>
+    <div>
+    @include ('layouts.error')
+    <form method="POST" action="/create-your-event/{{$event->slug}}/images" class="floating-form" enctype="multipart/form-data">
+    	@method('PATCH')
+        @csrf
+        <div>
+            <input type="file" name="eventImage" accept="image/*">
+        </div>
+        <div class="">
+            <button type="submit" class="create"> Save and Continue </button>
+        </div>
+    </form>
+</div>
 @endsection

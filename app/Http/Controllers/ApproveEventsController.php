@@ -21,7 +21,10 @@ class ApproveEventsController extends Controller
      */
     public function index()
     {
-        $events = Event::where('approved', null)->get();
+        $events = Event::get()->filter(function($event){
+            return $event->isCompleted();
+        })->where('approved', NULL);
+
         return view('events.approval.index', compact('events'));
     }
 

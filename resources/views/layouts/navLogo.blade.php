@@ -1,6 +1,6 @@
 <!-- Desktop Logo -->
 <div class="desktop-logo">
-	<a href="/"><img src="/storage/WebsiteFiles/logo.png"></a>
+	<a href="/"><img src="/storage/website-files/imm-logo.png"></a>
 </div>
 
 <!-- Mobile Logo -->
@@ -9,7 +9,7 @@
 <div class="header mobile-logo">
 	<input class="menu-btn" type="checkbox" id="menu-btn"/>
 	<label class="menu-icon" for="menu-btn">
-	  	<img src="/storage/WebsiteFiles/logo.png">
+	  	<img src="/storage/website-files/logo.png">
 		<div class="down-arrow">
 			<div class="down-arrow-rotate">
 				<svg viewBox="0 0 18 18" role="presentation" style="height: 1em; width: 1em; display: block; fill: currentcolor;"><path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z"></path></svg>

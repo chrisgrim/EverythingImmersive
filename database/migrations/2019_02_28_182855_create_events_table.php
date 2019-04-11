@@ -33,6 +33,7 @@ class CreateEventsTable extends Migration
             $table->string('eventZipcode')->nullable();
             $table->string('eventLong')->nullable();
             $table->string('eventLat')->nullable();
+            $table->unsignedInteger('immersiveScore')->nullable();
             $table->string('overallRating')->default(0);
             $table->string('eventImagePath')->nullable();
             $table->string('thumbImagePath')->nullable();

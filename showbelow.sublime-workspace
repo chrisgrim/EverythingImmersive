@@ -4,6 +4,58 @@
 		"selected_items":
 		[
 			[
+				"back",
+				"background-color"
+			],
+			[
+				"padding-",
+				"padding-top"
+			],
+			[
+				"fav",
+				"favorited-type"
+			],
+			[
+				"favo",
+				"favorited_id"
+			],
+			[
+				"uns",
+				"unsignedInteger"
+			],
+			[
+				"cate",
+				"categories"
+			],
+			[
+				"paddin",
+				"padding-top"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"grid",
+				"grid-gap"
+			],
+			[
+				"grid-tem",
+				"grid-template-columns"
+			],
+			[
+				"bacl",
+				"background-color"
+			],
+			[
+				"pad",
+				"padding-bottom"
+			],
+			[
+				"categ",
+				"categories"
+			],
+			[
 				"file",
 				"fileNameToStore"
 			],
@@ -52,10 +104,6 @@
 				"inline-block"
 			],
 			[
-				"back",
-				"background-color"
-			],
-			[
 				"text-a",
 				"text-align"
 			],
@@ -76,20 +124,12 @@
 				"grid-template-rows"
 			],
 			[
-				"grid-tem",
-				"grid-template-columns"
-			],
-			[
 				"grid-templ",
 				"grid-template-rows"
 			],
 			[
 				"grid-templa",
 				"grid-template-areas"
-			],
-			[
-				"grid",
-				"grid-area"
 			],
 			[
 				"light",
@@ -112,49 +152,65 @@
 	"buffers":
 	[
 		{
-			"contents": "<?php\n\n/*\n|--------------------------------------------------------------------------\n| Web Routes\n|--------------------------------------------------------------------------\n|\n| Here is where you can register web routes for your application. These\n| routes are loaded by the RouteServiceProvider within a group which\n| contains the \"web\" middleware group. Now create something great!\n|\n*/\nRoute::RESOURCE('/events', 'EventsController');\nRoute::GET('/', 'EventsController@index');\n\n\n\nRoute::GET('/contact', 'ContactController@create')->name('create');\nRoute::POST('/contactstore', 'ContactController@store')->name('store_contact');\n\n\nAuth::routes();\n\n\n\n\n\n\n\n\nRoute::Get('/create-your-event/{event}/location', 'CreatingEventsController@createLocation');\nRoute::PATCH('/create-your-event/{event}/location', 'CreatingEventsController@updateLocation');\nRoute::Get('/create-your-event/{event}/category', 'CreatingEventsController@createCategory');\nRoute::PATCH('/create-your-event/{event}/category', 'CreatingEventsController@updateCategory');\nRoute::Get('/create-your-event/{event}/organizer', 'CreatingEventsController@createOrganizer');\nRoute::POST('/create-your-event/{event}/organizer', 'CreatingEventsController@storeOrganizer');\nRoute::GET('/create-your-event/{event}/description', 'CreatingEventsController@createDescription');\nRoute::PATCH('/create-your-event/{event}/description', 'CreatingEventsController@updateDescription');\nRoute::GET('/create-your-event/{event}/description', 'CreatingEventsController@createDescription');\nRoute::PATCH('/create-your-event/{event}/description', 'CreatingEventsController@updateDescription');\nRoute::GET('/create-your-event/{event}/expect', 'CreatingEventsController@createExpect');\nRoute::PATCH('/create-your-event/{event}/expect', 'CreatingEventsController@updateExpect');\nRoute::GET('/create-your-event/{event}/title', 'CreatingEventsController@createTitle');\nRoute::PATCH('/create-your-event/{event}/title', 'CreatingEventsController@updateTitle');\nRoute::GET('/create-your-event/{event}/images', 'CreatingEventsController@createImages');\nRoute::PATCH('/create-your-event/{event}/images', 'CreatingEventsController@storeImages');\nRoute::GET('/create-your-event/{event}/thanks', 'CreatingEventsController@thanks');\n\n\n\n\n",
 			"file": "routes/web.php",
-			"file_size": 2256,
-			"file_write_time": 131960292974997759,
 			"settings":
 			{
-				"buffer_size": 2263,
+				"buffer_size": 3147,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "database/factories/UserFactory.php",
+			"file": "resources/sass/createSection.scss",
 			"settings":
 			{
-				"buffer_size": 2484,
+				"buffer_size": 540,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "resources/sass/nav.scss",
+			"file": "resources/sass/container.scss",
 			"settings":
 			{
-				"buffer_size": 1387,
+				"buffer_size": 1456,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "resources/views/events/create/thanksCreate.blade.php",
+			"file": "resources/views/events/create/imageCreate.blade.php",
 			"settings":
 			{
-				"buffer_size": 422,
+				"buffer_size": 811,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "resources/views/events/create/guide.blade.php",
+			"file": "resources/js/components/featured-image.vue",
 			"settings":
 			{
-				"buffer_size": 3385,
+				"buffer_size": 902,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "featured-image.vue"
+			}
+		},
+		{
+			"file": "resources/views/events/create/editEvents.blade.php",
+			"settings":
+			{
+				"buffer_size": 1280,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/events/create/expectCreate.blade.php",
+			"settings":
+			{
+				"buffer_size": 1762,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -205,7 +261,9 @@
 		"/Users/Chris/code/showbelow/app",
 		"/Users/Chris/code/showbelow/app/Http",
 		"/Users/Chris/code/showbelow/app/Http/Controllers",
-		"/Users/Chris/code/showbelow/app/Http/Requests",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/Auth",
+		"/Users/Chris/code/showbelow/app/Policies",
+		"/Users/Chris/code/showbelow/app/Providers",
 		"/Users/Chris/code/showbelow/database",
 		"/Users/Chris/code/showbelow/database/factories",
 		"/Users/Chris/code/showbelow/database/migrations",
@@ -214,54 +272,111 @@
 		"/Users/Chris/code/showbelow/public/js",
 		"/Users/Chris/code/showbelow/resources",
 		"/Users/Chris/code/showbelow/resources/js",
+		"/Users/Chris/code/showbelow/resources/js/components",
 		"/Users/Chris/code/showbelow/resources/sass",
 		"/Users/Chris/code/showbelow/resources/views",
+		"/Users/Chris/code/showbelow/resources/views/category",
 		"/Users/Chris/code/showbelow/resources/views/contact",
 		"/Users/Chris/code/showbelow/resources/views/events",
+		"/Users/Chris/code/showbelow/resources/views/events/create",
+		"/Users/Chris/code/showbelow/resources/views/favorites",
 		"/Users/Chris/code/showbelow/resources/views/layouts",
+		"/Users/Chris/code/showbelow/resources/views/profiles",
 		"/Users/Chris/code/showbelow/routes"
 	],
 	"file_history":
 	[
-		"/Users/Chris/code/showbelow/app/Http/Controllers/CreatingEventsController.php",
-		"/Users/Chris/code/showbelow/config/app.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/imageCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/thanksCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/titleCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/locationCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/container.scss",
-		"/Users/Chris/code/showbelow/resources/views/events/create/organizerCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/createSection.scss",
-		"/Users/Chris/code/showbelow/resources/sass/app.scss",
+		"/Users/Chris/code/showbelow/resources/sass/elements.scss",
+		"/Users/Chris/code/showbelow/resources/js/app.js",
+		"/Users/Chris/code/showbelow/resources/js/components/favorite.vue",
+		"/Users/Chris/code/showbelow/resources/views/layouts/footer.blade.php",
+		"/Users/Chris/code/showbelow/.env",
 		"/Users/Chris/code/showbelow/resources/views/events/create/guide.blade.php",
-		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_182855_create_events_table.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/expectCreate.blade.php",
-		"/Users/Chris/code/showbelow/app/Event.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/titleCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/organizerCreate.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/descriptionCreate.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/categoryCreate.blade.php",
-		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_232112_create_organizers_table.php",
-		"/Users/Chris/code/showbelow/app/Organizer.php",
-		"/Users/Chris/code/showbelow/resources/views/layouts/meta.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/createWalkthrough.blade.php",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create.blade.php",
+		"/Users/Chris/code/showbelow/resources/sass/container.scss",
+		"/Users/Chris/code/showbelow/resources/views/events/index.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/locationCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/sass/buttons.scss",
+		"/Users/Chris/code/showbelow/resources/views/layouts/navMenu.blade.php",
+		"/Users/Chris/code/showbelow/app/Providers/AppServiceProvider.php",
+		"/Users/Chris/code/showbelow/resources/views/layouts/navLogo.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/favorites/index.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/grid.blade.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/SearchController.php",
+		"/Users/Chris/code/showbelow/app/User.php",
+		"/Users/Chris/code/showbelow/resources/sass/nav.scss",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/FavoritesController.php",
+		"/Users/Chris/code/showbelow/app/Favorite.php",
+		"/Users/Chris/code/showbelow/app/Event.php",
+		"/Users/Chris/code/showbelow/resources/sass/_variables.scss",
+		"/Users/Chris/code/showbelow/resources/js/components/autocomplete.vue",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
+		"/Users/Chris/code/showbelow/resources/views/events/search.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/profiles/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/components/flash.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/avatar-form.vue",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/ProfilesController.php",
+		"/Users/Chris/code/showbelow/resources/sass/profile.scss",
+		"/Users/Chris/code/showbelow/resources/sass/app.scss",
+		"/Users/Chris/code/showbelow/database/migrations/2019_03_16_221006_create_favorites_table.php",
+		"/Users/Chris/code/showbelow/resources/sass/modal.scss",
+		"/Users/Chris/code/showbelow/app/Policies/UserPolicy.php",
+		"/Users/Chris/code/showbelow/app/Policies/EventPolicy.php",
+		"/Users/Chris/code/showbelow/app/Providers/AuthServiceProvider.php",
+		"/Users/Chris/code/showbelow/resources/js/components/imageupload.vue",
+		"/Users/Chris/code/showbelow/resources/views/profiles/index.blade.php",
+		"/Users/Chris/code/showbelow/resources/sass/grid.scss",
+		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_182855_create_events_table.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/LikesController.php",
+		"/Users/Chris/code/showbelow/resources/js/components/likes.vue",
+		"/Users/Chris/code/showbelow/app/Like.php",
+		"/Users/Chris/code/showbelow/database/factories/UserFactory.php",
+		"/Users/Chris/code/showbelow/vendor/fzaninotto/faker/src/Faker/Provider/Person.php",
+		"/Users/Chris/code/showbelow/app/Organizer.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/ApproveEventsController.php",
+		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_232112_create_organizers_table.php",
+		"/Users/Chris/code/showbelow/database/migrations/2019_03_01_012154_create_categories_table.php",
+		"/Users/Chris/code/showbelow/database/migrations/2019_03_14_220830_create_likes_table.php",
+		"/Users/Chris/code/showbelow/resources/views/events/approval/emailApprovalForm.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/approval/unapprovedreason.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/approval/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/approval/grid.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/approval/index.blade.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/CreatingEventsController.php",
+		"/Users/Chris/code/showbelow/app/Category.php",
+		"/Users/Chris/code/showbelow/config/app.php",
+		"/Users/Chris/code/showbelow/config/services.php",
+		"/Users/Chris/code/showbelow/node_modules/dotenv/config.js",
+		"/Users/Chris/code/showbelow/bootstrap/app.php",
+		"/Users/Chris/code/showbelow/app/Http/Kernel.php",
+		"/Users/Chris/code/showbelow/app/Http/Middleware/IsAdmin.php",
+		"/Users/Chris/code/showbelow/app/Http/Middleware/Admin.php",
+		"/Users/Chris/code/showbelow/resources/sass/event.scss",
+		"/Users/Chris/code/showbelow/resources/views/events/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/category/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/layouts/meta.blade.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/CategoryController.php",
+		"/Users/Chris/code/showbelow/resources/views/category/index.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/test.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/category/grid.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/editEvents.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/thanksCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/imageCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/sass/createSection.scss",
+		"/Users/Chris/code/showbelow/resources/views/events/create/expectCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/createWalkthrough.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/locationContent.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/locationGuide.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/contact/create.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/layouts/navMenu.blade.php",
 		"/Users/Chris/code/showbelow/public/css/app.css",
 		"/Users/Chris/code/showbelow/routes/web.php",
-		"/Users/Chris/code/showbelow/database/factories/UserFactory.php",
-		"/Users/Chris/code/showbelow/resources/sass/grid.scss",
-		"/Users/Chris/code/showbelow/resources/views/events/grid.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/index.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/show.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/_variables.scss",
 		"/Users/Chris/code/showbelow/webpack.mix.js",
 		"/Users/Chris/code/showbelow/app/Http/Requests/EventRequest.php",
-		"/Users/Chris/code/showbelow/app/User.php",
 		"/Users/Chris/code/showbelow/database/migrations/2014_10_12_000000_create_users_table.php",
-		"/Users/Chris/code/showbelow/.env",
 		"/Users/Chris/code/demo/sftp-config.json",
 		"/Users/Chris/code/demo/resources/views/Brands/test.blade.php",
 		"/Users/Chris/code/demo/vendor/psy/psysh/test/fixtures/default/.config/psysh/config.php",
@@ -298,59 +413,7 @@
 		"/Users/Chris/code/demo/app/Http/Controllers/ContactController.php",
 		"/Users/Chris/code/demo/app/Http/Controllers/MailContactController.php",
 		"/Users/Chris/code/demo/app/Http/Requests/ContactFormRequest.php",
-		"/Users/Chris/code/demo/app/User.php",
-		"/Users/Chris/code/demo/database/migrations/2018_07_16_205115_create_reviews_table.php",
-		"/Users/Chris/code/demo/resources/views/Brands/create.blade.php",
-		"/Users/Chris/code/demo/resources/views/layouts/error.blade.php",
-		"/Users/Chris/code/demo/resources/assets/js/components/ImageUpload.vue",
-		"/Users/Chris/code/demo/resources/assets/js/bootstrap.js",
-		"/Users/Chris/code/demo/resources/assets/sass/contact.scss",
-		"/Users/Chris/code/demo/resources/views/auth/default-left.blade.php",
-		"/Users/Chris/code/demo/resources/assets/sass/registerpage.scss",
-		"/Users/Chris/code/demo/resources/views/layouts/nav.blade.php",
-		"/Users/Chris/code/demo/resources/assets/sass/nav.scss",
-		"/Users/Chris/code/demo/resources/assets/sass/layout.scss",
-		"/Users/Chris/code/demo/app/Http/Controllers/Auth/RegisterController.php",
-		"/Users/Chris/code/demo/resources/assets/sass/modal.scss",
-		"/Users/Chris/code/demo/app/Policies/UserPolicy.php",
-		"/Users/Chris/code/demo/database/migrations/2014_10_12_000000_create_users_table.php",
-		"/Users/Chris/code/demo/app/Policies/ReviewPolicy.php",
-		"/Users/Chris/code/demo/app/Review.php",
-		"/Users/Chris/code/demo/app/Policies/BrandPolicy.php",
-		"/Users/Chris/code/demo/resources/assets/js/components/flash.vue",
-		"/Users/Chris/code/demo/app/Http/Kernel.php",
-		"/Users/Chris/code/demo/app/Http/Middleware/IsAdmin.php",
-		"/Users/Chris/code/demo/app/Http/Controllers/Auth/ResetPasswordController.php",
-		"/Users/Chris/code/demo/app/Http/Controllers/Auth/LoginController.php",
-		"/Users/Chris/code/demo/resources/views/Brands/products.blade.php",
-		"/Users/Chris/code/demo/app/Providers/AppServiceProvider.php",
-		"/Users/Chris/code/demo/app/Product.php",
-		"/Users/Chris/code/demo/database/migrations/2018_07_23_221445_create_products_table.php",
-		"/Users/Chris/code/demo/app/Http/Controllers/ProductController.php",
-		"/Users/Chris/code/demo/resources/views/Brands/untitled.php",
-		"/Users/Chris/code/demo/resources/views/layouts/footer.blade.php",
-		"/Users/Chris/code/demo/database/migrations/2018_07_16_203503_create_brands_table.php",
-		"/Users/Chris/code/demo/database/factories/ModelFactory.php",
-		"/Users/Chris/code/chris/database/migrations/2014_10_12_000000_create_users_table.php",
-		"/Users/Chris/code/chris/resources/views/Users/index.blade.php",
-		"/Users/Chris/code/chris/resources/views/Coupons/coupons.blade.php",
-		"/Users/Chris/code/chris/resources/assets/sass/reviewpage.scss",
-		"/Users/Chris/code/chris/resources/views/Coupons/couponsindex.blade.php",
-		"/Users/Chris/code/chris/resources/assets/sass/custom.scss",
-		"/Users/Chris/code/chris/resources/assets/sass/_variables.scss",
-		"/Users/Chris/code/chris/resources/views/layouts/nav.blade.php",
-		"/Users/Chris/code/chris/resources/assets/sass/app.scss",
-		"/Users/Chris/code/chris/resources/views/Coupons/couponscreate.blade.php",
-		"/Users/Chris/code/chris/app/Http/Controllers/ProfilesController.php",
-		"/Users/Chris/code/chris/app/Post.php",
-		"/Users/Chris/code/chris/resources/views/posts/topinfo.blade.php",
-		"/Users/Chris/code/chris/resources/views/dashboard.blade.php",
-		"/Users/Chris/code/chris/app/Http/Controllers/PostsController.php",
-		"/Users/Chris/code/chris/app/Http/Controllers/AdminController.php",
-		"/Users/Chris/code/chris/app/Http/Controllers/CouponsController.php",
-		"/Users/Chris/code/chris/resources/views/reviews/reviewsindex.blade.php",
-		"/Users/Chris/code/chris/resources/views/admin/index.blade.php",
-		"/Users/Chris/code/chris/resources/views/admin/edit.blade.php"
+		"/Users/Chris/code/demo/app/User.php"
 	],
 	"find":
 	{
@@ -370,6 +433,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"avatar-form",
+			"important",
+			")",
+			"var(--font-button-line-height,",
+			"event",
+			"post",
+			"channel_id",
+			") !important;",
 			"eventCity",
 			"eventDescription",
 			"event Price",
@@ -421,7 +492,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -430,15 +501,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2263,
+						"buffer_size": 3147,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								657,
-								657
+								754,
+								754
 							]
 						],
 						"settings":
@@ -449,27 +520,58 @@
 							"syntax": "Packages/PHP/PHP.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 530.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "resources/sass/createSection.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 540,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								521,
+								521
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CSS/CSS.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 534.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "database/factories/UserFactory.php",
+					"buffer": 2,
+					"file": "resources/sass/container.scss",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2484,
+						"buffer_size": 1456,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1899,
-								1899
+								1035,
+								1035
 							]
 						],
 						"settings":
@@ -477,32 +579,30 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/CSS/CSS.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1195.0,
+						"translation.y": 1867.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "resources/sass/nav.scss",
+					"buffer": 3,
+					"file": "resources/views/events/create/imageCreate.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1387,
+						"buffer_size": 811,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								201,
-								201
+								346,
+								258
 							]
 						],
 						"settings":
@@ -510,63 +610,63 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"tab_size": 2,
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 103.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "resources/views/events/create/thanksCreate.blade.php",
+					"buffer": 4,
+					"file": "resources/js/components/featured-image.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 422,
+						"buffer_size": 902,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								273,
-								273
+								881,
+								881
 							]
 						],
 						"settings":
 						{
+							"auto_name": "featured-image.vue",
 							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax"
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1009.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "resources/views/events/create/guide.blade.php",
+					"buffer": 5,
+					"file": "resources/views/events/create/editEvents.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3385,
+						"buffer_size": 1280,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2961,
-								2961
+								255,
+								255
 							]
 						],
 						"settings":
@@ -578,7 +678,40 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 181.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "resources/views/events/create/expectCreate.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1762,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1731,
+								1624
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 736.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -639,6 +772,30 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"faker/provider/",
+				"vendor/fzaninotto/faker/src/Faker/Provider/Person.php"
+			],
+			[
+				"app",
+				"config/app.php"
+			],
+			[
+				"service",
+				"config/services.php"
+			],
+			[
+				"conf",
+				"node_modules/dotenv/config.js"
+			],
+			[
+				"app.p",
+				"bootstrap/app.php"
+			],
+			[
+				"appse",
+				"app/Providers/AppServiceProvider.php"
+			],
 			[
 				"c/app.php",
 				"config/app.php"

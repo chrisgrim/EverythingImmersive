@@ -1,4 +1,4 @@
-<div id="app" class="guide-container">
+<div class="guide-container">
 
 <a href="/create-your-event/{{$event->slug}}/location">
 <div class="guide-section">
@@ -20,7 +20,7 @@
 
 <a href="/create-your-event/{{$event->slug}}/organizer">
 <div class="guide-section">
-	About Your Business
+	Who is Putting it On?
 	@if ($event->organizer_id !== null)
 	<svg viewBox="0 0 42 42" fill="currentColor" fill-opacity="0" stroke="#008489" stroke-width="3" focusable="false" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.5em; width: 1.5em; display: block; overflow: visible;float:right;"><path d="m19.1 25.2 4.7 6.2 12.1-11.2"></path></svg>
 	@endif

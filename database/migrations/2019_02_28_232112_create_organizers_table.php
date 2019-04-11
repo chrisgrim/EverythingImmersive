@@ -15,10 +15,16 @@ class CreateOrganizersTable extends Migration
     {
         Schema::create('organizers', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->string('organizationName');
+            $table->string('organizationWebsite')->unique();
             $table->string('slug')->unique()->nullable();
             $table->longtext('organizationDescription');
+            $table->string('organizationRating')->default(0);
+            $table->string('organizationImagePath')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

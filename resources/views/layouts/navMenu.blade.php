@@ -1,4 +1,13 @@
 <!-- Desktop Menu Section -->
+	<div class="desktop-menu-item link" style="float:left">
+		<form action="/search">
+			<input type="text" placeholder="Search City" name="search">
+		</form>
+	</div>
+	{{-- <div class="desktop-menu-item link">
+	<autocomplete :items="{{$eventsAll}}"></autocomplete>
+	</div> --}}
+
 @guest
 
 	<div class="desktop-menu-item link">
@@ -21,37 +30,24 @@
 	<div class="desktop-menu-item link">
 		<a href="{{ url('/contact') }}">Contact Us</a>
 	</div>
-
-	@if( $events->contains('user_id', auth()->id()) ) 
-		<div class="desktop-menu-item link">
-			<a href="{{ url('/create-your-event/edit') }}">Your Events</a>
-		</div>
-	@else 
-		<div class="desktop-menu-item link">
-			<a href="{{ url('/events/create') }}">Add An Event</a>
-		</div>
-		<div class="desktop-menu-item link">
-			<a href="/user/{{auth()->id()}}">Profile</a>
-		</div>
-
-	@endif
-
-	@if (Auth::user()->Admin())
-		<div class="desktop-menu-item link">
-			<a href="{{ url('/approve-events/events') }}">Approve Events</a>
-		</div>
-	@endif
-
+@if( $eventsAll->contains('user_id', auth()->id()) ) 
 	<div class="desktop-menu-item link">
-		<a href="{{ route('logout') }}"
-			onclick="event.preventDefault();
-			document.getElementById('logout-form').submit();">
-			{{ __('Logout') }}
-		</a>
-		<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-				@csrf
-		</form>
-		</div>
+		<a href="{{ url('/create-your-event/edit') }}">Your Events</a>
+	</div>
+@else 
+	<div class="desktop-menu-item link">
+		<a href="{{ url('/events/create') }}">Add An Event</a>
+	</div>
+@endif
+@if (Auth::user()->Admin())
+	<div class="desktop-menu-item link">
+		<a href="{{ url('/approve-events/events') }}">Approve Events</a>
+	</div>
+@endif
+<div class="desktop-menu-item link dropdown-label">
+		<profile-button :user="{{ auth()->user() }}" v-cloak></profile-button>
+</div>
+
 @endguest
 
 <!-- Mobile Menu Section -->

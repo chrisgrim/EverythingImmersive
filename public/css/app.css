@@ -1,11 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);.link.remember a {
-  font-size: 1rem;
-}
-
-.link a {
-  font-family: "Open Sans", sans-serif;
-  color: #484848;
-  text-decoration: none;
+@import url(https://fonts.googleapis.com/css?family=Nunito);html {
+  font-size: 62.5%;
 }
 
 h2 {
@@ -73,8 +67,8 @@ h3 {
 
 .heart-location {
   position: absolute;
-  margin-top: -80px;
-  margin-left: 140px;
+  margin-top: -5%;
+  margin-left: 10%;
 }
 
 .event-background-image {
@@ -134,6 +128,196 @@ h3 {
   padding-top: 1rem;
 }
 
+.immersive-score {
+  background-color: green;
+  border-radius: 50px;
+  width: 5rem;
+  height: 5rem;
+  text-align: center;
+}
+
+.immersive-score h3 {
+  color: white;
+  font-size: 2rem;
+}
+
+.profile-sect-content {
+  margin: auto auto;
+  width: 400px;
+}
+
+.modal-window {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.85);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.modal-window:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-window > div {
+  width: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: #ffffff;
+  color: #333333;
+  border-radius: 5px;
+}
+
+.modal-window header {
+  font-weight: bold;
+}
+
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.modal-window h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
+  color: #333333;
+}
+
+i {
+  vertical-align: middle;
+}
+
+.modal-box {
+  border: 1px solid black;
+}
+
+.modal-top {
+  background-color: #f2f3f4;
+  padding: 2em 10em 2em 10em;
+  display: grid;
+  grid-column-gap: 10px;
+  grid-template-columns: 0.6fr 0.4fr;
+  border-radius: 5px;
+}
+
+.modal-bottom {
+  background-color: #3a434e;
+  padding: 2em 6em 2em 6em;
+  display: grid;
+  grid-template-columns: auto;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  border-radius: 0px 0px 3px 3px;
+}
+
+.modal-coupon-code {
+  height: 54px;
+  border: solid 1px #00bd9b;
+  background-color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.modal-coupon-code h3 {
+  font-family: "Raleway", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #414a4d;
+  padding-top: 7px;
+}
+
+.copy-button {
+  height: 54px;
+  cursor: pointer;
+  border: solid 2px #00bd9b;
+  background-color: #00bd9b;
+  text-align: center;
+  min-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-family: "Raleway", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+}
+
+.modal-logo {
+  max-width: 130px !important;
+}
+
+@media only screen and (max-width: 700px) {
+  .modal-window > div {
+    width: 300px;
+  }
+
+  .modal-top {
+    padding: 3em 2em 2em 2em;
+    background-color: #f2f3f4;
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: auto;
+    border-radius: 5px;
+  }
+
+  .modal-top-delete {
+    padding: 3em 2em 2em 2em;
+    background-color: #f2f3f4;
+    border-radius: 5px;
+  }
+
+  .modal-bottom {
+    background-color: #3a434e;
+    padding: 0.3em;
+    display: grid;
+    grid-template-columns: auto;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    border-radius: 0px 0px 3px 3px;
+  }
+
+  .modal-coupon-code {
+    margin-bottom: 18px;
+  }
+
+  .copy-button {
+    width: 100%;
+  }
+}
+
+.autocomplete-result.is-active,
+.autocomplete-result:hover {
+  background-color: #4AAE9B;
+  color: white;
+}
+
 .create-container h2 {
   padding: 0rem;
 }
@@ -144,6 +328,40 @@ h3 {
   font-size: 1.6rem;
 }
 
+.create-background {
+  height: 100rem;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: -3rem;
+}
+
+.create-front-section {
+  width: 60rem;
+  position: absolute;
+  top: 50%;
+  left: 10%;
+}
+
+.create-front-section-title h1 {
+  line-height: 4rem;
+  padding-bottom: 2rem;
+}
+
+.create-guide-title h2 {
+  padding-top: 0rem;
+}
+
+.grid-background-image p {
+  position: absolute;
+  margin-left: -20px;
+  margin-top: -15px;
+}
+
+.edit-create-text {
+  padding-left: 2rem;
+}
+
 #nav-bar {
   position: relative;
   border-bottom: 1px solid #dedede;
@@ -151,26 +369,34 @@ h3 {
   align-items: center;
   background-color: #fff;
   grid-template-columns: 10rem auto;
-  grid-template-rows: 7rem;
-  grid-template-areas: "logo" "menu";
+  grid-template-rows: 8rem;
+  grid-template-areas: "logo" "nav-menu";
 }
 
 /*NavMenu Bar Content*/
 
-menu {
-  text-align: right;
-  padding-right: 2rem;
+nav-menu {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 140px);
+  text-align: center;
+  align-items: center;
 }
 
 .desktop-menu-item {
-  display: inline-block;
-  padding: 0 2rem 0 2rem;
+  position: relative;
+  margin: auto;
 }
 
 /* NavLogo Bar Content*/
 
 .desktop-logo {
   padding-left: 2rem;
+}
+
+.desktop-logo img {
+  width: 13rem;
+  padding-top: 3.6rem;
+  padding-left: 4rem;
 }
 
 .header {
@@ -198,6 +424,23 @@ menu {
   background-color: #436e71;
 }
 
+.link.remember a {
+  font-size: 1rem;
+}
+
+.link a {
+  font-family: "Montserrat", sans-serif;
+  color: #484848;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+}
+
+.link a:hover {
+  text-decoration: underline;
+}
+
 .down-arrow {
   color: #767676 !important;
   display: inline-block !important;
@@ -219,6 +462,67 @@ menu {
 
 .header .menu-btn:checked ~ .menu {
   min-height: 100vh;
+}
+
+.nav-profile-image {
+  width: 34px;
+  border-radius: 50px;
+  height: 34px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.dropdown-label label {
+  position: relative;
+  display: block;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.dropdown-label input {
+  display: none;
+}
+
+.dropdown-label input:checked ~ ul.subdropdown {
+  max-height: 15rem;
+  transition: max-height 0.2s ease-in;
+  margin-top: 1.5rem;
+}
+
+/*style for the second level menu*/
+
+ul.subdropdown {
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style-type: none;
+  position: absolute;
+  min-width: 100%;
+  right: 0;
+  box-shadow: -1px 1px 5px 0px #cecece;
+  margin-right: 2rem;
+}
+
+ul.subdropdown {
+  max-height: 35rem;
+  transition: max-height 0.2s ease-in;
+  margin-top: 1.5rem;
+}
+
+ul.subdropdown li a {
+  display: block;
+  padding: 1rem;
+  padding-right: 14rem;
+  text-decoration: none;
+  transition: background 0.1s;
+  white-space: nowrap;
+  background-color: white;
+  /*  border-bottom: 1px solid $border-color;*/
+  float: left;
+}
+
+ul.subdropdown li a:hover {
+  background: #e5e5e5;
 }
 
 /*Mobile Screen Size*/
@@ -377,6 +681,112 @@ button.slider.reset {
   stroke-width: 2;
 }
 
+/*Create button*/
+
+button.create {
+  font-size: 1.4rem;
+  line-height: 2.6rem;
+  letter-spacing: normal;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  font-weight: 300;
+  padding-left: 2.9rem;
+  padding-right: 2.9rem;
+  box-shadow: none;
+  color: white;
+  background-color: #484848;
+  border-radius: 4px;
+  margin-top: 3rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+/*circle button*/
+
+.trash-button {
+  padding: 8px;
+  width: 50px;
+  padding-right: 13px;
+}
+
+.trash-button:focus {
+  padding: 9px;
+}
+
+.svg-circle {
+  margin-top: -10px;
+}
+
+.svg-circle:hover {
+  width: 50px;
+  background-image: url("/storage/website-files/circle-9.svg");
+  background-repeat: no-repeat;
+}
+
+/*New Circle*/
+
+button#hover {
+  border: 0;
+  font-size: inherit;
+  position: relative;
+}
+
+button#hover::before,
+button#hover::after {
+  box-sizing: inherit;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.spin {
+  width: 2.5em;
+  height: 2.5em;
+  padding: 0;
+}
+
+.spin::before,
+.spin::after {
+  top: 0;
+  left: 0;
+}
+
+.spin::before {
+  border: 2px solid transparent;
+}
+
+.spin:hover::before {
+  border-top-color: #a3d4ff;
+  border-right-color: #a3d4ff;
+  border-bottom-color: #a3d4ff;
+  transition: border-top-color 0.15s linear, border-right-color 0.15s linear 0.1s, border-bottom-color 0.15s linear 0.2s;
+}
+
+.spin::after {
+  border: 0 solid transparent;
+}
+
+.spin:hover::after {
+  border-top: 2px solid #a3d4ff;
+  border-left-width: 2px;
+  border-right-width: 2px;
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+  transition: border-left-width 0s linear 0.35s, -webkit-transform 0.4s linear 0s;
+  transition: transform 0.4s linear 0s, border-left-width 0s linear 0.35s;
+  transition: transform 0.4s linear 0s, border-left-width 0s linear 0.35s, -webkit-transform 0.4s linear 0s;
+}
+
+.circle {
+  border-radius: 100%;
+  box-shadow: none;
+}
+
+.circle::before,
+.circle::after {
+  border-radius: 100%;
+}
+
 .form-container {
   width: 500px;
   margin: 0 auto;
@@ -463,6 +873,45 @@ form.floating-form label.area {
 .invalid-feedback {
   color: red;
 }
+
+/*.profile-img {
+  border-radius: 50px;
+}
+.fileinput {
+  display: none !important;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}*/
+
+.profile-image {
+  width: 5rem;
+  height: 5rem;
+  background-size: cover;
+  border-radius: 50px;
+}
+
+.imgclick {
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  border-radius: 50px;
+}
+
+label.imgclick {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.fileinput {
+  display: none !important;
+}
+
+/*Option customization*/
 
 #footer-container {
   display: grid;
@@ -561,6 +1010,7 @@ footer {
   display: grid;
   grid-template-columns: 30rem 1fr;
   grid-template-areas: "guide form-section";
+  padding-bottom: 5rem;
 }
 
 guide {
@@ -586,6 +1036,7 @@ form-section {
   width: 100rem;
   margin: auto;
   padding: 1rem;
+  padding-bottom: 4rem;
 }
 
 .form-container {

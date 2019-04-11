@@ -29,8 +29,10 @@ $factory->define(App\User::class, function (Faker $faker) {
 });
 
 $factory->define(App\Organizer::class, function (Faker $faker) {
+    $name = $faker->company;
     return [
-        'organizationName' => $faker->company,
+        'organizationName' => $name,
+        'slug' => str_slug($name),
         'organizationDescription' => $faker->paragraph,
     ];
 });
@@ -63,6 +65,7 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'eventTitle' => $title,
         'slug' => str_slug($title),
         'eventDescription' => $faker->paragraph,
+        'immersiveScore' => $faker->randomDigit,
         'eventWebsite' => $faker->url,
         'eventPrice' => $faker->randomDigit,
         'eventExpectations' => $faker->paragraph,

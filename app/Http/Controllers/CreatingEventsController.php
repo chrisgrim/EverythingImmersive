@@ -11,6 +11,10 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class CreatingEventsController extends Controller
 {
+    public function __construct(Event $event)
+    {
+        $this->middleware('auth');
+    }
     public function editEvents()
     {
         $events = User::find(Auth()->id())->events;
@@ -50,17 +54,21 @@ class CreatingEventsController extends Controller
 
 
     public function createOrganizer(Event $event)
-    {
-    	return view('events.create.organizerCreate', compact('event'));
+    {  
+        $event->load('organizer');
+        $organizers = Organizer::all();
+    	return view('events.create.organizerCreate', compact('event', 'organizers'));
     }
     public function storeOrganizer(Request $request, Event $event, Organizer $organizer)
     {
-    	$organizer = organizer::create(request()->validate([
+
+    	$organizer = organizer::firstOrCreate(request()->validate([
     		'organizationName' => 'required',
     		'organizationDescription' => 'required',
-    	]));
+    	]) + ['slug'=> str_slug(request('organizationName'))]);
+
     	$event->update(['organizer_id' => $organizer->id]);
-    	return redirect('/create-your-event/'.$event->slug.'/description')->with(compact('event'));
+    	
     }
      // ------------------------------------------------------
 
@@ -90,7 +98,9 @@ class CreatingEventsController extends Controller
     public function updateExpect(Request $request, Event $event)
     {
         $event->update(request()->validate([
-            'eventExpectations' => 'required'
+            'eventExpectations' => 'required',
+            'immersiveScore' => 'required|integer|between:1,10'
+
         ]));
         return redirect('/create-your-event/'.$event->slug.'/title')->with(compact('event'));
     }
@@ -119,18 +129,22 @@ class CreatingEventsController extends Controller
     }
     public function storeImages(Request $request, Event $event)
     {
-        $filename = $this->eventImageName($request, $event);
+        if ($request->hasFile('eventImage')) {
+            $filename = $this->eventImageName($request, $event);
 
-        $request->file('eventImage')->storeAs('/public/event-images', $filename);
-            $large = storage_path().'/app/public/event-images/'.$filename;
-            $small = storage_path().'/app/public/thumb-images/'.'thumb'.'-'.$filename;
-            Image::make($large)->fit(1200, 800)->save($large)->fit(600, 400)->save($small);
+            $request->file('eventImage')->storeAs('/public/event-images', $filename);
+                $large = storage_path().'/app/public/event-images/'.$filename;
+                $small = storage_path().'/app/public/thumb-images/'.'thumb'.'-'.$filename;
+                Image::make($large)->fit(1200, 800)->save($large)->fit(600, 400)->save($small);
 
-            $event->update([
-                'eventImagePath' => 'event-images/' . $filename,
-                'thumbImagePath' => 'thumb-images/'.'thumb'.'-'.$filename,
-            ]);
-        return redirect('/create-your-event/'.$event->slug.'/thanks')->with(compact('event'));
+                $event->update([
+                    'eventImagePath' => 'event-images/' . $filename,
+                    'thumbImagePath' => 'thumb-images/'.'thumb'.'-'.$filename,
+                ]);
+            return redirect('/create-your-event/'.$event->slug.'/thanks')->with(compact('event'));
+        } else {
+            return back()->withErrors(['Alert', 'No file selected!']);
+        }
     }
 
     // ------------------------------------------------------

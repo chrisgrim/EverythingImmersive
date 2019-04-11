@@ -3,7 +3,6 @@
 @section('content')
 	<div class="index-container">
 		<h2>Explore Differnet Types of Immersive Events</h2>
-
 		<div id="explore-grid-section">
 			@foreach ($categories as $category)
 				<a href="/categories/{{ $category->slug }}">

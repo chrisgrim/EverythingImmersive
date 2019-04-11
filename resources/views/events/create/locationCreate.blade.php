@@ -1,11 +1,16 @@
 @extends('events.createWalkthrough')
 @section('createGuide')
 <div class="create-container">
-    <div>
-    	<h2> Location</h2>
+    <div class="create-front-section-title">
+            <h1>Congratulations! You have just started creating an Event</h1>
     </div>
     <div>
-    	<p>What city will your even happen in?</p>
+        <p>You can edit this event anytime you like by clicking on Your Events.</p>
+        <br>
+        <br>
+    </div>
+    <div>
+    	<p>Lets start with Location. What city will your event happen in?</p>
     </div>
     <div>
     @include ('layouts.error')
@@ -17,12 +22,7 @@
             <label>City</label>
         </div>
         <div class="">
-            <button type="submit" class="slider slidein">
-                <div class="circle">
-                    <span class="icon arrow"></span>
-                </div>
-                <p class="button-text">Next</p>
-            </button>
+            <button type="submit" class="create"> Next </button>
         </div>
     </form>
 </div>

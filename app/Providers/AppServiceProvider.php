@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if (! $this->app->runningInConsole()) {
-        \View::share('events', Event::all());
+        \View::share('eventsAll', Event::all());
     }
     }
 

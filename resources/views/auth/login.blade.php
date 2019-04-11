@@ -42,6 +42,11 @@
                 </div>
                 <p class="button-text">{{ __('Login') }}</p>
             </button>
+            <div>
+                <a href="/login/google">
+                    Login with Google
+                </a>
+            </div>
             @if (Route::has('password.request'))
                 <div class="link remember">
                     <a href="{{ route('password.request') }}">
@@ -49,6 +54,7 @@
                     </a>
                 </div>
             @endif
+
         </div>
 
         
