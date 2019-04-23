@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Organizer extends Model
 {
 	protected $fillable = [
-		'organizationName', 'organizationDescription','slug', 'organizer_id',
+		'organizationName', 'organizationDescription','slug', 'organizer_id','instagramHandle','twitterHandle','facebookHandle','organizationRating','organizationImagePath','organizationWebsite','user_id', 'avatar',
 	];
     
     public function events() 

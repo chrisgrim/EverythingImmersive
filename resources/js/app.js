@@ -17,6 +17,8 @@ window.flash = function (message) {
 	window.events.$emit('flash', message);
 };
 
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -24,6 +26,19 @@ window.flash = function (message) {
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
+
+// import component and stylesheet
+import AirbnbStyleDatepicker from 'vue-airbnb-style-datepicker'
+
+import 'vue-airbnb-style-datepicker/dist/vue-airbnb-style-datepicker.min.css'
+
+// make sure we can use it in our components
+// see docs for available options
+const datepickerOptions = {}
+
+// make sure we can use it in our components
+Vue.use(AirbnbStyleDatepicker, datepickerOptions)
+
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
@@ -37,7 +52,14 @@ Vue.component('avatar-form', require('./components/avatar-form.vue').default);
 Vue.component('profile-button', require('./components/profile-button.vue').default);
 Vue.component('featured-image', require('./components/featured-image.vue').default);
 Vue.component('autocomplete', require('./components/autocomplete.vue').default);
-Vue.component('organizationautocomplete', require('./components/organizationAutocomplete.vue').default);
+Vue.component('create-organization', require('./components/create-organization.vue').default);
+Vue.component('create-location', require('./components/create-location.vue').default);
+Vue.component('create-date-picker', require('./components/create-datepicker.vue').default);
+Vue.component('create-details', require('./components/create-details.vue').default);
+Vue.component('create-description', require('./components/create-description.vue').default);
+Vue.component('create-guide', require('./components/create-guide.vue').default);
+Vue.component('create-expect', require('./components/create-expect.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -52,6 +74,12 @@ const navsearch = new Vue({
     el: '#navArea'
 });
 
-const orgAutoComplete = new Vue({
-    el: '#orgAutoComplete'
+const createContentArea = new Vue({
+    el: '#createContentArea'
 });
+
+const guide = new Vue({
+    el: '#guide'
+});
+
+

@@ -33,7 +33,7 @@ class FavoritesController extends Controller
     }
     public function loginToFavorite()
     {
-        return 'redirect to login';
+        return back();
     }
 
 }

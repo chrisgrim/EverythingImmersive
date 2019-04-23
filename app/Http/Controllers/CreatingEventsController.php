@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use App\Region;
+use App\Genre;
 use App\Organizer;
 use App\User;
 use App\Category;
@@ -22,15 +24,23 @@ class CreatingEventsController extends Controller
     }
     public function createLocation(Event $event)
     {
-    	return view('events.create.locationCreate', compact('event'));
+        $regions = Region::all();
+        $pivots = $event->regions()->get();
+    	return view('events.create.locationCreate', compact('event','regions','pivots'));
     }
 
     public function updateLocation(Request $request, Event $event)
     {
     	$event->update(request()->validate([
-    		'eventCity' => 'required'
+    		'eventCity' => 'required',
+            'eventState' => 'required',
+            'eventStreetAddress' => 'required',
+            'specificLocation' => 'required',
+            'eventCountry' => 'required',
+            'eventZipcode' => 'required',
     	]));
-    	return redirect('/create-your-event/'.$event->slug.'/category')->with(compact('event'));
+        // $regionIds = $request->input('eventRegion');
+        $event->regions()->sync(request('eventRegion'));
     }
 
 		// ------------------------------------------------------
@@ -61,23 +71,41 @@ class CreatingEventsController extends Controller
     }
     public function storeOrganizer(Request $request, Event $event, Organizer $organizer)
     {
+        $organizer = organizer::firstOrNew(request()->validate([
+            'organizationName' => 'required',
+            'organizationDescription' => 'required',
+            'instagramHandle' => 'min:3',
+            'twitterHandle' => 'min:3',
+            'facebookHandle' => 'min:3',
+            'organizationWebsite' => 'url',
+        ]) + ['slug'=> str_slug(request('organizationName'))]);
 
-    	$organizer = organizer::firstOrCreate(request()->validate([
-    		'organizationName' => 'required',
-    		'organizationDescription' => 'required',
-    	]) + ['slug'=> str_slug(request('organizationName'))]);
+        if (Organizer::where('slug', str_slug(request('organizationName')))->exists()) 
+            {
+                
+            } else {
+                $this->validate(request(), [
+                    'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
+                ]);
+                $path = $request->file('avatar')->store('organizers', 'public');
+                $organizer->fill(['organizationImagePath' => $path]);
+            };
+
+        $organizer->fill(['user_id'=> auth()->id()]);
+
+        $organizer->save();
 
     	$event->update(['organizer_id' => $organizer->id]);
-    	
     }
-     // ------------------------------------------------------
+
+// ------------------------------------------------------
 
 
-    public function createDescription(Event $event)
+    public function createDates(Event $event)
     {
-        return view('events.create.descriptionCreate', compact('event'));
+        return view('events.create.dateCreate', compact('event'));
     }
-    public function updateDescription(Request $request, Event $event)
+    public function updateDates(Request $request, Event $event)
     {
         $event->update(request()->validate([
             'eventDescription' => 'required',
@@ -85,7 +113,57 @@ class CreatingEventsController extends Controller
             'eventWebsite' => 'required',
             'eventTicketUrl' => 'required'
         ]));
-        return redirect('/create-your-event/'.$event->slug.'/expect')->with(compact('event'));
+        return redirect('/create-your-event/'.$event->slug.'/description')->with(compact('event'));
+    }
+
+    // ------------------------------------------------------
+
+
+    public function createDetails(Event $event)
+    {
+        return view('events.create.detailsCreate', compact('event'));
+    }
+    public function updateDetails(Request $request, Event $event)
+    {
+        $event->update(request()->validate([
+            'ageRestriction' => 'required',
+            'eventGeneralCost' => 'required',
+            'eventWebsite' => 'required',
+            'eventTicketUrl' => 'required',
+            'eventStudentCost' => '',
+            'eventMilitaryCost' => '',
+            'eventSeniorCost' => '',
+            'eventVIPCost' => '',
+            'eventAllOtherCost' => '',
+        ]));
+    }
+
+     // ------------------------------------------------------
+
+
+    public function createDescription(Event $event)
+    {
+        $pivots = $event->genres()->get();
+        $genres = Genre::all();
+        return view('events.create.descriptionCreate', compact('event','genres','pivots'));
+    }
+    public function updateDescription(Request $request, Event $event)
+    {
+        $event->update(request()->validate([
+            'eventDescription' => 'required',
+        ]));
+
+        $genres = $request->eventGenre;
+        foreach ($genres as $genre) {
+            Genre::firstOrCreate(['genre' => $genre]);
+        }
+
+        $newSync = Genre::all()->whereIn('genre', $genres);
+
+        $event->genres()->sync($newSync);
+
+        return response($newSync);
+        // $event->genres()->sync(request('eventGenre'));
     }
 
      // ------------------------------------------------------

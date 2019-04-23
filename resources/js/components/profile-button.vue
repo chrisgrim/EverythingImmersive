@@ -57,7 +57,7 @@
 
 			logout() {
 				axios.post('/logout');
-				location.reload();
+				window.location.reload();
 			}
 
 		}

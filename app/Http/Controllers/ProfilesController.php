@@ -41,9 +41,11 @@ class ProfilesController extends Controller
         $this->validate(request(), [
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
         ]);
+
         auth()->user()->deleteUserImage();
 
         $path = request()->file('avatar')->store('avatars', 'public');
+        
         auth()->user()->update([
             'avatar_path' => $path,
             'image_path' => $path,

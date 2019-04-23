@@ -27,13 +27,33 @@ $factory->define(App\User::class, function (Faker $faker) {
         'image_path' => 'avatars/'. $imagesave,
     ];
 });
+$factory->define(App\Region::class, function (Faker $faker) {
+    return [
+        'region' => $faker->name,
+    ];
+});
+
+$factory->define(App\Genre::class, function (Faker $faker) {
+    return [
+        'genre' => $faker->name,
+    ];
+});
 
 $factory->define(App\Organizer::class, function (Faker $faker) {
+    $imagesave = $faker->image('public/storage/organizers',100,100, null, false);
     $name = $faker->company;
     return [
+        'user_id' => function () {
+            return factory('App\User')->create()->id;
+        },
         'organizationName' => $name,
         'slug' => str_slug($name),
         'organizationDescription' => $faker->paragraph,
+        'instagramHandle' => '@'. $name,
+        'facebookHandle' => '@'. $name,
+        'twitterHandle' => '@'. $name,
+        'organizationWebsite' => $faker->url,
+        'organizationImagePath' => 'organizer/'. $imagesave,
     ];
 });
 
@@ -65,12 +85,13 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'eventTitle' => $title,
         'slug' => str_slug($title),
         'eventDescription' => $faker->paragraph,
-        'immersiveScore' => $faker->randomDigit,
         'eventWebsite' => $faker->url,
-        'eventPrice' => $faker->randomDigit,
+        'eventGeneralCost' => $faker->randomDigit,
+        'eventSeniorCost' => $faker->randomDigit,
+        'eventVIPCost' => $faker->randomDigit,
+        'eventStudentCost' => $faker->randomDigit,
         'eventExpectations' => $faker->paragraph,
         'eventTicketUrl' => $faker->url,
-        'eventStreetNumber' => $faker->randomDigit,
     	'eventStreetAddress' => $faker->streetAddress,
     	'eventCity' => $faker->city,
     	'eventState' => $faker->state,
@@ -78,6 +99,11 @@ $factory->define(App\Event::class, function (Faker $faker) {
     	'eventZipcode' => $faker->postcode,
         'eventLong' => $faker->randomDigit,
         'eventLat' => $faker->randomDigit,
+        'ageRestriction' => $faker->randomDigit,
+        'wheelchairReady' => $faker->boolean(50),
+        'mobilityAdvisories' => $faker->paragraph,
+        'openingDate' => $faker->dateTimeThisMonth($max = 'now', $timezone = null),
+        'closingDate' => $faker->dateTimeThisMonth($max = 'now', $timezone = null),
         'eventImagePath' => 'event-images/'. $eventimagesave,
         'thumbImagePath' => 'thumb-images/'. $thumbimagesave,
         'visitors' => $faker->randomDigit,

@@ -17,11 +17,14 @@ class CreateOrganizersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('organizationName');
-            $table->string('organizationWebsite')->unique();
+            $table->string('organizationWebsite')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->longtext('organizationDescription');
             $table->string('organizationRating')->default(0);
             $table->string('organizationImagePath')->nullable();
+            $table->string('instagramHandle')->nullable();
+            $table->string('twitterHandle')->nullable();
+            $table->string('facebookHandle')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

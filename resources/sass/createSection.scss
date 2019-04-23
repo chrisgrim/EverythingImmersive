@@ -1,8 +1,13 @@
 .autocomplete-result.is-active,
-  .autocomplete-result:hover {
+.autocomplete-result:hover {
     background-color: #4AAE9B;
     color: white;
-  }
+}
+.autocomplete-results {
+    max-height: 30px;
+    overflow: hidden;
+    border: 1px solid grey;
+}
 
 .create-container h2 {
 	padding:0rem;

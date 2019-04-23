@@ -318,6 +318,12 @@ i {
   color: white;
 }
 
+.autocomplete-results {
+  max-height: 30px;
+  overflow: hidden;
+  border: 1px solid grey;
+}
+
 .create-container h2 {
   padding: 0rem;
 }
@@ -821,7 +827,7 @@ button#hover::after {
   padding: 0.4em;
 }
 
-form.floating-form label {
+.floating-form label {
   color: #999;
   font-size: 14px;
   font-weight: normal;
@@ -833,7 +839,7 @@ form.floating-form label {
   -webkit-transition: 0.2s ease all;
 }
 
-form.floating-form label.area {
+.floating-form label.area {
   padding-left: 0.5rem;
 }
 

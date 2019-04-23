@@ -5,15 +5,10 @@
     	<h2> Who is Hosting this event?</h2>
     </div>
     <div>
-    	<p>Let us know about your organization</p>
-
-    </div>
-    <div>
     @include ('layouts.error')
     
-        <div id="orgAutoComplete">
-            <organizationAutocomplete :items="{{$organizers}}" :event="{{$event}}" />
-            </organizationAutocomplete>
+        <div id="createContentArea">
+            <create-organization :items="{{$organizers}}" :event="{{$event}}" />
         </div>
 
 </div>

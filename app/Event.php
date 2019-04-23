@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-    	'eventTitle','eventDescription','eventWebsite','eventPrice','eventTicketUrl','eventStreetNumber','eventCity','eventState','eventCountry','eventZipcode','slug','eventImagePath','thumbImagePath','eventLong','eventLat','user_id', 'eventStreetAddress', 'category_id', 'organizer_id', 'eventExpectations', 'approved', 'immersiveScore'
+    	'eventTitle','eventDescription','eventWebsite','eventGeneralCost','eventTicketUrl','specificLocation','eventCity','eventState','eventCountry','eventZipcode','slug','eventImagePath','thumbImagePath','eventLong','eventLat','user_id', 'eventStreetAddress', 'category_id', 'organizer_id', 'eventExpectations', 'approved', 'wheelchairReady', 'mobilityAdvisories', 'overallRating', 'embargoDate', 'openingDate', 'closingDate', 'ageRestriction', 'eventSeniorCost', 'eventVIPCost', 'eventAllOtherCost', 'eventMilitaryCost', 'eventStudentCost',
 
     ];
     protected $appends = ['isFavorited'];
@@ -16,6 +16,18 @@ class Event extends Model
     public function organizer() 
     {
     	return $this->belongsTo(Organizer::class);
+    }
+    public function regions() 
+    {
+        return $this->belongsToMany(Region::class);
+    }
+    public function contactlevels() 
+    {
+        return $this->belongsToMany(ContactLevel::class);
+    }
+    public function genres() 
+    {
+        return $this->belongsToMany(Genre::class);
     }
     public function category() 
     {

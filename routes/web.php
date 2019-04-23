@@ -61,8 +61,10 @@ Route::Get('/create-your-event/{event}/category', 'CreatingEventsController@crea
 Route::PATCH('/create-your-event/{event}/category', 'CreatingEventsController@updateCategory');
 Route::Get('/create-your-event/{event}/organizer', 'CreatingEventsController@createOrganizer');
 Route::POST('/create-your-event/{event}/organizer', 'CreatingEventsController@storeOrganizer');
-Route::GET('/create-your-event/{event}/description', 'CreatingEventsController@createDescription');
-Route::PATCH('/create-your-event/{event}/description', 'CreatingEventsController@updateDescription');
+Route::Get('/create-your-event/{event}/details', 'CreatingEventsController@createDetails');
+Route::PATCH('/create-your-event/{event}/details', 'CreatingEventsController@updateDetails');
+Route::Get('/create-your-event/{event}/dates', 'CreatingEventsController@createDates');
+Route::PATCH('/create-your-event/{event}/dates', 'CreatingEventsController@updateDates');
 Route::GET('/create-your-event/{event}/description', 'CreatingEventsController@createDescription');
 Route::PATCH('/create-your-event/{event}/description', 'CreatingEventsController@updateDescription');
 Route::GET('/create-your-event/{event}/expect', 'CreatingEventsController@createExpect');
