@@ -381,7 +381,8 @@ i {
 
 /*NavMenu Bar Content*/
 
-nav-menu {
+nav-menu,
+.nav-menu {
   display: grid;
   grid-template-columns: 1fr repeat(4, 140px);
   text-align: center;

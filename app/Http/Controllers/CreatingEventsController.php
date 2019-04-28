@@ -71,7 +71,7 @@ class CreatingEventsController extends Controller
     // ------------------------------------------------------
 
     public function createOrganizer(Event $event)
-    {  
+    {
         $event->load('organizer');
         $organizers = Organizer::all();
     	return view('events.create.Create_Organizer', compact('event', 'organizers'));
@@ -88,16 +88,13 @@ class CreatingEventsController extends Controller
             'organizationWebsite' => 'required',
         ]) + ['slug'=> str_slug(request('organizationName'))]);
 
-        if (Organizer::where('slug', str_slug(request('organizationName')))->exists()) 
-            {
-                //
-            } else {
-                $this->validate(request(), [
-                    'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
-                ]);
-                $path = $request->file('avatar')->store('organizers', 'public');
-                $organizer->fill(['organizationImagePath' => $path]);
-            };
+        if (!Organizer::where('slug', str_slug(request('organizationName')))->exists()) {
+            $this->validate(request(), [
+                'organizationImagePath' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
+            ]);
+            $path = $request->file('organizationImagePath')->store('organizers', 'public');
+            $organizer->fill(['organizationImagePath' => $path]);
+        }
 
         $organizer->fill(['user_id'=> auth()->id()]);
 
@@ -199,7 +196,7 @@ class CreatingEventsController extends Controller
         $event->contactlevels()->sync(request('contactLevel'));
 
 
-        
+
     }
 
     // ------------------------------------------------------
@@ -251,7 +248,7 @@ class CreatingEventsController extends Controller
     {
         return view('events.create.thanksCreate', compact('event'));
     }
-    
+
 
 
      public function eventImageName($request, $event)

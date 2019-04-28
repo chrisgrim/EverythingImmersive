@@ -4,24 +4,25 @@
         <br>
         <h4>Production Company Name</h4>
     </div>
+    <!-- TODO:: use better/3rd party autocomplete package instead of custom code. -->
     <div class="autocomplete floating-form">
         <div class="floating-label">
             <input type="text"
-            v-model="search"
+            v-model="organizationNameModel"
             @input="onChange"
             @keydown.down="onArrowDown"
             @keydown.up="onArrowUp"
-            @keydown.enter.prevent="onEnter" 
+            @keydown.enter.prevent="onEnter"
             class="floating-input"
-            placeholder=" " 
+            placeholder=" "
             />
-                <div 
-                v-show="isOpen"
+                <div
+                v-show="showAutoComplete"
                 class="autocomplete-results">
-                    <div 
+                    <div
                     v-for="(result, i) in results"
                     :key="i"
-                    @click="setResult(result)"
+                    @click="onSelect(result)"
                     class="autocomplete-result"
                     :class="{ 'is-active': i === arrowCounter }"
                     >
@@ -31,214 +32,166 @@
             <label>Production Company name</label>
         </div>
     </div>
-    <div class="profile-image" :style="{ backgroundImage: 'url(' + organizerImage + ')' }">
-        
-    </div>
-           
-    <div id="New Organizer" v-if="isNew">
+
+    <div id="New Organizer" v-if="isNewOrganizer">
         <div style="backgroundImage: url('/storage/website-files/upload.png'); background-repeat:no-repeat; display:inline-block; background-size: contain;" >
-                <label class="imgclick float" :style="{ backgroundImage: 'url(' + avatar + ')' }">
-                    <image-upload name="avatar" @loaded="onLoad"></image-upload>
-                </label>
+            <label class="imgclick float" :style="organizer.tempImage && { backgroundImage: 'url(' + organizer.tempImage + ')' }">
+                <image-upload name="avatar" @loaded="onImageUpload"></image-upload>
+            </label>
         </div>
         <div class="floating-form">
             <div class="floating-label">
-                <textarea type="text" class="floating-input" v-model="description" placeholder=" " rows="8"></textarea>
+                <textarea type="text" class="floating-input" v-model="organizer.organizationDescription" placeholder=" " rows="8"></textarea>
                 <label>Description of Production Company</label>
             </div>
             <div class="floating-label">
-                <input class="floating-input" type="url" v-model="organizerWebsite" placeholder=" ">
+                <input class="floating-input" type="url" v-model="organizer.organizationWebsite" placeholder=" ">
                 <label>Enter Production Website</label>
             </div>
             <div class="floating-label">
-                <input type="text" class="floating-input" v-model="twitter" placeholder=" ">
+                <input type="text" class="floating-input" v-model="organizer.twitterHandle" placeholder=" ">
                 <label>enter twitter handle</label>
             </div>
             <div class="floating-label">
-                <input type="text" class="floating-input" v-model="facebook" placeholder=" ">
+                <input type="text" class="floating-input" v-model="organizer.facebookHandle" placeholder=" ">
                 <label>enter facebook handle</label>
             </div>
             <div class="floating-label">
-                <input type="text" class="floating-input" v-model="instagram" placeholder=" ">
+                <input type="text" class="floating-input" v-model="organizer.instagramHandle" placeholder=" ">
                 <label>enter instagram handle</label>
             </div>
         </div>
     </div>
 
-    <div id="Exisiting Organizer" v-if="exists">
+    <div id="Exisiting Organizer" v-if="isExistingOrganizer">
+        <div :style="organizer.organizationImagePath && { backgroundImage: 'url(' + '/storage/' + organizer.organizationImagePath + ')' }"
+            class="profile-image">
+        </div>
+        <h4>Organization Details</h4>
         <div>
-            <div>
-                <br>
-                <h4>Organization Description</h4>
-            </div>
-            <div>
-                {{ description }}
-            </div>
-            <div>
-                facebook:
-                {{ facebook }}
-            </div>
-            <div>
-                instgram:
-                {{ instagram }}
-            </div>
-            <div>
-                twitter:
-                {{ twitter }}
-            </div>
-            <div>
-                Website:
-                <br>
-                {{ organizerWebsite }}
-            </div>
+            {{ organizer.organizationDescription }}
+        </div>
+        <div>
+            facebook: {{ organizer.facebookHandle }}
+        </div>
+        <div>
+            instgram: {{ organizer.instagramHandle }}
+        </div>
+        <div>
+            twitter: {{ organizer.twitterHandle }}
+        </div>
+        <div>
+            Website: {{ organizer.organizationWebsite }}
         </div>
     </div>
+
     <div class="">
-        <button type="submit" class="create" @click.prevent="create"> Save and Continue </button>
+        <button type="submit" class="create" @click.prevent="createOrganizer"> Save and Continue </button>
     </div>
 </div>
-
 </template>
 
 <script>
-    import ImageUpload from './imageupload.vue';
-    export default {
-
-    components: { 
-        ImageUpload 
+import _ from 'lodash';
+import ImageUpload from './imageupload.vue';
+export default {
+    components: {
+        ImageUpload
     },
-    
     props: {
-    	items: {
-    		type: Array,
-    	},
-        event: {
-            type: Object,
-        }
+        organizers: { type: Array },
+        event: { type: Object },
     },
-    
     data() {
         return {
-            search: '',
-            description: '',
-            twitter: '',
-            facebook: '',
-            instagram: '',
             results: [],
-            isOpen:false,
-            isNew:false,
-            exists:false,
+            isNewOrganizer: false,
+            isExistingOrganizer: false,
+            showAutoComplete:false,
             arrowCounter: -1,
-            result:'',
-            organizationId: this.event.organizer_id,
-            organizerImage:'',
-            organizerWebsite:'',
-            avatar: '',
-            file: '',
-        };
-    },
-
-    computed: {
-        existingOrganization() {
-            return this.items[this.event.organizer_id - 1];
-        },
-
-    },
-    
-
-    methods: {
-        onLoad(avatar) {
-                this.avatar = avatar.src;
-                this.file = avatar.file;
-        },
-        create() {
-            let data = new FormData();
-            //this is image I want to add to data
-            data.append('avatar', this.file)
-            data.append('organizationName',this.search)
-            data.append('organizationDescription',this.description)
-            data.append('organizationWebsite',this.organizerWebsite)
-            data.append('twitterHandle',this.twitter)
-            data.append('facebookHandle',this.facebook)
-            data.append('instagramHandle',this.instagram)
-
-            axios.post('/create-your-event/' + this.event.slug + '/organizer', data).catch(error => {
-                module.status = error.response.data.status;
-            });
-
-            window.location.href = '/create-your-event/' + this.event.slug + '/dates'; 
-        },
-
-        onArrowDown() {
-          if (this.arrowCounter < this.results.length) {
-            this.arrowCounter = this.arrowCounter + 1;
-          }
-        },
-        onArrowUp() {
-          if (this.arrowCounter > 0) {
-            this.arrowCounter = this.arrowCounter - 1;
-          }
-        },
-        onEnter() {
-            this.result = this.results[this.arrowCounter];
-            this.search = this.result.organizationName;
-            this.organizationId = this.result.id;
-            this.description = this.result.organizationDescription;
-            this.isOpen = false;
-            this.exists = true;
-            this.isNew = false;
-            this.arrowCounter = -1;
-            this.facebook = this.result.facebookHandle;
-            this.instagram = this.result.instagramHandle;
-            this.twitter = this.result.twitterHandle;
-            this.organizerWebsite = this.result.organizationWebsite;
-            this.organizerImage = '/storage/' + this.result.organizationImagePath;
-        },
-        setResult(result) {
-            this.search = result.organizationName;
-            this.description = result.organizationDescription;
-            this.organizationId = result.id;
-            this.isOpen = false;
-            this.exists = true;
-            this.isNew = false;
-            this.result = result;
-            this.facebook = result.facebookHandle;
-            this.instagram = result.instagramHandle;
-            this.twitter = result.twitterHandle;
-            this.organizerWebsite = result.organizationWebsite;
-            this.organizerImage = '/storage/' + result.organizationImagePath;
-        },
-        onChange() {
-            this.isOpen = true;
-            this.filterResults();
-            this.exists = false;
-            this.isNew = true;
-            this.description = '';
-            this.organizationId = '';
-            this.facebook = '';
-            this.instagram = '';
-            this.twitter = '';
-            this.organizerImage = '';
-            this.organizerWebsite = '';
-
-        },
-        filterResults() {
-          	this.results = this.items.filter(item => item.organizationName.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
-        },
-        init() {
-                this.search = this.event.organizer.organizationName;
-                this.description = this.event.organizer.organizationDescription;
-                this.facebook = this.event.organizer.facebookHandle;
-                this.instagram = this.event.organizer.instagramHandle;
-                this.twitter = this.event.organizer.twitterHandle;
-                this.organizerImage = '/storage/' + this.event.organizer.organizationImagePath;
-                this.organizerWebsite = this.event.organizer.organizationWebsite;
-                this.exists = true;
-                this.avatar = this.event.organizer.organizationImagePath;
-        }
+            organizationNameModel: null,
+            organizer: this.initializeOrganizerObject(),
+         };
     },
     mounted() {
-        this.init()
+        this.updateOrganizerFields(this.event.organizer)
+    },
+    methods: {
+        initializeOrganizerObject() {
+            return {
+                id: null,
+                organizationName: null,
+                organizationDescription: null,
+                organizationWebsite: null,
+                tempImage: null,
+                organizationImagePath: null,
+                twitterHandle: null,
+                instagramHandle: null,
+                facebookHandle: null,
+            };
+        },
+        onArrowDown() {
+            if (this.arrowCounter < this.results.length) {
+                this.arrowCounter = this.arrowCounter + 1;
+            }
+        },
+        onArrowUp() {
+            if (this.arrowCounter > 0) {
+                this.arrowCounter = this.arrowCounter - 1;
+            }
+        },
+        onEnter() {
+            this.updateOrganizerFields(this.results[this.arrowCounter]);
+        },
+        onSelect(result) {
+            this.updateOrganizerFields(result);
+        },
+        onChange() {
+            this.isNewOrganizer = true;
+            this.isExistingOrganizer = false;
+            this.showAutoComplete = true;
+            this.organizer = this.initializeOrganizerObject();
+            this.filterResults();
+        },
+        onImageUpload(image) {
+            this.organizer.tempImage = image.src;
+            this.organizer.organizationImagePath = image.file;
+        },
+        filterResults() {
+            this.results = this.organizers.filter(organizer =>
+                organizer.organizationName.toLowerCase().indexOf(this.organizationNameModel.toLowerCase()) > -1
+            );
+        },
+        updateOrganizerFields(input) {
+            if ((input !== null) && (typeof input === "object") && (input.id !== null)) {
+                this.showAutoComplete = false;
+                this.isNewOrganizer = false;
+                this.isExistingOrganizer = true;
+                this.organizationNameModel = input.organizationName;
+
+                // if input object has organizer fields then updated organizer object with their values
+                this.organizer = _.pick(input, _.intersection( _.keys(this.organizer), _.keys(input) ));
+
+            }
+        },
+        // post the form data to server
+        createOrganizer() {
+            const params  = new FormData();
+            const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
+            this.organizer.organizationName = this.organizationNameModel;
+            for (var field in this.organizer) {
+                if(field === 'tempImage') { continue; }
+                params.append(field, this.organizer[field]);
+            }
+
+            // TODO:: add client side validations
+            axios.post('/create-your-event/' + this.event.slug + '/organizer', params, headers).catch(error => {
+                module.status = error.response.data.status;
+            });
+            // TODO:: process server side errors instead of moving on by default
+            window.location.href = '/create-your-event/' + this.event.slug + '/dates';
+        },
     },
 };
 </script>

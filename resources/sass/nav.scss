@@ -6,18 +6,18 @@
   background-color: $nav-background;
 	grid-template-columns: 10rem auto;
 	grid-template-rows: 8rem;
-	grid-template-areas: 
+	grid-template-areas:
 	"logo"
 	"nav-menu"
 }
 
 /*NavMenu Bar Content*/
 
-logo {
+.logo {
 
 }
 
-nav-menu {
+nav-menu, .nav-menu {
   display: grid;
   grid-template-columns: 1fr repeat(4, 140px);
   text-align: center;

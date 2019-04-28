@@ -6,11 +6,8 @@
     </div>
     <div>
     @include ('layouts.error')
-    
         <div id="createContentArea">
-            <create-organization :items="{{$organizers}}" :event="{{$event}}" />
+            <create-organization :organizers="{{ $organizers->toJson() }}" :event="{{$event}}" />
         </div>
-
 </div>
-
 @endsection

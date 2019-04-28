@@ -2811,16 +2811,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _imageupload_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./imageupload.vue */ "./resources/js/components/imageupload.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _imageupload_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./imageupload.vue */ "./resources/js/components/imageupload.vue");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -2915,12 +2910,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    ImageUpload: _imageupload_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    ImageUpload: _imageupload_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
-    items: {
+    organizers: {
       type: Array
     },
     event: {
@@ -2929,48 +2925,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      search: '',
-      description: '',
-      twitter: '',
-      facebook: '',
-      instagram: '',
       results: [],
-      isOpen: false,
-      isNew: false,
-      exists: false,
+      isNewOrganizer: false,
+      isExistingOrganizer: false,
+      showAutoComplete: false,
       arrowCounter: -1,
-      result: '',
-      organizationId: this.event.organizer_id,
-      organizerImage: '',
-      organizerWebsite: '',
-      avatar: '',
-      file: ''
+      organizationNameModel: null,
+      organizer: this.initializeOrganizerObject()
     };
   },
-  computed: {
-    existingOrganization: function existingOrganization() {
-      return this.items[this.event.organizer_id - 1];
-    }
+  mounted: function mounted() {
+    this.updateOrganizerFields(this.event.organizer);
   },
   methods: {
-    onLoad: function onLoad(avatar) {
-      this.avatar = avatar.src;
-      this.file = avatar.file;
-    },
-    create: function create() {
-      var data = new FormData(); //this is image I want to add to data
-
-      data.append('avatar', this.file);
-      data.append('organizationName', this.search);
-      data.append('organizationDescription', this.description);
-      data.append('organizationWebsite', this.organizerWebsite);
-      data.append('twitterHandle', this.twitter);
-      data.append('facebookHandle', this.facebook);
-      data.append('instagramHandle', this.instagram);
-      axios.post('/create-your-event/' + this.event.slug + '/organizer', data).catch(function (error) {
-        module.status = error.response.data.status;
-      });
-      window.location.href = '/create-your-event/' + this.event.slug + '/dates';
+    initializeOrganizerObject: function initializeOrganizerObject() {
+      return {
+        id: null,
+        organizationName: null,
+        organizationDescription: null,
+        organizationWebsite: null,
+        tempImage: null,
+        organizationImagePath: null,
+        twitterHandle: null,
+        instagramHandle: null,
+        facebookHandle: null
+      };
     },
     onArrowDown: function onArrowDown() {
       if (this.arrowCounter < this.results.length) {
@@ -2983,68 +2962,62 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     onEnter: function onEnter() {
-      this.result = this.results[this.arrowCounter];
-      this.search = this.result.organizationName;
-      this.organizationId = this.result.id;
-      this.description = this.result.organizationDescription;
-      this.isOpen = false;
-      this.exists = true;
-      this.isNew = false;
-      this.arrowCounter = -1;
-      this.facebook = this.result.facebookHandle;
-      this.instagram = this.result.instagramHandle;
-      this.twitter = this.result.twitterHandle;
-      this.organizerWebsite = this.result.organizationWebsite;
-      this.organizerImage = '/storage/' + this.result.organizationImagePath;
+      this.updateOrganizerFields(this.results[this.arrowCounter]);
     },
-    setResult: function setResult(result) {
-      this.search = result.organizationName;
-      this.description = result.organizationDescription;
-      this.organizationId = result.id;
-      this.isOpen = false;
-      this.exists = true;
-      this.isNew = false;
-      this.result = result;
-      this.facebook = result.facebookHandle;
-      this.instagram = result.instagramHandle;
-      this.twitter = result.twitterHandle;
-      this.organizerWebsite = result.organizationWebsite;
-      this.organizerImage = '/storage/' + result.organizationImagePath;
+    onSelect: function onSelect(result) {
+      this.updateOrganizerFields(result);
     },
     onChange: function onChange() {
-      this.isOpen = true;
+      this.isNewOrganizer = true;
+      this.isExistingOrganizer = false;
+      this.showAutoComplete = true;
+      this.organizer = this.initializeOrganizerObject();
       this.filterResults();
-      this.exists = false;
-      this.isNew = true;
-      this.description = '';
-      this.organizationId = '';
-      this.facebook = '';
-      this.instagram = '';
-      this.twitter = '';
-      this.organizerImage = '';
-      this.organizerWebsite = '';
+    },
+    onImageUpload: function onImageUpload(image) {
+      this.organizer.tempImage = image.src;
+      this.organizer.organizationImagePath = image.file;
     },
     filterResults: function filterResults() {
       var _this = this;
 
-      this.results = this.items.filter(function (item) {
-        return item.organizationName.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+      this.results = this.organizers.filter(function (organizer) {
+        return organizer.organizationName.toLowerCase().indexOf(_this.organizationNameModel.toLowerCase()) > -1;
       });
     },
-    init: function init() {
-      this.search = this.event.organizer.organizationName;
-      this.description = this.event.organizer.organizationDescription;
-      this.facebook = this.event.organizer.facebookHandle;
-      this.instagram = this.event.organizer.instagramHandle;
-      this.twitter = this.event.organizer.twitterHandle;
-      this.organizerImage = '/storage/' + this.event.organizer.organizationImagePath;
-      this.organizerWebsite = this.event.organizer.organizationWebsite;
-      this.exists = true;
-      this.avatar = this.event.organizer.organizationImagePath;
+    updateOrganizerFields: function updateOrganizerFields(input) {
+      if (input !== null && _typeof(input) === "object" && input.id !== null) {
+        this.showAutoComplete = false;
+        this.isNewOrganizer = false;
+        this.isExistingOrganizer = true;
+        this.organizationNameModel = input.organizationName; // if input object has organizer fields then updated organizer object with their values
+
+        this.organizer = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.pick(input, lodash__WEBPACK_IMPORTED_MODULE_0___default.a.intersection(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(this.organizer), lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(input)));
+      }
+    },
+    // post the form data to server
+    createOrganizer: function createOrganizer() {
+      var params = new FormData();
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+      this.organizer.organizationName = this.organizationNameModel;
+
+      for (var field in this.organizer) {
+        if (field === 'tempImage') {
+          continue;
+        }
+
+        params.append(field, this.organizer[field]);
+      } // TODO:: add client side validations
+
+
+      axios.post('/create-your-event/' + this.event.slug + '/organizer', params, headers).catch(function (error) {
+        module.status = error.response.data.status;
+      }); // TODO:: process server side errors instead of moving on by default
+
+      window.location.href = '/create-your-event/' + this.event.slug + '/dates';
     }
-  },
-  mounted: function mounted() {
-    this.init();
   }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
@@ -44139,20 +44112,20 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.search,
-              expression: "search"
+              value: _vm.organizationNameModel,
+              expression: "organizationNameModel"
             }
           ],
           staticClass: "floating-input",
           attrs: { type: "text", placeholder: " " },
-          domProps: { value: _vm.search },
+          domProps: { value: _vm.organizationNameModel },
           on: {
             input: [
               function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.search = $event.target.value
+                _vm.organizationNameModel = $event.target.value
               },
               _vm.onChange
             ],
@@ -44202,8 +44175,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.isOpen,
-                expression: "isOpen"
+                value: _vm.showAutoComplete,
+                expression: "showAutoComplete"
               }
             ],
             staticClass: "autocomplete-results"
@@ -44217,7 +44190,7 @@ var render = function() {
                 class: { "is-active": i === _vm.arrowCounter },
                 on: {
                   click: function($event) {
-                    _vm.setResult(result)
+                    _vm.onSelect(result)
                   }
                 }
               },
@@ -44237,12 +44210,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", {
-      staticClass: "profile-image",
-      style: { backgroundImage: "url(" + _vm.organizerImage + ")" }
-    }),
-    _vm._v(" "),
-    _vm.isNew
+    _vm.isNewOrganizer
       ? _c("div", { attrs: { id: "New Organizer" } }, [
           _c(
             "div",
@@ -44259,12 +44227,14 @@ var render = function() {
                 "label",
                 {
                   staticClass: "imgclick float",
-                  style: { backgroundImage: "url(" + _vm.avatar + ")" }
+                  style: _vm.organizer.tempImage && {
+                    backgroundImage: "url(" + _vm.organizer.tempImage + ")"
+                  }
                 },
                 [
                   _c("image-upload", {
                     attrs: { name: "avatar" },
-                    on: { loaded: _vm.onLoad }
+                    on: { loaded: _vm.onImageUpload }
                   })
                 ],
                 1
@@ -44279,19 +44249,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.description,
-                    expression: "description"
+                    value: _vm.organizer.organizationDescription,
+                    expression: "organizer.organizationDescription"
                   }
                 ],
                 staticClass: "floating-input",
                 attrs: { type: "text", placeholder: " ", rows: "8" },
-                domProps: { value: _vm.description },
+                domProps: { value: _vm.organizer.organizationDescription },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.description = $event.target.value
+                    _vm.$set(
+                      _vm.organizer,
+                      "organizationDescription",
+                      $event.target.value
+                    )
                   }
                 }
               }),
@@ -44305,19 +44279,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.organizerWebsite,
-                    expression: "organizerWebsite"
+                    value: _vm.organizer.organizationWebsite,
+                    expression: "organizer.organizationWebsite"
                   }
                 ],
                 staticClass: "floating-input",
                 attrs: { type: "url", placeholder: " " },
-                domProps: { value: _vm.organizerWebsite },
+                domProps: { value: _vm.organizer.organizationWebsite },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.organizerWebsite = $event.target.value
+                    _vm.$set(
+                      _vm.organizer,
+                      "organizationWebsite",
+                      $event.target.value
+                    )
                   }
                 }
               }),
@@ -44331,19 +44309,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.twitter,
-                    expression: "twitter"
+                    value: _vm.organizer.twitterHandle,
+                    expression: "organizer.twitterHandle"
                   }
                 ],
                 staticClass: "floating-input",
                 attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.twitter },
+                domProps: { value: _vm.organizer.twitterHandle },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.twitter = $event.target.value
+                    _vm.$set(
+                      _vm.organizer,
+                      "twitterHandle",
+                      $event.target.value
+                    )
                   }
                 }
               }),
@@ -44357,19 +44339,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.facebook,
-                    expression: "facebook"
+                    value: _vm.organizer.facebookHandle,
+                    expression: "organizer.facebookHandle"
                   }
                 ],
                 staticClass: "floating-input",
                 attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.facebook },
+                domProps: { value: _vm.organizer.facebookHandle },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.facebook = $event.target.value
+                    _vm.$set(
+                      _vm.organizer,
+                      "facebookHandle",
+                      $event.target.value
+                    )
                   }
                 }
               }),
@@ -44383,19 +44369,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.instagram,
-                    expression: "instagram"
+                    value: _vm.organizer.instagramHandle,
+                    expression: "organizer.instagramHandle"
                   }
                 ],
                 staticClass: "floating-input",
                 attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.instagram },
+                domProps: { value: _vm.organizer.instagramHandle },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.instagram = $event.target.value
+                    _vm.$set(
+                      _vm.organizer,
+                      "instagramHandle",
+                      $event.target.value
+                    )
                   }
                 }
               }),
@@ -44406,52 +44396,56 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.exists
+    _vm.isExistingOrganizer
       ? _c("div", { attrs: { id: "Exisiting Organizer" } }, [
+          _c("div", {
+            staticClass: "profile-image",
+            style: _vm.organizer.organizationImagePath && {
+              backgroundImage:
+                "url(" + "/storage/" + _vm.organizer.organizationImagePath + ")"
+            }
+          }),
+          _vm._v(" "),
+          _c("h4", [_vm._v("Organization Details")]),
+          _vm._v(" "),
           _c("div", [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.description) +
-                  "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "\n                facebook:\n                " +
-                  _vm._s(_vm.facebook) +
-                  "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "\n                instgram:\n                " +
-                  _vm._s(_vm.instagram) +
-                  "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "\n                twitter:\n                " +
-                  _vm._s(_vm.twitter) +
-                  "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v("\n                Website:\n                "),
-              _c("br"),
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.organizerWebsite) +
-                  "\n            "
-              )
-            ])
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.organizer.organizationDescription) +
+                "\n        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _vm._v(
+              "\n            facebook: " +
+                _vm._s(_vm.organizer.facebookHandle) +
+                "\n        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _vm._v(
+              "\n            instgram: " +
+                _vm._s(_vm.organizer.instagramHandle) +
+                "\n        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _vm._v(
+              "\n            twitter: " +
+                _vm._s(_vm.organizer.twitterHandle) +
+                "\n        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _vm._v(
+              "\n            Website: " +
+                _vm._s(_vm.organizer.organizationWebsite) +
+                "\n        "
+            )
           ])
         ])
       : _vm._e(),
@@ -44465,7 +44459,7 @@ var render = function() {
           on: {
             click: function($event) {
               $event.preventDefault()
-              return _vm.create($event)
+              return _vm.createOrganizer($event)
             }
           }
         },
@@ -44483,16 +44477,6 @@ var staticRenderFns = [
       _c("br"),
       _vm._v(" "),
       _c("h4", [_vm._v("Production Company Name")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("br"),
-      _vm._v(" "),
-      _c("h4", [_vm._v("Organization Description")])
     ])
   }
 ]
@@ -56155,18 +56139,37 @@ Vue.component('create-expect', __webpack_require__(/*! ./components/create-expec
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
-});
-var navsearch = new Vue({
-  el: '#navArea'
-});
-var createContentArea = new Vue({
-  el: '#createContentArea'
-});
-var guide = new Vue({
-  el: '#guide'
-});
+if (document.getElementById("app")) {
+  var app = new Vue({
+    el: '#app'
+  });
+}
+
+;
+
+if (document.getElementById("navArea")) {
+  var navsearch = new Vue({
+    el: '#navArea'
+  });
+}
+
+;
+
+if (document.getElementById("createContentArea")) {
+  var createContentArea = new Vue({
+    el: '#createContentArea'
+  });
+}
+
+;
+
+if (document.getElementById("guide")) {
+  var guide = new Vue({
+    el: '#guide'
+  });
+}
+
+;
 
 /***/ }),
 
@@ -57368,8 +57371,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/Chris/code/showbelow/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/Chris/code/showbelow/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/asok/work/www/immersive/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/asok/work/www/immersive/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
