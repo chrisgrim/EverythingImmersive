@@ -26,4 +26,5 @@ class Organizer extends Model
     {
         return 'slug';
     }
+    
 }

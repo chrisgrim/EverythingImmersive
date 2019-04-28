@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-    	'eventTitle','eventDescription','eventWebsite','eventGeneralCost','eventTicketUrl','specificLocation','eventCity','eventState','eventCountry','eventZipcode','slug','eventImagePath','thumbImagePath','eventLong','eventLat','user_id', 'eventStreetAddress', 'category_id', 'organizer_id', 'eventExpectations', 'approved', 'wheelchairReady', 'mobilityAdvisories', 'overallRating', 'embargoDate', 'openingDate', 'closingDate', 'ageRestriction', 'eventSeniorCost', 'eventVIPCost', 'eventAllOtherCost', 'eventMilitaryCost', 'eventStudentCost',
+    	'eventTitle','eventDescription','eventWebsite','eventGeneralCost','eventTicketUrl','specificLocation','eventCity','eventState','eventCountry','eventZipcode','slug','eventImagePath','thumbImagePath','eventLong','eventLat','user_id', 'eventStreetAddress', 'category_id', 'organizer_id', 'eventExpectations', 'approved', 'wheelchairReady', 'mobilityAdvisories', 'contentAdvisories', 'sexualViolence', 'sexualViolenceDescription', 'touchAdvisoryDescription', 'overallRating', 'embargoDate', 'openingDate', 'closingDate', 'ageRestriction', 'eventSeniorCost', 'eventVIPCost', 'eventAllOtherCost', 'eventMilitaryCost', 'eventStudentCost',
 
     ];
     protected $appends = ['isFavorited'];

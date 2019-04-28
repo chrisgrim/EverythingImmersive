@@ -3,7 +3,7 @@
 @section('content')
 <div id="create-event-container">
 <guide>
-	@include('events.create.guide')
+	@include('events.create.Create_Guide')
 </guide>
 <form-section>
 	@yield('createGuide')

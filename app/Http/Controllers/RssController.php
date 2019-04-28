@@ -10,6 +10,11 @@ class RssController extends Controller
 {
     public function index(Event $event)
     {
-    	return view('RSS.index', compact('event'));
+    	$event->load('category','organizer','user');
+    	$genres = $event->genres()->get();
+    	$regions = $event->regions()->get();
+    	$contactLevels = $event->contactlevels()->get();
+
+    	return view('RSS.index', compact('event','genres','regions','contactLevels'));
     }
 }

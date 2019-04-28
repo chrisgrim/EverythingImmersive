@@ -18,7 +18,7 @@ class CreateContactLevelsTable extends Migration
             $table->string('level')->unique();
             $table->timestamps();
         });
-        Schema::create('contact_levels_event', function(Blueprint $table) {
+        Schema::create('contact_level_event', function(Blueprint $table) {
             $table->integer('event_id')->unsigned()->index();
             $table->integer('contact_level_id')->unsigned()->index();
             $table->timestamps();

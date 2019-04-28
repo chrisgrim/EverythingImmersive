@@ -2,7 +2,7 @@
 	<div>
         <a :href="'/create-your-event/'+ this.event.slug +'/location'">
         <div class="guide-section" >
-            location 
+            Location 
                 <svg v-if="eventCity" viewBox="0 0 42 42" fill="currentColor" fill-opacity="0" stroke="#008489" stroke-width="3" focusable="false" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.5em; width: 1.5em; display: block; overflow: visible;float:right;"><path d="m19.1 25.2 4.7 6.2 12.1-11.2"></path></svg>
         </div>
         </a>
@@ -45,7 +45,7 @@
         <a :href="'/create-your-event/'+ this.event.slug +'/expect'">
         <div class="guide-section">
             What Guests should expect
-            <svg v-if="eventExpectations" viewBox="0 0 42 42" fill="currentColor" fill-opacity="0" stroke="#008489" stroke-width="3" focusable="false" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.5em; width: 1.5em; display: block; overflow: visible;float:right;"><path d="m19.1 25.2 4.7 6.2 12.1-11.2"></path></svg>
+            <svg v-if="eventContentAdvisories" viewBox="0 0 42 42" fill="currentColor" fill-opacity="0" stroke="#008489" stroke-width="3" focusable="false" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.5em; width: 1.5em; display: block; overflow: visible;float:right;"><path d="m19.1 25.2 4.7 6.2 12.1-11.2"></path></svg>
         </div>
         </a>
 
@@ -58,7 +58,7 @@
 
         <a :href="'/create-your-event/'+ this.event.slug +'/images'">
         <div class="guide-section">
-            Photos
+            Photo
             <svg v-if="eventImagePath" viewBox="0 0 42 42" fill="currentColor" fill-opacity="0" stroke="#008489" stroke-width="3" focusable="false" role="presentation" stroke-linecap="round" stroke-linejoin="round" style="height: 1.5em; width: 1.5em; display: block; overflow: visible;float:right;"><path d="m19.1 25.2 4.7 6.2 12.1-11.2"></path></svg>
         </div>
         </a>
@@ -85,7 +85,7 @@
                 openingDate: '',
                 eventWebsite: '',
                 eventDescription: '',
-                eventExpectations: '',
+                eventContentAdvisories: '',
                 eventTitle: '',
                 eventImagePath: '',
                 
@@ -100,7 +100,7 @@
                 this.openingDate = this.event.openingDate
                 this.eventWebsite = this.event.eventWebsite
                 this.eventDescription = this.event.eventDescription
-                this.eventExpectations = this.event.eventExpectations
+                this.eventContentAdvisories = this.event.contentAdvisories
                 this.eventTitle = this.event.eventTitle
                 this.eventImagePath = this.event.eventImagePath
 

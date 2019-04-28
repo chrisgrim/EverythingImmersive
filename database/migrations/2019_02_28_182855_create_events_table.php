@@ -39,7 +39,11 @@ class CreateEventsTable extends Migration
             $table->string('eventLong')->nullable();
             $table->string('eventLat')->nullable();
             $table->boolean('wheelchairReady')->nullable()->default(null);
-            $table->string('mobilityAdvisories')->nullable();
+            $table->boolean('sexualViolence')->nullable()->default(null);
+            $table->longtext('sexualViolenceDescription')->nullable();
+            $table->longtext('touchAdvisoryDescription')->nullable();
+            $table->longtext('mobilityAdvisories')->nullable();
+            $table->longtext('contentAdvisories')->nullable();
             $table->unsignedInteger('ageRestriction')->nullable();
             $table->string('overallRating')->default(0);
             $table->string('eventImagePath')->nullable();

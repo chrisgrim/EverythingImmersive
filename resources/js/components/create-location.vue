@@ -67,7 +67,6 @@
 	    <div class="">
 	        <button @click.prevent="submit()" class="create"> Next </button>
 	    </div>
-	    <button @click.prevent="console()">TEST what is loaded</button>
     </div>
 </template>
 
@@ -98,7 +97,7 @@
 				city: '',
 				state: '',
 				zip: '',
-				selectedCountry: 'United States of America',
+				selectedCountry: '',
 			    countryData: [],
 			    isLoading: false,
 			    regvalue: [],
@@ -108,6 +107,7 @@
 				keyword: this.event.eventCountry,
 				selectedArray: '',
 				united: 'United States of America',
+				tempCountry: '',
 			}
 		},
 
@@ -125,20 +125,14 @@
                 'eventZipcode': this.zip,
                 'specificLocation': this.specificLocation,
            		};
-   ;
+   				
            		data.eventRegion = this.region.map(a => a.id);
 
-           		console.log(this.selectedCountry.name);
-
 				axios.patch('/create-your-event/' + this.event.slug + '/location', data).catch(error => {
-                module.status = error.response.data.status;
+                console.log(error.response.data.errors);
             	});
 
             	window.location.href = '/create-your-event/' + this.event.slug + '/category'; 
-			},
-
-			console() {
-				console.log(this.selectedCountry);
 			},
 
 			addTag (newTag) {
@@ -164,6 +158,7 @@
 				this.specificLocation = this.event.specificLocation,
 				this.placeholder = this.event.eventCountry,
 				this.region = this.pivots
+				
 			},
 			
 
@@ -173,21 +168,22 @@
                 handler(data) {
                     if (data.length) {
                     	if (this.keyword) {
-                    return this.selectedCountry = data.filter((country) => {
-                        return this.keyword.toLowerCase().split(' ').every(v => country.name.toLowerCase().includes(v)) ;
-                        });
+                    		this.tempCountry = data.filter((country) => {
+                        		return this.keyword.toLowerCase().split(' ').every(v => country.name.toLowerCase().includes(v));});
+                        	this.selectedCountry = this.tempCountry[0]
                     	} else {
-                    	return this.selectedCountry = data[239];
-                    }}
+                    		return this.selectedCountry = data[239]
+                    	}
+                    }
                 },
                 immediate: true   
             },
 
-			selectedArray: function(data) {
-				if (data.length) {
-					return this.selectedCountry = this.selectedArray[0];
-				}
-			}
+			// selectedArray: function(data) {
+			// 	if (data.length) {
+			// 		return this.selectedCountry = this.selectedArray[0];
+			// 	}
+			// }
 		},
 
 		created() {

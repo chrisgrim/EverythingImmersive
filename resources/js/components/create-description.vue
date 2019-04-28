@@ -12,7 +12,7 @@
                 <label class="area"> Let your guests know what to expect with the event/performance </label>
             </div>
             <div>
-                <label class="typo__label">Tagging</label>
+                Event Genre
                 <multiselect 
                 v-model="genreName" 
                 tag-placeholder="Add this as new tag" 

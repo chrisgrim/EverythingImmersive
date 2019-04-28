@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="" role="alert" v-show="show">
+    <div>
+        <div >
             <strong>Success!</strong> {{ body }}
         </div>
     </div>

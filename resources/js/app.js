@@ -47,6 +47,7 @@ Vue.use(AirbnbStyleDatepicker, datepickerOptions)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('likes', require('./components/likes.vue').default);
+Vue.component('flash', require('./components/flash.vue').default);
 Vue.component('favorite', require('./components/favorite.vue').default);
 Vue.component('avatar-form', require('./components/avatar-form.vue').default);
 Vue.component('profile-button', require('./components/profile-button.vue').default);
@@ -81,5 +82,7 @@ const createContentArea = new Vue({
 const guide = new Vue({
     el: '#guide'
 });
+
+
 
 

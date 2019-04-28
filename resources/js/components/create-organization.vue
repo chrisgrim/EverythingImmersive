@@ -36,7 +36,7 @@
     </div>
            
     <div id="New Organizer" v-if="isNew">
-        <div>
+        <div style="backgroundImage: url('/storage/website-files/upload.png'); background-repeat:no-repeat; display:inline-block; background-size: contain;" >
                 <label class="imgclick float" :style="{ backgroundImage: 'url(' + avatar + ')' }">
                     <image-upload name="avatar" @loaded="onLoad"></image-upload>
                 </label>
@@ -141,7 +141,7 @@
     computed: {
         existingOrganization() {
             return this.items[this.event.organizer_id - 1];
-        }
+        },
 
     },
     

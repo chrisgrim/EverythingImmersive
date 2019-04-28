@@ -39,6 +39,12 @@ $factory->define(App\Genre::class, function (Faker $faker) {
     ];
 });
 
+$factory->define(App\ContactLevel::class, function (Faker $faker) {
+    return [
+        'level' => $faker->name,
+    ];
+});
+
 $factory->define(App\Organizer::class, function (Faker $faker) {
     $imagesave = $faker->image('public/storage/organizers',100,100, null, false);
     $name = $faker->company;
@@ -101,7 +107,11 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'eventLat' => $faker->randomDigit,
         'ageRestriction' => $faker->randomDigit,
         'wheelchairReady' => $faker->boolean(50),
+        'sexualViolence' => $faker->boolean(50),
         'mobilityAdvisories' => $faker->paragraph,
+        'sexualViolenceDescription' => $faker->paragraph,
+        'touchAdvisoryDescription' => $faker->paragraph,
+        'contentAdvisories' => $faker->paragraph,
         'openingDate' => $faker->dateTimeThisMonth($max = 'now', $timezone = null),
         'closingDate' => $faker->dateTimeThisMonth($max = 'now', $timezone = null),
         'eventImagePath' => 'event-images/'. $eventimagesave,
