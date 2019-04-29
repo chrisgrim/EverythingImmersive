@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Event;
 use App\Region;
 use App\Genre;
@@ -10,6 +9,8 @@ use App\ContactLevel;
 use App\Organizer;
 use App\User;
 use App\Category;
+use App\Http\Requests\ValidateOrganizerRequest;
+use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class CreatingEventsController extends Controller
@@ -77,30 +78,14 @@ class CreatingEventsController extends Controller
     	return view('events.create.Create_Organizer', compact('event', 'organizers'));
     }
 
-    public function storeOrganizer(Request $request, Event $event, Organizer $organizer)
+    public function storeOrganizer(ValidateOrganizerRequest $request, Event $event, Organizer $organizer)
     {
-        $organizer = organizer::firstOrNew(request()->validate([
-            'organizationName' => 'required',
-            'organizationDescription' => 'required',
-            'instagramHandle' => 'min:3',
-            'twitterHandle' => 'min:3',
-            'facebookHandle' => 'min:3',
-            'organizationWebsite' => 'required',
-        ]) + ['slug'=> str_slug(request('organizationName'))]);
-
-        if (!Organizer::where('slug', str_slug(request('organizationName')))->exists()) {
-            $this->validate(request(), [
-                'organizationImagePath' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
-            ]);
-            $path = $request->file('organizationImagePath')->store('organizers', 'public');
-            $organizer->fill(['organizationImagePath' => $path]);
+        if (!$organizer = $organizer->updateOrCreate($request->all())) {
+            return response()->json(['error' => 'Failed to save organizer'], 402);
         }
 
-        $organizer->fill(['user_id'=> auth()->id()]);
-
-        $organizer->save();
-
-    	$event->update(['organizer_id' => $organizer->id]);
+        $event->update(['organizer_id' => $organizer->id]);
+        return response()->json(compact('organizer'));
     }
 
 // ------------------------------------------------------

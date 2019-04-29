@@ -2891,24 +2891,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2925,12 +2907,13 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   },
   data: function data() {
     return {
-      results: [],
-      isNewOrganizer: false,
-      isExistingOrganizer: false,
-      showAutoComplete: false,
       arrowCounter: -1,
-      organizationNameModel: null,
+      autocompleteResults: [],
+      showAutoComplete: false,
+      showFormFields: false,
+      organizationNameModel: '',
+      organizationImageModel: '',
+      defaultImage: '/storage/website-files/upload.png',
       organizer: this.initializeOrganizerObject()
     };
   },
@@ -2940,19 +2923,18 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   methods: {
     initializeOrganizerObject: function initializeOrganizerObject() {
       return {
-        id: null,
-        organizationName: null,
-        organizationDescription: null,
-        organizationWebsite: null,
-        tempImage: null,
-        organizationImagePath: null,
-        twitterHandle: null,
-        instagramHandle: null,
-        facebookHandle: null
+        id: '',
+        organizationName: '',
+        organizationDescription: '',
+        organizationWebsite: '',
+        organizationImagePath: '',
+        twitterHandle: '',
+        instagramHandle: '',
+        facebookHandle: ''
       };
     },
     onArrowDown: function onArrowDown() {
-      if (this.arrowCounter < this.results.length) {
+      if (this.arrowCounter < this.autocompleteResults.length) {
         this.arrowCounter = this.arrowCounter + 1;
       }
     },
@@ -2962,37 +2944,37 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
     },
     onEnter: function onEnter() {
-      this.updateOrganizerFields(this.results[this.arrowCounter]);
+      this.updateOrganizerFields(this.autocompleteResults[this.arrowCounter]);
     },
     onSelect: function onSelect(result) {
       this.updateOrganizerFields(result);
     },
     onChange: function onChange() {
-      this.isNewOrganizer = true;
-      this.isExistingOrganizer = false;
+      this.showFormFields = true;
       this.showAutoComplete = true;
+      this.organizationImageModel = null;
       this.organizer = this.initializeOrganizerObject();
       this.filterResults();
     },
     onImageUpload: function onImageUpload(image) {
-      this.organizer.tempImage = image.src;
+      this.organizationImageModel = image.src;
       this.organizer.organizationImagePath = image.file;
     },
     filterResults: function filterResults() {
       var _this = this;
 
-      this.results = this.organizers.filter(function (organizer) {
+      this.autocompleteResults = this.organizers.filter(function (organizer) {
         return organizer.organizationName.toLowerCase().indexOf(_this.organizationNameModel.toLowerCase()) > -1;
       });
     },
     updateOrganizerFields: function updateOrganizerFields(input) {
       if (input !== null && _typeof(input) === "object" && input.id !== null) {
         this.showAutoComplete = false;
-        this.isNewOrganizer = false;
-        this.isExistingOrganizer = true;
-        this.organizationNameModel = input.organizationName; // if input object has organizer fields then updated organizer object with their values
+        this.showFormFields = true; // if input object has organizer fields then updated organizer object with their values
 
         this.organizer = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.pick(input, lodash__WEBPACK_IMPORTED_MODULE_0___default.a.intersection(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(this.organizer), lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(input)));
+        this.organizationNameModel = input.organizationName;
+        this.organizationImageModel = this.organizer.organizationImagePath ? "/storage/".concat(this.organizer.organizationImagePath) : '';
       }
     },
     // post the form data to server
@@ -3004,10 +2986,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       this.organizer.organizationName = this.organizationNameModel;
 
       for (var field in this.organizer) {
-        if (field === 'tempImage') {
-          continue;
-        }
-
         params.append(field, this.organizer[field]);
       } // TODO:: add client side validations
 
@@ -44164,7 +44142,8 @@ var render = function() {
                 $event.preventDefault()
                 return _vm.onEnter($event)
               }
-            ]
+            ],
+            click: _vm.onChange
           }
         }),
         _vm._v(" "),
@@ -44181,7 +44160,7 @@ var render = function() {
             ],
             staticClass: "autocomplete-results"
           },
-          _vm._l(_vm.results, function(result, i) {
+          _vm._l(_vm.autocompleteResults, function(result, i) {
             return _c(
               "div",
               {
@@ -44210,247 +44189,194 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm.isNewOrganizer
-      ? _c("div", { attrs: { id: "New Organizer" } }, [
-          _c(
-            "div",
-            {
-              staticStyle: {
-                backgroundImage: "url('/storage/website-files/upload.png')",
-                "background-repeat": "no-repeat",
-                display: "inline-block",
-                "background-size": "contain"
-              }
-            },
-            [
-              _c(
-                "label",
-                {
-                  staticClass: "imgclick float",
-                  style: _vm.organizer.tempImage && {
-                    backgroundImage: "url(" + _vm.organizer.tempImage + ")"
-                  }
-                },
-                [
-                  _c("image-upload", {
-                    attrs: { name: "avatar" },
-                    on: { loaded: _vm.onImageUpload }
-                  })
-                ],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "floating-form" }, [
-            _c("div", { staticClass: "floating-label" }, [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.organizer.organizationDescription,
-                    expression: "organizer.organizationDescription"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "text", placeholder: " ", rows: "8" },
-                domProps: { value: _vm.organizer.organizationDescription },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.organizer,
-                      "organizationDescription",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("Description of Production Company")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "floating-label" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.organizer.organizationWebsite,
-                    expression: "organizer.organizationWebsite"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "url", placeholder: " " },
-                domProps: { value: _vm.organizer.organizationWebsite },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.organizer,
-                      "organizationWebsite",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("Enter Production Website")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "floating-label" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.organizer.twitterHandle,
-                    expression: "organizer.twitterHandle"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.organizer.twitterHandle },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.organizer,
-                      "twitterHandle",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("enter twitter handle")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "floating-label" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.organizer.facebookHandle,
-                    expression: "organizer.facebookHandle"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.organizer.facebookHandle },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.organizer,
-                      "facebookHandle",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("enter facebook handle")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "floating-label" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.organizer.instagramHandle,
-                    expression: "organizer.instagramHandle"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.organizer.instagramHandle },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.organizer,
-                      "instagramHandle",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("enter instagram handle")])
-            ])
-          ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.isExistingOrganizer
-      ? _c("div", { attrs: { id: "Exisiting Organizer" } }, [
-          _c("div", {
-            staticClass: "profile-image",
-            style: _vm.organizer.organizationImagePath && {
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showFormFields,
+            expression: "showFormFields"
+          }
+        ]
+      },
+      [
+        _c(
+          "label",
+          {
+            staticClass: "image-upload-wrapper",
+            style: {
               backgroundImage:
-                "url(" + "/storage/" + _vm.organizer.organizationImagePath + ")"
+                "url('" +
+                (_vm.organizationImageModel
+                  ? _vm.organizationImageModel
+                  : _vm.defaultImage) +
+                "')"
             }
-          }),
-          _vm._v(" "),
-          _c("h4", [_vm._v("Organization Details")]),
-          _vm._v(" "),
-          _c("div", [
-            _vm._v(
-              "\n            " +
-                _vm._s(_vm.organizer.organizationDescription) +
-                "\n        "
-            )
+          },
+          [
+            _c("span", { staticClass: "image-upload-layover" }, [
+              _c("div", { staticClass: "text-center" }, [
+                _vm._v(_vm._s(_vm.organizationImageModel ? "Change" : "Upload"))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("image-upload", {
+              attrs: { name: "avatar" },
+              on: { loaded: _vm.onImageUpload }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "floating-form" }, [
+          _c("div", { staticClass: "floating-label" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.organizationDescription,
+                  expression: "organizer.organizationDescription"
+                }
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "text", placeholder: " ", rows: "8" },
+              domProps: { value: _vm.organizer.organizationDescription },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.organizer,
+                    "organizationDescription",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("Description of Production Company")])
           ]),
           _vm._v(" "),
-          _c("div", [
-            _vm._v(
-              "\n            facebook: " +
-                _vm._s(_vm.organizer.facebookHandle) +
-                "\n        "
-            )
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.organizationWebsite,
+                  expression: "organizer.organizationWebsite"
+                }
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "url", placeholder: " " },
+              domProps: { value: _vm.organizer.organizationWebsite },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.organizer,
+                    "organizationWebsite",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("Enter Production Website")])
           ]),
           _vm._v(" "),
-          _c("div", [
-            _vm._v(
-              "\n            instgram: " +
-                _vm._s(_vm.organizer.instagramHandle) +
-                "\n        "
-            )
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.twitterHandle,
+                  expression: "organizer.twitterHandle"
+                }
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "text", placeholder: " " },
+              domProps: { value: _vm.organizer.twitterHandle },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.organizer, "twitterHandle", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("enter twitter handle")])
           ]),
           _vm._v(" "),
-          _c("div", [
-            _vm._v(
-              "\n            twitter: " +
-                _vm._s(_vm.organizer.twitterHandle) +
-                "\n        "
-            )
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.facebookHandle,
+                  expression: "organizer.facebookHandle"
+                }
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "text", placeholder: " " },
+              domProps: { value: _vm.organizer.facebookHandle },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.organizer, "facebookHandle", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("enter facebook handle")])
           ]),
           _vm._v(" "),
-          _c("div", [
-            _vm._v(
-              "\n            Website: " +
-                _vm._s(_vm.organizer.organizationWebsite) +
-                "\n        "
-            )
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.instagramHandle,
+                  expression: "organizer.instagramHandle"
+                }
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "text", placeholder: " " },
+              domProps: { value: _vm.organizer.instagramHandle },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.organizer,
+                    "instagramHandle",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("enter instagram handle")])
           ])
         ])
-      : _vm._e(),
+      ]
+    ),
     _vm._v(" "),
-    _c("div", {}, [
+    _c("div", [
       _c(
         "button",
         {

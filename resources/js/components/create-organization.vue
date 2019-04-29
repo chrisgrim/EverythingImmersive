@@ -13,6 +13,7 @@
             @keydown.down="onArrowDown"
             @keydown.up="onArrowUp"
             @keydown.enter.prevent="onEnter"
+            @click="onChange"
             class="floating-input"
             placeholder=" "
             />
@@ -20,7 +21,7 @@
                 v-show="showAutoComplete"
                 class="autocomplete-results">
                     <div
-                    v-for="(result, i) in results"
+                    v-for="(result, i) in autocompleteResults"
                     :key="i"
                     @click="onSelect(result)"
                     class="autocomplete-result"
@@ -33,12 +34,15 @@
         </div>
     </div>
 
-    <div id="New Organizer" v-if="isNewOrganizer">
-        <div style="backgroundImage: url('/storage/website-files/upload.png'); background-repeat:no-repeat; display:inline-block; background-size: contain;" >
-            <label class="imgclick float" :style="organizer.tempImage && { backgroundImage: 'url(' + organizer.tempImage + ')' }">
-                <image-upload name="avatar" @loaded="onImageUpload"></image-upload>
-            </label>
-        </div>
+    <div v-show="showFormFields">
+        <label class="image-upload-wrapper"
+                :style="{ backgroundImage: `url('${organizationImageModel ? organizationImageModel : defaultImage}')` }" >
+            <span class="image-upload-layover">
+                <div class="text-center">{{ organizationImageModel ? 'Change' : 'Upload' }}</div>
+            </span>
+            <image-upload name="avatar" @loaded="onImageUpload"></image-upload>
+        </label>
+
         <div class="floating-form">
             <div class="floating-label">
                 <textarea type="text" class="floating-input" v-model="organizer.organizationDescription" placeholder=" " rows="8"></textarea>
@@ -63,29 +67,7 @@
         </div>
     </div>
 
-    <div id="Exisiting Organizer" v-if="isExistingOrganizer">
-        <div :style="organizer.organizationImagePath && { backgroundImage: 'url(' + '/storage/' + organizer.organizationImagePath + ')' }"
-            class="profile-image">
-        </div>
-        <h4>Organization Details</h4>
-        <div>
-            {{ organizer.organizationDescription }}
-        </div>
-        <div>
-            facebook: {{ organizer.facebookHandle }}
-        </div>
-        <div>
-            instgram: {{ organizer.instagramHandle }}
-        </div>
-        <div>
-            twitter: {{ organizer.twitterHandle }}
-        </div>
-        <div>
-            Website: {{ organizer.organizationWebsite }}
-        </div>
-    </div>
-
-    <div class="">
+    <div>
         <button type="submit" class="create" @click.prevent="createOrganizer"> Save and Continue </button>
     </div>
 </div>
@@ -104,14 +86,15 @@ export default {
     },
     data() {
         return {
-            results: [],
-            isNewOrganizer: false,
-            isExistingOrganizer: false,
-            showAutoComplete:false,
             arrowCounter: -1,
-            organizationNameModel: null,
+            autocompleteResults: [],
+            showAutoComplete:false,
+            showFormFields: false,
+            organizationNameModel: '',
+            organizationImageModel: '',
+            defaultImage: '/storage/website-files/upload.png',
             organizer: this.initializeOrganizerObject(),
-         };
+        };
     },
     mounted() {
         this.updateOrganizerFields(this.event.organizer)
@@ -119,19 +102,18 @@ export default {
     methods: {
         initializeOrganizerObject() {
             return {
-                id: null,
-                organizationName: null,
-                organizationDescription: null,
-                organizationWebsite: null,
-                tempImage: null,
-                organizationImagePath: null,
-                twitterHandle: null,
-                instagramHandle: null,
-                facebookHandle: null,
+                id: '',
+                organizationName: '',
+                organizationDescription: '',
+                organizationWebsite: '',
+                organizationImagePath: '',
+                twitterHandle: '',
+                instagramHandle: '',
+                facebookHandle: '',
             };
         },
         onArrowDown() {
-            if (this.arrowCounter < this.results.length) {
+            if (this.arrowCounter < this.autocompleteResults.length) {
                 this.arrowCounter = this.arrowCounter + 1;
             }
         },
@@ -141,37 +123,36 @@ export default {
             }
         },
         onEnter() {
-            this.updateOrganizerFields(this.results[this.arrowCounter]);
+            this.updateOrganizerFields(this.autocompleteResults[this.arrowCounter]);
         },
         onSelect(result) {
             this.updateOrganizerFields(result);
         },
         onChange() {
-            this.isNewOrganizer = true;
-            this.isExistingOrganizer = false;
+            this.showFormFields = true;
             this.showAutoComplete = true;
+            this.organizationImageModel = null;
             this.organizer = this.initializeOrganizerObject();
             this.filterResults();
         },
         onImageUpload(image) {
-            this.organizer.tempImage = image.src;
+            this.organizationImageModel = image.src;
             this.organizer.organizationImagePath = image.file;
         },
         filterResults() {
-            this.results = this.organizers.filter(organizer =>
+            this.autocompleteResults = this.organizers.filter(organizer =>
                 organizer.organizationName.toLowerCase().indexOf(this.organizationNameModel.toLowerCase()) > -1
             );
         },
         updateOrganizerFields(input) {
             if ((input !== null) && (typeof input === "object") && (input.id !== null)) {
                 this.showAutoComplete = false;
-                this.isNewOrganizer = false;
-                this.isExistingOrganizer = true;
-                this.organizationNameModel = input.organizationName;
+                this.showFormFields = true;
 
                 // if input object has organizer fields then updated organizer object with their values
                 this.organizer = _.pick(input, _.intersection( _.keys(this.organizer), _.keys(input) ));
-
+                this.organizationNameModel = input.organizationName;
+                this.organizationImageModel = this.organizer.organizationImagePath ? `/storage/${this.organizer.organizationImagePath}` : '';
             }
         },
         // post the form data to server
@@ -181,7 +162,6 @@ export default {
 
             this.organizer.organizationName = this.organizationNameModel;
             for (var field in this.organizer) {
-                if(field === 'tempImage') { continue; }
                 params.append(field, this.organizer[field]);
             }
 
