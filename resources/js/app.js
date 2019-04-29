@@ -39,6 +39,9 @@ const datepickerOptions = {}
 // make sure we can use it in our components
 Vue.use(AirbnbStyleDatepicker, datepickerOptions)
 
+import Multiselect from 'vue-multiselect';
+Vue.component('multiselect', Multiselect);
+
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))

@@ -1,49 +1,36 @@
 <template>
-<div>
-    <div>
-        <br>
-        <h4>Production Company Name</h4>
-    </div>
-    <!-- TODO:: use better/3rd party autocomplete package instead of custom code. -->
-    <div class="autocomplete floating-form">
-        <div class="floating-label">
-            <input type="text"
-            v-model="organizationNameModel"
-            @input="onChange"
-            @keydown.down="onArrowDown"
-            @keydown.up="onArrowUp"
-            @keydown.enter.prevent="onEnter"
-            @click="onChange"
-            class="floating-input"
-            placeholder=" "
-            />
-                <div
-                v-show="showAutoComplete"
-                class="autocomplete-results">
-                    <div
-                    v-for="(result, i) in autocompleteResults"
-                    :key="i"
-                    @click="onSelect(result)"
-                    class="autocomplete-result"
-                    :class="{ 'is-active': i === arrowCounter }"
-                    >
-                        {{ result.organizationName }}
-                    </div>
-                </div>
-            <label>Production Company name</label>
-        </div>
-    </div>
+<div class="organization-form" >
+
+    <multiselect v-show="organizers.length > 0" v-model="searchModel" placeholder="Select or Create Organizer"
+        label="organizationName" track-by="organizationName" deselectLabel=''
+        :allow-empty="false"  :options="searchOptions" @select="onSelect" >
+        <template slot="option" slot-scope="props">
+            <img class="option__image" :src="props.option.organizationImagePath ? `/storage/${props.option.organizationImagePath}` : defaultImage"
+            alt="defaultImage">
+            <div class="option__desc">
+                <span class="option__title">{{ props.option.organizationName }}</span>
+                <span class="option__small">{{ props.option.organizationDescription }}</span>
+            </div>
+        </template>
+    </multiselect>
 
     <div v-show="showFormFields">
-        <label class="image-upload-wrapper"
-                :style="{ backgroundImage: `url('${organizationImageModel ? organizationImageModel : defaultImage}')` }" >
-            <span class="image-upload-layover">
-                <div class="text-center">{{ organizationImageModel ? 'Change' : 'Upload' }}</div>
-            </span>
-            <image-upload name="avatar" @loaded="onImageUpload"></image-upload>
-        </label>
+        <div class="image-upload-field">
+            <label class="image-upload-label">Company logo/image</label>
+            <label class="image-upload-wrapper"
+                    :style="{ backgroundImage: `url('${organizationImageModel ? organizationImageModel : defaultImage}')` }" >
+                <span class="image-upload-layover">
+                    <div class="text-center">{{ organizationImageModel ? 'Change' : 'Upload' }}</div>
+                </span>
+                <image-upload name="avatar" @loaded="onImageUpload"></image-upload>
+            </label>
+        </div>
 
         <div class="floating-form">
+            <div class="floating-label">
+                <input class="floating-input" type="url" v-model="organizer.organizationName" placeholder=" ">
+                <label>Company name</label>
+            </div>
             <div class="floating-label">
                 <textarea type="text" class="floating-input" v-model="organizer.organizationDescription" placeholder=" " rows="8"></textarea>
                 <label>Description of Production Company</label>
@@ -73,12 +60,15 @@
 </div>
 </template>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 <script>
 import _ from 'lodash';
 import ImageUpload from './imageupload.vue';
+
 export default {
     components: {
-        ImageUpload
+        ImageUpload,
     },
     props: {
         organizers: { type: Array },
@@ -86,20 +76,27 @@ export default {
     },
     data() {
         return {
-            arrowCounter: -1,
-            autocompleteResults: [],
-            showAutoComplete:false,
             showFormFields: false,
-            organizationNameModel: '',
+            searchModel: '',
             organizationImageModel: '',
             defaultImage: '/storage/website-files/upload.png',
             organizer: this.initializeOrganizerObject(),
+            searchOptions: this.initiazeSearchOptions(),
         };
     },
     mounted() {
-        this.updateOrganizerFields(this.event.organizer)
+        if (_.has(this.event, 'organizer.id') && this.event.organizer.id !== null) {
+            this.updateOrganizerFields(this.event.organizer);
+            this.searchModel = this.event.organizer;
+        }
     },
     methods: {
+        initiazeSearchOptions() {
+            const newOrganizer = this.initializeOrganizerObject();
+            newOrganizer.organizationName = 'Create New Organizer';
+
+            return _.concat(newOrganizer, this.organizers);
+        },
         initializeOrganizerObject() {
             return {
                 id: '',
@@ -112,47 +109,21 @@ export default {
                 facebookHandle: '',
             };
         },
-        onArrowDown() {
-            if (this.arrowCounter < this.autocompleteResults.length) {
-                this.arrowCounter = this.arrowCounter + 1;
-            }
-        },
-        onArrowUp() {
-            if (this.arrowCounter > 0) {
-                this.arrowCounter = this.arrowCounter - 1;
-            }
-        },
-        onEnter() {
-            this.updateOrganizerFields(this.autocompleteResults[this.arrowCounter]);
-        },
-        onSelect(result) {
-            this.updateOrganizerFields(result);
-        },
-        onChange() {
-            this.showFormFields = true;
-            this.showAutoComplete = true;
-            this.organizationImageModel = null;
-            this.organizer = this.initializeOrganizerObject();
-            this.filterResults();
+        onSelect(organizer) {
+            this.updateOrganizerFields(organizer);
         },
         onImageUpload(image) {
             this.organizationImageModel = image.src;
             this.organizer.organizationImagePath = image.file;
         },
-        filterResults() {
-            this.autocompleteResults = this.organizers.filter(organizer =>
-                organizer.organizationName.toLowerCase().indexOf(this.organizationNameModel.toLowerCase()) > -1
-            );
-        },
         updateOrganizerFields(input) {
             if ((input !== null) && (typeof input === "object") && (input.id !== null)) {
-                this.showAutoComplete = false;
                 this.showFormFields = true;
 
                 // if input object has organizer fields then updated organizer object with their values
                 this.organizer = _.pick(input, _.intersection( _.keys(this.organizer), _.keys(input) ));
-                this.organizationNameModel = input.organizationName;
                 this.organizationImageModel = this.organizer.organizationImagePath ? `/storage/${this.organizer.organizationImagePath}` : '';
+                if(input.id === '') { this.organizer.organizationName = '' }
             }
         },
         // post the form data to server
@@ -160,7 +131,6 @@ export default {
             const params  = new FormData();
             const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
-            this.organizer.organizationName = this.organizationNameModel;
             for (var field in this.organizer) {
                 params.append(field, this.organizer[field]);
             }
