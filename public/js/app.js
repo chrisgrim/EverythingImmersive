@@ -2842,8 +2842,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 //
 //
 //
@@ -2982,15 +2980,18 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       this.updateOrganizerFields(organizer);
     },
     updateOrganizerFields: function updateOrganizerFields(input) {
-      if (input !== null && _typeof(input) === "object" && input.id !== null) {
-        this.showFormFields = true; // if input object has any of the organizer fields then updated organizer object with the input object values
+      // skip if input is not an organizer object, by making sure it has organizationName key
+      if (lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isEmpty(input) && !lodash__WEBPACK_IMPORTED_MODULE_1___default.a.has(input, 'organizationName')) {
+        return false;
+      } // if input object has any of the organizer fields then updated organizer object with the input object values
 
-        this.organizer = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.pick(input, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.intersection(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.keys(this.organizer), lodash__WEBPACK_IMPORTED_MODULE_1___default.a.keys(input)));
-        this.organizationImageModel = this.organizer.organizationImagePath ? "/storage/".concat(this.organizer.organizationImagePath) : '';
 
-        if (input.id === '') {
-          this.organizer.organizationName = '';
-        }
+      this.organizer = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.pick(input, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.intersection(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.keys(this.organizer), lodash__WEBPACK_IMPORTED_MODULE_1___default.a.keys(input)));
+      this.organizationImageModel = this.organizer.organizationImagePath ? "/storage/".concat(this.organizer.organizationImagePath) : '';
+      this.showFormFields = true; // empty organizationName input field instead of showing 'Create New Organizer'
+
+      if (input.organizationName === 'Create New Organizer') {
+        this.organizer.organizationName = '';
       }
     },
     onImageUpload: function () {
@@ -3043,8 +3044,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       return onImageUpload;
     }(),
-    createOrganizer: function () {
-      var _createOrganizer = _asyncToGenerator(
+    submitForm: function () {
+      var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _this = this;
@@ -3110,11 +3111,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }, _callee2, this);
       }));
 
-      function createOrganizer() {
-        return _createOrganizer.apply(this, arguments);
+      function submitForm() {
+        return _submitForm.apply(this, arguments);
       }
 
-      return createOrganizer;
+      return submitForm;
     }()
   },
   mounted: function mounted() {
@@ -56536,7 +56537,7 @@ var render = function() {
             on: {
               click: function($event) {
                 $event.preventDefault()
-                return _vm.createOrganizer($event)
+                return _vm.submitForm($event)
               }
             }
           },
@@ -68947,14 +68948,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************!*\
   !*** ./resources/js/components/create-organization.vue ***!
   \*********************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _create_organization_vue_vue_type_template_id_719d9e69___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create-organization.vue?vue&type=template&id=719d9e69& */ "./resources/js/components/create-organization.vue?vue&type=template&id=719d9e69&");
 /* harmony import */ var _create_organization_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create-organization.vue?vue&type=script&lang=js& */ "./resources/js/components/create-organization.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _create_organization_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _create_organization_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -68986,7 +68988,7 @@ component.options.__file = "resources/js/components/create-organization.vue"
 /*!**********************************************************************************!*\
   !*** ./resources/js/components/create-organization.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -80,7 +80,7 @@
     </div>
 
     <div>
-        <button type="submit" class="create" @click.prevent="createOrganizer"> Save and Continue </button>
+        <button type="submit" class="create" @click.prevent="submitForm"> Save and Continue </button>
     </div>
 </div>
 </template>
@@ -135,14 +135,16 @@ export default {
             this.updateOrganizerFields(organizer);
         },
         updateOrganizerFields(input) {
-            if ((input !== null) && (typeof input === "object") && (input.id !== null)) {
-                this.showFormFields = true;
+            // skip if input is not an organizer object, by making sure it has organizationName key
+            if (_.isEmpty(input) && !_.has(input, 'organizationName')) { return false; }
 
-                // if input object has any of the organizer fields then updated organizer object with the input object values
-                this.organizer = _.pick(input, _.intersection( _.keys(this.organizer), _.keys(input) ));
-                this.organizationImageModel = this.organizer.organizationImagePath ? `/storage/${this.organizer.organizationImagePath}` : '';
-                if(input.id === '') { this.organizer.organizationName = '' }
-            }
+            // if input object has any of the organizer fields then updated organizer object with the input object values
+            this.organizer = _.pick(input, _.intersection( _.keys(this.organizer), _.keys(input) ));
+            this.organizationImageModel = this.organizer.organizationImagePath ? `/storage/${this.organizer.organizationImagePath}` : '';
+            this.showFormFields = true;
+
+            // empty organizationName input field instead of showing 'Create New Organizer'
+            if(input.organizationName === 'Create New Organizer') { this.organizer.organizationName = '' }
         },
         async onImageUpload(image) {
             // validate the uploaded file is an image before updating object files
@@ -156,7 +158,7 @@ export default {
             this.organizationImageModel = image.src;
             this.organizer.organizationImagePath = image.file;
         },
-        async createOrganizer() {
+        async submitForm() {
             // do not go further if there are validation errors
             if (!await this.$validator.validate()) { return false; }
 
