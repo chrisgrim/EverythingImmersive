@@ -33,9 +33,9 @@ class ValidateOrganizerRequest extends FormRequest
             'organizationName'        => ['required', Rule::unique('organizers')->ignore($this->id)],
             'organizationDescription' => 'required',
             'organizationWebsite'     => 'required',
-            'instagramHandle'         => 'min:1',
-            'twitterHandle'           => 'min:1',
-            'facebookHandle'          => 'min:1',
+            'instagramHandle'         => 'required|min:3',
+            'twitterHandle'           => 'required|min:3',
+            'facebookHandle'          => 'required|min:3',
         ];
 
         if (is_file($this->organizationImagePath)) {

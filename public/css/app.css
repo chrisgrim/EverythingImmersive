@@ -807,6 +807,12 @@ button#hover::after {
   padding-top: 3rem;
 }
 
+.floating-label .text-danger {
+  position: absolute;
+  pointer-events: none;
+  top: 6rem;
+}
+
 .floating-input {
   font-size: 14px;
   display: block;
@@ -901,8 +907,17 @@ button#hover::after {
   border-radius: 50px;
 }
 
+.text-sm {
+  font-size: 1.1rem;
+}
+
+.text-danger,
+.text-red {
+  color: #e3342f;
+}
+
 .organization-form .multiselect {
-  padding-top: 3rem;
+  margin-top: 3rem;
 }
 
 .organization-form .multiselect .option__desc,

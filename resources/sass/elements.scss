@@ -5,6 +5,11 @@
   position:relative;
   margin-bottom:2rem;
   padding-top: 3rem;
+  .text-danger {
+    position: absolute;
+    pointer-events: none;
+    top: 6rem;
+  }
 }
 .floating-input {
 	font-size:14px;
@@ -99,8 +104,15 @@
   background-size: cover;
   border-radius: 50px;
 }
+.text-sm {
+  font-size: 1.1rem;
+}
+.text-danger, .text-red {
+  color: $red;
+}
 .organization-form .multiselect {
-  padding-top: 3rem;
+  margin-top: 3rem;
+
   .option__desc, .option__image {
     display: inline-block;
     vertical-align: middle;
