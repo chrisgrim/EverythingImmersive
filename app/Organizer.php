@@ -26,5 +26,20 @@ class Organizer extends Model
     {
         return 'slug';
     }
+    public function updateOrCreate($data = [])
+    {
+        $data['user_id'] = auth()->id();
+        $data['slug'] = str_slug($data['organizationName']) ;
+        if (is_file($data['organizationImagePath'])) {
+            $data['organizationImagePath'] = $data['organizationImagePath']->store('organizers', 'public');
+        }
+        if ($organizer = $this->find($data['id'])) {
+            $organizer->update($data);
+            return $organizer->fresh();
+        } else {
+            return $this->create($data);
+        }
+
+    }
     
 }

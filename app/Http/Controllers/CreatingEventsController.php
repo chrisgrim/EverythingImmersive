@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidateOrganizerRequest;
+use App\Http\Requests\ValidateDescriptionRequest;
+use App\Http\Requests\ValidateDetailsRequest;
 use App\Event;
 use App\Region;
 use App\Genre;
@@ -71,39 +74,20 @@ class CreatingEventsController extends Controller
     // ------------------------------------------------------
 
     public function createOrganizer(Event $event)
-    {  
+    {
         $event->load('organizer');
         $organizers = Organizer::all();
     	return view('events.create.Create_Organizer', compact('event', 'organizers'));
     }
 
-    public function storeOrganizer(Request $request, Event $event, Organizer $organizer)
+    public function storeOrganizer(ValidateOrganizerRequest $request, Event $event, Organizer $organizer)
     {
-        $organizer = organizer::firstOrNew(request()->validate([
-            'organizationName' => 'required',
-            'organizationDescription' => 'required',
-            'instagramHandle' => 'min:3',
-            'twitterHandle' => 'min:3',
-            'facebookHandle' => 'min:3',
-            'organizationWebsite' => 'required',
-        ]) + ['slug'=> str_slug(request('organizationName'))]);
-
-        if (Organizer::where('slug', str_slug(request('organizationName')))->exists()) 
-            {
-                //
-            } else {
-                $this->validate(request(), [
-                    'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1048',
-                ]);
-                $path = $request->file('avatar')->store('organizers', 'public');
-                $organizer->fill(['organizationImagePath' => $path]);
-            };
-
-        $organizer->fill(['user_id'=> auth()->id()]);
-
-        $organizer->save();
+        if (!$organizer = $organizer->updateOrCreate($request->all())) {
+            return response()->json(['error' => 'Failed to save organizer'], 402);
+        }
 
     	$event->update(['organizer_id' => $organizer->id]);
+        return response()->json(compact('organizer'));
     }
 
 // ------------------------------------------------------
@@ -130,19 +114,9 @@ class CreatingEventsController extends Controller
         return view('events.create.Create_Details', compact('event'));
     }
 
-    public function updateDetails(Request $request, Event $event)
+    public function updateDetails(ValidateDetailsRequest $request, Event $event)
     {
-        $event->update(request()->validate([
-            'ageRestriction' => 'required',
-            'eventGeneralCost' => 'required',
-            'eventWebsite' => 'required',
-            'eventTicketUrl' => 'required',
-            'eventStudentCost' => '',
-            'eventMilitaryCost' => '',
-            'eventSeniorCost' => '',
-            'eventVIPCost' => '',
-            'eventAllOtherCost' => '',
-        ]));
+        $event->update(request()->all());
     }
 
      // ------------------------------------------------------
@@ -155,23 +129,9 @@ class CreatingEventsController extends Controller
         return view('events.create.Create_Description', compact('event','genres','pivots'));
     }
 
-    public function updateDescription(Request $request, Event $event)
+    public function updateDescription(ValidateDescriptionRequest $request, Event $event)
     {
-        $event->update(request()->validate([
-            'eventDescription' => 'required',
-        ]));
-
-        $genres = $request->eventGenre;
-        foreach ($genres as $genre) {
-            Genre::firstOrCreate(['genre' => $genre]);
-        }
-
-        $newSync = Genre::all()->whereIn('genre', $genres);
-
-        $event->genres()->sync($newSync);
-
-        return response($newSync);
-
+        $event->updateDescription($request->all());
     }
 
      // ------------------------------------------------------
@@ -198,8 +158,6 @@ class CreatingEventsController extends Controller
 
         $event->contactlevels()->sync(request('contactLevel'));
 
-
-        
     }
 
     // ------------------------------------------------------

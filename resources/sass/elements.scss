@@ -1,9 +1,9 @@
 
 
 /****  floating-Lable style start ****/
-.floating-label { 
-  position:relative; 
-  margin-bottom:2rem; 
+.floating-label {
+  position:relative;
+  margin-bottom:2rem;
   padding-top: 3rem;
 }
 .floating-input {
@@ -98,6 +98,76 @@
   height: 5rem;
   background-size: cover;
   border-radius: 50px;
+}
+.organization-form .multiselect {
+  padding-top: 3rem;
+  .option__desc, .option__image {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .option__image {
+    max-height: 80px;
+    margin-right: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+  }
+  .option__title {
+    font-size: 14px;
+  }
+  .option__small {
+    font-size: 12px;
+    // margin-top: 0.75rem;
+    display: block;
+  }
+}
+
+.image-upload-field {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-top: 3rem;
+}
+.image-upload-wrapper {
+  border: 1px solid #ddd;
+}
+.image-upload-label {
+  top: 1rem;
+  font-size: 1.1rem;
+  color: #b3b5bf;
+}
+.image-upload-wrapper, .image-upload-wrapper img {
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.image-upload-wrapper .image-upload-layover {
+  opacity: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+  color: #fff;
+  background-color: rgba(0,0,0,.7);
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  transition: opacity .3s ease-in-out;
+  -webkit-transition: opacity .3s ease-in-out;
+}
+.image-upload-wrapper .image-upload-layover:hover {
+  opacity: 0.8;
+}
+.image-upload-wrapper .image-upload-layover .text-center {
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .imgclick {
   width: 100px;

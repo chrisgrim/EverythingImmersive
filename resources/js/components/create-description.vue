@@ -35,6 +35,7 @@
 
 <script>
     import Multiselect from 'vue-multiselect'
+    import _ from 'lodash';
 
 	export default {
         components: {
@@ -42,22 +43,17 @@
         },
 
 		props: {
-			event: {
-				type:Object,
-			},
-            genres: {
-                type:Array,
-            },
-            pivots: {
-                type:Array,
-            },
+			event: {type:Object},
+            genres: {type:Array},
+            pivots: {type:Array}
 		},
 
 		data() {
 			return {
-                description: '',
-                genreName: [],
-                options: [],
+                description: _.has(this.event, 'eventDescription') ? this.event.eventDescription : '',
+                genreName: this.pivots,
+                options: this.genres,
+                eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,
 			}
 		},
 
@@ -66,15 +62,24 @@
 				let data = {
                     'eventDescription': this.description,
            		};
-                
                 data.eventGenre = this.genreName.map(a => a.genre);
 
-				axios.patch('/create-your-event/' + this.event.slug + '/description', data).catch(error => {
-                module.status = error.response.data.status;
-            	});
-
-                window.location.href = '/create-your-event/' + this.event.slug + '/expect'; 
+				axios.patch(`${this.eventUrl}/description`, data)
+                .then(response => {
+                    // all is well. move on to the next page
+                    window.location.href = `${this.eventUrl}/dates`;
+                })
+                .catch(errorResponse => {
+                    // show if there are server side validation errors
+                    if (!_.has(errorResponse, 'response.data.errors')) { return false; }
+                    for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
+                        for (const error in errors) {
+                            this.errors.add({ field: field, msg: errors[error] });
+                        }
+                    }
+                });
 			},
+
             addTag (newTag) {
                 const tag = {
                     genre: newTag,
@@ -84,17 +89,7 @@
                 this.genreName.push(tag)
             },
 
-            init() {
-                this.description = this.event.eventDescription
-                this.genreName = this.pivots
-                this.options = this.genres
-            },
-
 		},
-
-        mounted() {
-            this.init();
-        },
     };
 
 

@@ -12,6 +12,7 @@
           <AirbnbStyleDatepicker
             :trigger-element-id="'datepicker-trigger'"
             :mode="'single'"
+            :start-open="true"
             :key="1"
             :months-to-show="1"
             :fullscreen-mobile="true"

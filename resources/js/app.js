@@ -67,21 +67,29 @@ Vue.component('create-expect', require('./components/create-expect.vue').default
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app'
-});
+if(document.getElementById("app")){
+    const app = new Vue({
+        el: '#app'
+    });
+};
 
-const navsearch = new Vue({
-    el: '#navArea'
-});
+if(document.getElementById("navArea")){
+	const navsearch = new Vue({
+    	el: '#navArea'
+	});
+};
 
-const createContentArea = new Vue({
-    el: '#createContentArea'
-});
+if(document.getElementById("createContentArea")){
+	const createContentArea = new Vue({
+   		el: '#createContentArea'
+	});
+};
 
-const guide = new Vue({
-    el: '#guide'
-});
+if(document.getElementById("guide")){
+	const guide = new Vue({
+    	el: '#guide'
+	});
+};
 
 
 

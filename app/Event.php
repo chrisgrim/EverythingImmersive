@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Genre;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -79,5 +80,17 @@ class Event extends Model
     public function scopeUniqueCity($query, $event)
     {
         return $query->where('id', '!=', $event->id);
+    }
+    public function updateDescription($request)
+    {
+        $genres = $request['eventGenre'];
+
+        foreach ($genres as $genre) {
+            Genre::firstOrCreate(['genre' => $genre]);
+        }
+        $newSync = Genre::all()->whereIn('genre', $genres);
+        $this->genres()->sync($newSync);
+        $this->update($request);
+
     }
 }

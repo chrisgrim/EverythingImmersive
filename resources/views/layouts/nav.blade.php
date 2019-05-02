@@ -1,12 +1,12 @@
 <nav>
 	<div id="navArea">
 		<div id="nav-bar">
-			<logo>
+			<div class="logo">
 				@include('layouts.navLogo')
-			</logo>
-			<nav-menu>
+			</div>
+			<div class="nav-menu">
 				@include('layouts.navMenu')
-			</nav-menu>
+			</div>
 		</div>
 	</div>
 </nav>

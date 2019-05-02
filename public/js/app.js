@@ -1952,6 +1952,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2016,8 +2017,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 //
 //
 //
@@ -2053,6 +2064,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2071,23 +2083,46 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      description: '',
-      genreName: [],
-      options: []
+      description: lodash__WEBPACK_IMPORTED_MODULE_1___default.a.has(this.event, 'eventDescription') ? this.event.eventDescription : '',
+      genreName: this.pivots,
+      options: this.genres,
+      eventUrl: lodash__WEBPACK_IMPORTED_MODULE_1___default.a.has(this.event, 'slug') ? "/create-your-event/".concat(this.event.slug) : null
     };
   },
   methods: {
     submit: function submit() {
+      var _this = this;
+
       var data = {
         'eventDescription': this.description
       };
       data.eventGenre = this.genreName.map(function (a) {
         return a.genre;
       });
-      axios.patch('/create-your-event/' + this.event.slug + '/description', data).catch(function (error) {
-        module.status = error.response.data.status;
+      axios.patch("".concat(this.eventUrl, "/description"), data).then(function (response) {
+        // all is well. move on to the next page
+        window.location.href = "".concat(_this.eventUrl, "/dates");
+      }).catch(function (errorResponse) {
+        // show if there are server side validation errors
+        if (!lodash__WEBPACK_IMPORTED_MODULE_1___default.a.has(errorResponse, 'response.data.errors')) {
+          return false;
+        }
+
+        var _arr = Object.entries(errorResponse.response.data.errors);
+
+        for (var _i = 0; _i < _arr.length; _i++) {
+          var _arr$_i = _slicedToArray(_arr[_i], 2),
+              field = _arr$_i[0],
+              errors = _arr$_i[1];
+
+          for (var error in errors) {
+            _this.errors.add({
+              field: field,
+              msg: errors[error]
+            });
+          }
+        }
       });
-      window.location.href = '/create-your-event/' + this.event.slug + '/expect';
     },
     addTag: function addTag(newTag) {
       var tag = {
@@ -2096,18 +2131,9 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.options.push(tag);
       this.genreName.push(tag);
-    },
-    init: function init() {
-      this.description = this.event.eventDescription;
-      this.genreName = this.pivots;
-      this.options = this.genres;
     }
-  },
-  mounted: function mounted() {
-    this.init();
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
 
 /***/ }),
 
@@ -2120,7 +2146,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {//
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2178,6 +2217,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     event: {
@@ -2186,69 +2227,102 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      website: '',
-      ticketUrl: '',
-      ageRestriction: '',
-      generalCost: '',
-      seniorCost: '',
-      vipCost: '',
-      studentCost: '',
-      militaryCost: '',
-      anyOtherCost: '',
-      seniorCostCheck: '',
-      vipCostCheck: '',
-      studentCostCheck: '',
-      militaryCostCheck: '',
-      anyOtherCostCheck: ''
+      eventDetails: this.initializeEventObject(),
+      eventUrl: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(this.event, 'slug') ? "/create-your-event/".concat(this.event.slug) : null
     };
   },
   methods: {
-    submit: function submit() {
-      var data = {
-        'eventWebsite': this.website,
-        'eventTicketUrl': this.ticketUrl,
-        'ageRestriction': this.ageRestriction,
-        'eventGeneralCost': this.generalCost,
-        'eventStudentCost': this.studentCost,
-        'eventMilitaryCost': this.militaryCost,
-        'eventSeniorCost': this.seniorCost,
-        'eventVIPCost': this.vipCost,
-        'eventAllOtherCost': this.anyOtherCost
-      };
-      axios.patch('/create-your-event/' + this.event.slug + '/details', data).catch(function (error) {
-        module.status = error.response.data.status;
+    initializeEventObject: function initializeEventObject() {
+      var _ref;
+
+      return _ref = {
+        eventWebsite: '',
+        eventTicketUrl: '',
+        ageRestriction: '',
+        eventGeneralCost: '',
+        eventStudentCost: '',
+        eventVIPCost: '',
+        eventSeniorCost: '',
+        eventMilitaryCost: '',
+        eventAllOtherCost: ''
+      }, _defineProperty(_ref, "eventStudentCost", ''), _defineProperty(_ref, "eventVIPCost", ''), _defineProperty(_ref, "eventSeniorCost", ''), _defineProperty(_ref, "eventMilitaryCost", ''), _defineProperty(_ref, "eventAllOtherCost", ''), _ref;
+    },
+    submitDetails: function submitDetails() {
+      var _this = this;
+
+      console.log('test');
+      var params = new FormData();
+
+      for (var field in this.eventDetails) {
+        params.append(field, this.eventDetails[field]);
+      }
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = params.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var value = _step.value;
+          console.log(value);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      axios.patch("".concat(this.eventUrl, "/details"), params).then(function (response) {
+        // all is well. move on to the next page
+        window.location.href = "".concat(_this.eventUrl, "/description");
+      }).catch(function (errorResponse) {
+        // show if there are server side validation errors
+        if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
+          return false;
+        }
+
+        var _arr = Object.entries(errorResponse.response.data.errors);
+
+        for (var _i = 0; _i < _arr.length; _i++) {
+          var _arr$_i = _slicedToArray(_arr[_i], 2),
+              _field = _arr$_i[0],
+              errors = _arr$_i[1];
+
+          for (var error in errors) {
+            _this.errors.add({
+              field: _field,
+              msg: errors[error]
+            });
+          }
+        }
       });
-      window.location.href = '/create-your-event/' + this.event.slug + '/description';
+    },
+    updateEventFields: function updateEventFields(input) {
+      if (input !== null && _typeof(input) === "object" && input.id !== null) {
+        this.eventDetails = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.pick(input, lodash__WEBPACK_IMPORTED_MODULE_0___default.a.intersection(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(this.eventDetails), lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(input)));
+      }
     },
     zeroOut: function zeroOut() {
-      this.studentCost = null;
-      this.vipCost = null;
-      this.seniorCost = null;
-      this.militaryCost = null;
-      this.anyOtherCost = null;
-    },
-    init: function init() {
-      this.website = this.event.eventWebsite;
-      this.ticketUrl = this.event.eventTicketUrl;
-      this.ageRestriction = this.event.ageRestriction;
-      this.generalCost = this.event.eventGeneralCost;
-      this.studentCostCheck = this.event.eventStudentCost;
-      this.vipCostCheck = this.event.eventVIPCost;
-      this.seniorCostCheck = this.event.eventSeniorCost;
-      this.militaryCostCheck = this.event.eventMilitaryCost;
-      this.anyOtherCostCheck = this.event.eventAllOtherCost;
-      this.studentCost = this.event.eventStudentCost;
-      this.vipCost = this.event.eventVIPCost;
-      this.seniorCost = this.event.eventSeniorCost;
-      this.militaryCost = this.event.eventMilitaryCost;
-      this.anyOtherCost = this.event.eventAllOtherCost;
+      this.eventDetails.eventStudentCost = null;
+      this.eventDetails.eventVIPCost = null;
+      this.eventDetails.eventSeniorCost = null;
+      this.eventDetails.eventMilitaryCost = null;
+      this.eventDetails.eventAllOtherCost = null;
     }
   },
   mounted: function mounted() {
-    this.init();
+    this.updateEventFields(this.event);
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
 
 /***/ }),
 
@@ -2811,39 +2885,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _imageupload_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./imageupload.vue */ "./resources/js/components/imageupload.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _imageupload_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./imageupload.vue */ "./resources/js/components/imageupload.vue");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -2915,12 +2971,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    ImageUpload: _imageupload_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    ImageUpload: _imageupload_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a
   },
   props: {
-    items: {
+    organizers: {
       type: Array
     },
     event: {
@@ -2929,125 +2988,96 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      search: '',
-      description: '',
-      twitter: '',
-      facebook: '',
-      instagram: '',
-      results: [],
-      isOpen: false,
-      isNew: false,
-      exists: false,
-      arrowCounter: -1,
-      result: '',
-      organizationId: this.event.organizer_id,
-      organizerImage: '',
-      organizerWebsite: '',
-      avatar: '',
-      file: ''
+      showFormFields: false,
+      searchModel: '',
+      organizationImageModel: '',
+      defaultImage: '/storage/website-files/upload.png',
+      organizer: this.initializeOrganizerObject(),
+      searchOptions: this.initializeSearchOptions(),
+      eventUrl: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(this.event, 'slug') ? "/create-your-event/".concat(this.event.slug) : null
     };
   },
-  computed: {
-    existingOrganization: function existingOrganization() {
-      return this.items[this.event.organizer_id - 1];
-    }
-  },
   methods: {
-    onLoad: function onLoad(avatar) {
-      this.avatar = avatar.src;
-      this.file = avatar.file;
+    initializeSearchOptions: function initializeSearchOptions() {
+      var newOrganizer = this.initializeOrganizerObject();
+      newOrganizer.organizationName = 'Create New Organizer';
+      return lodash__WEBPACK_IMPORTED_MODULE_0___default.a.concat(newOrganizer, this.organizers);
     },
-    create: function create() {
-      var data = new FormData(); //this is image I want to add to data
+    initializeOrganizerObject: function initializeOrganizerObject() {
+      return {
+        id: '',
+        organizationName: '',
+        organizationDescription: '',
+        organizationWebsite: '',
+        tempImage: '',
+        organizationImagePath: '',
+        twitterHandle: '',
+        facebookHandle: '',
+        instagramHandle: ''
+      };
+    },
+    onSelect: function onSelect(organizer) {
+      this.updateOrganizerFields(organizer);
+    },
+    onImageUpload: function onImageUpload(image) {
+      this.organizationImageModel = image.src;
+      this.organizer.organizationImagePath = image.file;
+    },
+    updateOrganizerFields: function updateOrganizerFields(input) {
+      if (input !== null && _typeof(input) === "object" && input.id !== null) {
+        this.showAutoComplete = false;
+        this.showFormFields = true;
+        this.organizer = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.pick(input, lodash__WEBPACK_IMPORTED_MODULE_0___default.a.intersection(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(this.organizer), lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(input)));
+        this.organizationImageModel = this.organizer.organizationImagePath ? "/storage/".concat(this.organizer.organizationImagePath) : '';
 
-      data.append('avatar', this.file);
-      data.append('organizationName', this.search);
-      data.append('organizationDescription', this.description);
-      data.append('organizationWebsite', this.organizerWebsite);
-      data.append('twitterHandle', this.twitter);
-      data.append('facebookHandle', this.facebook);
-      data.append('instagramHandle', this.instagram);
-      axios.post('/create-your-event/' + this.event.slug + '/organizer', data).catch(function (error) {
-        module.status = error.response.data.status;
-      });
-      window.location.href = '/create-your-event/' + this.event.slug + '/dates';
-    },
-    onArrowDown: function onArrowDown() {
-      if (this.arrowCounter < this.results.length) {
-        this.arrowCounter = this.arrowCounter + 1;
+        if (input.id === '') {
+          this.organizer.organizationName = '';
+        }
       }
     },
-    onArrowUp: function onArrowUp() {
-      if (this.arrowCounter > 0) {
-        this.arrowCounter = this.arrowCounter - 1;
-      }
-    },
-    onEnter: function onEnter() {
-      this.result = this.results[this.arrowCounter];
-      this.search = this.result.organizationName;
-      this.organizationId = this.result.id;
-      this.description = this.result.organizationDescription;
-      this.isOpen = false;
-      this.exists = true;
-      this.isNew = false;
-      this.arrowCounter = -1;
-      this.facebook = this.result.facebookHandle;
-      this.instagram = this.result.instagramHandle;
-      this.twitter = this.result.twitterHandle;
-      this.organizerWebsite = this.result.organizationWebsite;
-      this.organizerImage = '/storage/' + this.result.organizationImagePath;
-    },
-    setResult: function setResult(result) {
-      this.search = result.organizationName;
-      this.description = result.organizationDescription;
-      this.organizationId = result.id;
-      this.isOpen = false;
-      this.exists = true;
-      this.isNew = false;
-      this.result = result;
-      this.facebook = result.facebookHandle;
-      this.instagram = result.instagramHandle;
-      this.twitter = result.twitterHandle;
-      this.organizerWebsite = result.organizationWebsite;
-      this.organizerImage = '/storage/' + result.organizationImagePath;
-    },
-    onChange: function onChange() {
-      this.isOpen = true;
-      this.filterResults();
-      this.exists = false;
-      this.isNew = true;
-      this.description = '';
-      this.organizationId = '';
-      this.facebook = '';
-      this.instagram = '';
-      this.twitter = '';
-      this.organizerImage = '';
-      this.organizerWebsite = '';
-    },
-    filterResults: function filterResults() {
+    createOrganizer: function createOrganizer() {
       var _this = this;
 
-      this.results = this.items.filter(function (item) {
-        return item.organizationName.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+      var params = new FormData();
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+
+      for (var field in this.organizer) {
+        params.append(field, this.organizer[field]);
+      } // post the form data to server
+
+
+      axios.post("".concat(this.eventUrl, "/organizer"), params, headers).then(function (response) {
+        // all is well. move on to the next page
+        window.location.href = "".concat(_this.eventUrl, "/dates");
+      }).catch(function (errorResponse) {
+        // show if there are server side validation errors
+        if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
+          return false;
+        }
+
+        var _arr = Object.entries(errorResponse.response.data.errors);
+
+        for (var _i = 0; _i < _arr.length; _i++) {
+          var _arr$_i = _slicedToArray(_arr[_i], 2),
+              _field = _arr$_i[0],
+              errors = _arr$_i[1];
+
+          for (var error in errors) {
+            _this.errors.add({
+              field: _field,
+              msg: errors[error]
+            });
+          }
+        }
       });
-    },
-    init: function init() {
-      this.search = this.event.organizer.organizationName;
-      this.description = this.event.organizer.organizationDescription;
-      this.facebook = this.event.organizer.facebookHandle;
-      this.instagram = this.event.organizer.instagramHandle;
-      this.twitter = this.event.organizer.twitterHandle;
-      this.organizerImage = '/storage/' + this.event.organizer.organizationImagePath;
-      this.organizerWebsite = this.event.organizer.organizationWebsite;
-      this.exists = true;
-      this.avatar = this.event.organizer.organizationImagePath;
     }
   },
   mounted: function mounted() {
-    this.init();
+    this.updateOrganizerFields(this.event.organizer);
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
 
 /***/ }),
 
@@ -42398,6 +42428,7 @@ var render = function() {
           attrs: {
             "trigger-element-id": "datepicker-trigger",
             mode: "single",
+            "start-open": true,
             "months-to-show": 1,
             "fullscreen-mobile": true,
             "date-one": _vm.dateOne
@@ -42613,37 +42644,44 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.studentCostCheck,
-            expression: "studentCostCheck"
+            value: _vm.eventDetails.eventStudentCost,
+            expression: "eventDetails.eventStudentCost"
           }
         ],
         attrs: { type: "checkbox" },
         domProps: {
-          checked: Array.isArray(_vm.studentCostCheck)
-            ? _vm._i(_vm.studentCostCheck, null) > -1
-            : _vm.studentCostCheck
+          checked: Array.isArray(_vm.eventDetails.eventStudentCost)
+            ? _vm._i(_vm.eventDetails.eventStudentCost, null) > -1
+            : _vm.eventDetails.eventStudentCost
         },
         on: {
           click: function($event) {
             _vm.zeroOut()
           },
           change: function($event) {
-            var $$a = _vm.studentCostCheck,
+            var $$a = _vm.eventDetails.eventStudentCost,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
               var $$v = null,
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.studentCostCheck = $$a.concat([$$v]))
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventStudentCost",
+                    $$a.concat([$$v])
+                  )
               } else {
                 $$i > -1 &&
-                  (_vm.studentCostCheck = $$a
-                    .slice(0, $$i)
-                    .concat($$a.slice($$i + 1)))
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventStudentCost",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
               }
             } else {
-              _vm.studentCostCheck = $$c
+              _vm.$set(_vm.eventDetails, "eventStudentCost", $$c)
             }
           }
         }
@@ -42656,37 +42694,40 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.vipCostCheck,
-            expression: "vipCostCheck"
+            value: _vm.eventDetails.eventVIPCost,
+            expression: "eventDetails.eventVIPCost"
           }
         ],
         attrs: { type: "checkbox" },
         domProps: {
-          checked: Array.isArray(_vm.vipCostCheck)
-            ? _vm._i(_vm.vipCostCheck, null) > -1
-            : _vm.vipCostCheck
+          checked: Array.isArray(_vm.eventDetails.eventVIPCost)
+            ? _vm._i(_vm.eventDetails.eventVIPCost, null) > -1
+            : _vm.eventDetails.eventVIPCost
         },
         on: {
           click: function($event) {
             _vm.zeroOut()
           },
           change: function($event) {
-            var $$a = _vm.vipCostCheck,
+            var $$a = _vm.eventDetails.eventVIPCost,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
               var $$v = null,
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.vipCostCheck = $$a.concat([$$v]))
+                $$i < 0 &&
+                  _vm.$set(_vm.eventDetails, "eventVIPCost", $$a.concat([$$v]))
               } else {
                 $$i > -1 &&
-                  (_vm.vipCostCheck = $$a
-                    .slice(0, $$i)
-                    .concat($$a.slice($$i + 1)))
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventVIPCost",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
               }
             } else {
-              _vm.vipCostCheck = $$c
+              _vm.$set(_vm.eventDetails, "eventVIPCost", $$c)
             }
           }
         }
@@ -42699,37 +42740,44 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.seniorCostCheck,
-            expression: "seniorCostCheck"
+            value: _vm.eventDetails.eventSeniorCost,
+            expression: "eventDetails.eventSeniorCost"
           }
         ],
         attrs: { type: "checkbox" },
         domProps: {
-          checked: Array.isArray(_vm.seniorCostCheck)
-            ? _vm._i(_vm.seniorCostCheck, null) > -1
-            : _vm.seniorCostCheck
+          checked: Array.isArray(_vm.eventDetails.eventSeniorCost)
+            ? _vm._i(_vm.eventDetails.eventSeniorCost, null) > -1
+            : _vm.eventDetails.eventSeniorCost
         },
         on: {
           click: function($event) {
             _vm.zeroOut()
           },
           change: function($event) {
-            var $$a = _vm.seniorCostCheck,
+            var $$a = _vm.eventDetails.eventSeniorCost,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
               var $$v = null,
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.seniorCostCheck = $$a.concat([$$v]))
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventSeniorCost",
+                    $$a.concat([$$v])
+                  )
               } else {
                 $$i > -1 &&
-                  (_vm.seniorCostCheck = $$a
-                    .slice(0, $$i)
-                    .concat($$a.slice($$i + 1)))
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventSeniorCost",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
               }
             } else {
-              _vm.seniorCostCheck = $$c
+              _vm.$set(_vm.eventDetails, "eventSeniorCost", $$c)
             }
           }
         }
@@ -42742,37 +42790,44 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.militaryCostCheck,
-            expression: "militaryCostCheck"
+            value: _vm.eventDetails.eventMilitaryCost,
+            expression: "eventDetails.eventMilitaryCost"
           }
         ],
         attrs: { type: "checkbox" },
         domProps: {
-          checked: Array.isArray(_vm.militaryCostCheck)
-            ? _vm._i(_vm.militaryCostCheck, null) > -1
-            : _vm.militaryCostCheck
+          checked: Array.isArray(_vm.eventDetails.eventMilitaryCost)
+            ? _vm._i(_vm.eventDetails.eventMilitaryCost, null) > -1
+            : _vm.eventDetails.eventMilitaryCost
         },
         on: {
           click: function($event) {
             _vm.zeroOut()
           },
           change: function($event) {
-            var $$a = _vm.militaryCostCheck,
+            var $$a = _vm.eventDetails.eventMilitaryCost,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
               var $$v = null,
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.militaryCostCheck = $$a.concat([$$v]))
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventMilitaryCost",
+                    $$a.concat([$$v])
+                  )
               } else {
                 $$i > -1 &&
-                  (_vm.militaryCostCheck = $$a
-                    .slice(0, $$i)
-                    .concat($$a.slice($$i + 1)))
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventMilitaryCost",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
               }
             } else {
-              _vm.militaryCostCheck = $$c
+              _vm.$set(_vm.eventDetails, "eventMilitaryCost", $$c)
             }
           }
         }
@@ -42785,37 +42840,44 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.anyOtherCostCheck,
-            expression: "anyOtherCostCheck"
+            value: _vm.eventDetails.eventAllOtherCost,
+            expression: "eventDetails.eventAllOtherCost"
           }
         ],
         attrs: { type: "checkbox" },
         domProps: {
-          checked: Array.isArray(_vm.anyOtherCostCheck)
-            ? _vm._i(_vm.anyOtherCostCheck, null) > -1
-            : _vm.anyOtherCostCheck
+          checked: Array.isArray(_vm.eventDetails.eventAllOtherCost)
+            ? _vm._i(_vm.eventDetails.eventAllOtherCost, null) > -1
+            : _vm.eventDetails.eventAllOtherCost
         },
         on: {
           click: function($event) {
             _vm.zeroOut()
           },
           change: function($event) {
-            var $$a = _vm.anyOtherCostCheck,
+            var $$a = _vm.eventDetails.eventAllOtherCost,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
               var $$v = null,
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.anyOtherCostCheck = $$a.concat([$$v]))
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventAllOtherCost",
+                    $$a.concat([$$v])
+                  )
               } else {
                 $$i > -1 &&
-                  (_vm.anyOtherCostCheck = $$a
-                    .slice(0, $$i)
-                    .concat($$a.slice($$i + 1)))
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventAllOtherCost",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
               }
             } else {
-              _vm.anyOtherCostCheck = $$c
+              _vm.$set(_vm.eventDetails, "eventAllOtherCost", $$c)
             }
           }
         }
@@ -42829,19 +42891,23 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.generalCost,
-              expression: "generalCost"
+              value: _vm.eventDetails.eventGeneralCost,
+              expression: "eventDetails.eventGeneralCost"
             }
           ],
           staticClass: "floating-input",
           attrs: { type: "text", placeholder: " ", required: "" },
-          domProps: { value: _vm.generalCost },
+          domProps: { value: _vm.eventDetails.eventGeneralCost },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.generalCost = $event.target.value
+              _vm.$set(
+                _vm.eventDetails,
+                "eventGeneralCost",
+                $event.target.value
+              )
             }
           }
         }),
@@ -42856,19 +42922,23 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.studentCost,
-                  expression: "studentCost"
+                  value: _vm.eventDetails.eventStudentCost,
+                  expression: "eventDetails.eventStudentCost"
                 }
               ],
               staticClass: "floating-input",
               attrs: { type: "text", placeholder: " ", required: "" },
-              domProps: { value: _vm.studentCost },
+              domProps: { value: _vm.eventDetails.eventStudentCost },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.studentCost = $event.target.value
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventStudentCost",
+                    $event.target.value
+                  )
                 }
               }
             }),
@@ -42884,19 +42954,23 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.vipCost,
-                  expression: "vipCost"
+                  value: _vm.eventDetails.eventVIPCost,
+                  expression: "eventDetails.eventVIPCost"
                 }
               ],
               staticClass: "floating-input",
               attrs: { type: "text", placeholder: " ", required: "" },
-              domProps: { value: _vm.vipCost },
+              domProps: { value: _vm.eventDetails.eventVIPCost },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.vipCost = $event.target.value
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventVIPCost",
+                    $event.target.value
+                  )
                 }
               }
             }),
@@ -42912,19 +42986,23 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.seniorCost,
-                  expression: "seniorCost"
+                  value: _vm.eventDetails.eventSeniorCost,
+                  expression: "eventDetails.eventSeniorCost"
                 }
               ],
               staticClass: "floating-input",
               attrs: { type: "text", placeholder: " ", required: "" },
-              domProps: { value: _vm.seniorCost },
+              domProps: { value: _vm.eventDetails.eventSeniorCost },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.seniorCost = $event.target.value
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventSeniorCost",
+                    $event.target.value
+                  )
                 }
               }
             }),
@@ -42940,19 +43018,23 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.militaryCost,
-                  expression: "militaryCost"
+                  value: _vm.eventDetails.eventMilitaryCost,
+                  expression: "eventDetails.eventMilitaryCost"
                 }
               ],
               staticClass: "floating-input",
               attrs: { type: "text", placeholder: " ", required: "" },
-              domProps: { value: _vm.militaryCost },
+              domProps: { value: _vm.eventDetails.eventMilitaryCost },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.militaryCost = $event.target.value
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventMilitaryCost",
+                    $event.target.value
+                  )
                 }
               }
             }),
@@ -42968,19 +43050,23 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.anyOtherCost,
-                  expression: "anyOtherCost"
+                  value: _vm.eventDetails.eventAllOtherCost,
+                  expression: "eventDetails.eventAllOtherCost"
                 }
               ],
               staticClass: "floating-input",
               attrs: { type: "text", placeholder: " ", required: "" },
-              domProps: { value: _vm.anyOtherCost },
+              domProps: { value: _vm.eventDetails.eventAllOtherCost },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.anyOtherCost = $event.target.value
+                  _vm.$set(
+                    _vm.eventDetails,
+                    "eventAllOtherCost",
+                    $event.target.value
+                  )
                 }
               }
             }),
@@ -42995,19 +43081,19 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.website,
-              expression: "website"
+              value: _vm.eventDetails.eventWebsite,
+              expression: "eventDetails.eventWebsite"
             }
           ],
           staticClass: "floating-input",
           attrs: { type: "text", placeholder: " ", required: "" },
-          domProps: { value: _vm.website },
+          domProps: { value: _vm.eventDetails.eventWebsite },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.website = $event.target.value
+              _vm.$set(_vm.eventDetails, "eventWebsite", $event.target.value)
             }
           }
         }),
@@ -43021,19 +43107,19 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.ticketUrl,
-              expression: "ticketUrl"
+              value: _vm.eventDetails.eventTicketUrl,
+              expression: "eventDetails.eventTicketUrl"
             }
           ],
           staticClass: "floating-input",
           attrs: { type: "text", placeholder: " ", required: "" },
-          domProps: { value: _vm.ticketUrl },
+          domProps: { value: _vm.eventDetails.eventTicketUrl },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.ticketUrl = $event.target.value
+              _vm.$set(_vm.eventDetails, "eventTicketUrl", $event.target.value)
             }
           }
         }),
@@ -43049,19 +43135,19 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.ageRestriction,
-              expression: "ageRestriction"
+              value: _vm.eventDetails.ageRestriction,
+              expression: "eventDetails.ageRestriction"
             }
           ],
           staticClass: "floating-input",
           attrs: { type: "text", placeholder: " ", required: "" },
-          domProps: { value: _vm.ageRestriction },
+          domProps: { value: _vm.eventDetails.ageRestriction },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.ageRestriction = $event.target.value
+              _vm.$set(_vm.eventDetails, "ageRestriction", $event.target.value)
             }
           }
         }),
@@ -43077,7 +43163,7 @@ var render = function() {
             on: {
               click: function($event) {
                 $event.preventDefault()
-                _vm.submit()
+                _vm.submitDetails()
               }
             }
           },
@@ -44130,333 +44216,299 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "autocomplete floating-form" }, [
-      _c("div", { staticClass: "floating-label" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.search,
-              expression: "search"
-            }
-          ],
-          staticClass: "floating-input",
-          attrs: { type: "text", placeholder: " " },
-          domProps: { value: _vm.search },
-          on: {
-            input: [
-              function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.search = $event.target.value
-              },
-              _vm.onChange
-            ],
-            keydown: [
-              function($event) {
-                if (
-                  !("button" in $event) &&
-                  _vm._k($event.keyCode, "down", 40, $event.key, [
-                    "Down",
-                    "ArrowDown"
-                  ])
-                ) {
-                  return null
-                }
-                return _vm.onArrowDown($event)
-              },
-              function($event) {
-                if (
-                  !("button" in $event) &&
-                  _vm._k($event.keyCode, "up", 38, $event.key, [
-                    "Up",
-                    "ArrowUp"
-                  ])
-                ) {
-                  return null
-                }
-                return _vm.onArrowUp($event)
-              },
-              function($event) {
-                if (
-                  !("button" in $event) &&
-                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                ) {
-                  return null
-                }
-                $event.preventDefault()
-                return _vm.onEnter($event)
-              }
-            ]
-          }
-        }),
-        _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "organization-form" },
+      [
         _c(
-          "div",
+          "multiselect",
           {
             directives: [
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.isOpen,
-                expression: "isOpen"
+                value: _vm.organizers.length > 0,
+                expression: "organizers.length > 0"
               }
             ],
-            staticClass: "autocomplete-results"
-          },
-          _vm._l(_vm.results, function(result, i) {
-            return _c(
-              "div",
+            attrs: {
+              placeholder: "Select or Create Organizer",
+              label: "organizationName",
+              "track-by": "organizationName",
+              deselectLabel: "",
+              "allow-empty": false,
+              options: _vm.searchOptions
+            },
+            on: { select: _vm.onSelect },
+            scopedSlots: _vm._u([
               {
-                key: i,
-                staticClass: "autocomplete-result",
-                class: { "is-active": i === _vm.arrowCounter },
-                on: {
-                  click: function($event) {
-                    _vm.setResult(result)
-                  }
+                key: "option",
+                fn: function(props) {
+                  return [
+                    _c("img", {
+                      staticClass: "option__image",
+                      attrs: {
+                        src: props.option.organizationImagePath
+                          ? "/storage/" + props.option.organizationImagePath
+                          : _vm.defaultImage,
+                        alt: "defaultImage"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "option__desc" }, [
+                      _c("span", { staticClass: "option__title" }, [
+                        _vm._v(_vm._s(props.option.organizationName))
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "option__small" }, [
+                        _vm._v(_vm._s(props.option.organizationDescription))
+                      ])
+                    ])
+                  ]
                 }
+              }
+            ]),
+            model: {
+              value: _vm.searchModel,
+              callback: function($$v) {
+                _vm.searchModel = $$v
               },
-              [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(result.organizationName) +
-                    "\n                    "
-                )
-              ]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c("label", [_vm._v("Production Company name")])
-      ])
-    ]),
+              expression: "searchModel"
+            }
+          },
+          [
+            _c("span", { attrs: { slot: "noResult" }, slot: "noResult" }, [
+              _vm._v("Create A New")
+            ])
+          ]
+        )
+      ],
+      1
+    ),
     _vm._v(" "),
-    _c("div", {
-      staticClass: "profile-image",
-      style: { backgroundImage: "url(" + _vm.organizerImage + ")" }
-    }),
-    _vm._v(" "),
-    _vm.isNew
-      ? _c("div", { attrs: { id: "New Organizer" } }, [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showFormFields,
+            expression: "showFormFields"
+          }
+        ]
+      },
+      [
+        _c("div", { staticClass: "image-upload-field" }, [
+          _c("label", { staticClass: "image-upload-label" }, [
+            _vm._v("Company logo/image")
+          ]),
+          _vm._v(" "),
           _c(
-            "div",
+            "label",
             {
-              staticStyle: {
-                backgroundImage: "url('/storage/website-files/upload.png')",
-                "background-repeat": "no-repeat",
-                display: "inline-block",
-                "background-size": "contain"
+              staticClass: "image-upload-wrapper",
+              style: {
+                backgroundImage:
+                  "url('" +
+                  (_vm.organizationImageModel
+                    ? _vm.organizationImageModel
+                    : _vm.defaultImage) +
+                  "')"
               }
             },
             [
-              _c(
-                "label",
+              _c("span", { staticClass: "image-upload-layover" }, [
+                _c("div", { staticClass: "text-center" }, [
+                  _vm._v(
+                    _vm._s(_vm.organizationImageModel ? "Change" : "Upload")
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("image-upload", { on: { loaded: _vm.onImageUpload } })
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "floating-form" }, [
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
                 {
-                  staticClass: "imgclick float",
-                  style: { backgroundImage: "url(" + _vm.avatar + ")" }
-                },
-                [
-                  _c("image-upload", {
-                    attrs: { name: "avatar" },
-                    on: { loaded: _vm.onLoad }
-                  })
-                ],
-                1
-              )
-            ]
-          ),
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.organizationName,
+                  expression: "organizer.organizationName"
+                }
+              ],
+              staticClass: "floating-input",
+              attrs: { placeholder: " " },
+              domProps: { value: _vm.organizer.organizationName },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.organizer,
+                    "organizationName",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("Company name")])
+          ]),
           _vm._v(" "),
-          _c("div", { staticClass: "floating-form" }, [
-            _c("div", { staticClass: "floating-label" }, [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.description,
-                    expression: "description"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "text", placeholder: " ", rows: "8" },
-                domProps: { value: _vm.description },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.description = $event.target.value
-                  }
+          _c("div", { staticClass: "floating-label" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.organizationDescription,
+                  expression: "organizer.organizationDescription"
                 }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("Description of Production Company")])
-            ]),
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "text", placeholder: " ", rows: "8" },
+              domProps: { value: _vm.organizer.organizationDescription },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.organizer,
+                    "organizationDescription",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "floating-label" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.organizerWebsite,
-                    expression: "organizerWebsite"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "url", placeholder: " " },
-                domProps: { value: _vm.organizerWebsite },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.organizerWebsite = $event.target.value
-                  }
+            _c("label", [_vm._v("Description of Production Company")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.organizationWebsite,
+                  expression: "organizer.organizationWebsite"
                 }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("Enter Production Website")])
-            ]),
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "url", placeholder: " " },
+              domProps: { value: _vm.organizer.organizationWebsite },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.organizer,
+                    "organizationWebsite",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "floating-label" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.twitter,
-                    expression: "twitter"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.twitter },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.twitter = $event.target.value
-                  }
+            _c("label", [_vm._v("Enter Production Website")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.twitterHandle,
+                  expression: "organizer.twitterHandle"
                 }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("enter twitter handle")])
-            ]),
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "text", placeholder: " " },
+              domProps: { value: _vm.organizer.twitterHandle },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.organizer, "twitterHandle", $event.target.value)
+                }
+              }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "floating-label" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.facebook,
-                    expression: "facebook"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.facebook },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.facebook = $event.target.value
-                  }
+            _c("label", [_vm._v("enter twitter handle")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.facebookHandle,
+                  expression: "organizer.facebookHandle"
                 }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("enter facebook handle")])
-            ]),
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "text", placeholder: " " },
+              domProps: { value: _vm.organizer.facebookHandle },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.organizer, "facebookHandle", $event.target.value)
+                }
+              }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "floating-label" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.instagram,
-                    expression: "instagram"
-                  }
-                ],
-                staticClass: "floating-input",
-                attrs: { type: "text", placeholder: " " },
-                domProps: { value: _vm.instagram },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.instagram = $event.target.value
-                  }
+            _c("label", [_vm._v("enter facebook handle")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "floating-label" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.organizer.instagramHandle,
+                  expression: "organizer.instagramHandle"
                 }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("enter instagram handle")])
-            ])
+              ],
+              staticClass: "floating-input",
+              attrs: { type: "text", placeholder: " " },
+              domProps: { value: _vm.organizer.instagramHandle },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.organizer,
+                    "instagramHandle",
+                    $event.target.value
+                  )
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("enter instagram handle")])
           ])
         ])
-      : _vm._e(),
+      ]
+    ),
     _vm._v(" "),
-    _vm.exists
-      ? _c("div", { attrs: { id: "Exisiting Organizer" } }, [
-          _c("div", [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.description) +
-                  "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "\n                facebook:\n                " +
-                  _vm._s(_vm.facebook) +
-                  "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "\n                instgram:\n                " +
-                  _vm._s(_vm.instagram) +
-                  "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v(
-                "\n                twitter:\n                " +
-                  _vm._s(_vm.twitter) +
-                  "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _vm._v("\n                Website:\n                "),
-              _c("br"),
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.organizerWebsite) +
-                  "\n            "
-              )
-            ])
-          ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", {}, [
+    _c("div", [
       _c(
         "button",
         {
@@ -44465,7 +44517,7 @@ var render = function() {
           on: {
             click: function($event) {
               $event.preventDefault()
-              return _vm.create($event)
+              return _vm.createOrganizer($event)
             }
           }
         },
@@ -44474,28 +44526,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("br"),
-      _vm._v(" "),
-      _c("h4", [_vm._v("Production Company Name")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("br"),
-      _vm._v(" "),
-      _c("h4", [_vm._v("Organization Description")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -56155,18 +56186,37 @@ Vue.component('create-expect', __webpack_require__(/*! ./components/create-expec
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
-});
-var navsearch = new Vue({
-  el: '#navArea'
-});
-var createContentArea = new Vue({
-  el: '#createContentArea'
-});
-var guide = new Vue({
-  el: '#guide'
-});
+if (document.getElementById("app")) {
+  var app = new Vue({
+    el: '#app'
+  });
+}
+
+;
+
+if (document.getElementById("navArea")) {
+  var navsearch = new Vue({
+    el: '#navArea'
+  });
+}
+
+;
+
+if (document.getElementById("createContentArea")) {
+  var createContentArea = new Vue({
+    el: '#createContentArea'
+  });
+}
+
+;
+
+if (document.getElementById("guide")) {
+  var guide = new Vue({
+    el: '#guide'
+  });
+}
+
+;
 
 /***/ }),
 
@@ -56577,14 +56627,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./resources/js/components/create-details.vue ***!
   \****************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _create_details_vue_vue_type_template_id_06e0c8fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create-details.vue?vue&type=template&id=06e0c8fc& */ "./resources/js/components/create-details.vue?vue&type=template&id=06e0c8fc&");
 /* harmony import */ var _create_details_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create-details.vue?vue&type=script&lang=js& */ "./resources/js/components/create-details.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _create_details_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _create_details_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -56614,7 +56665,7 @@ component.options.__file = "resources/js/components/create-details.vue"
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/create-details.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
