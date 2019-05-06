@@ -8,16 +8,14 @@
     </div>
         
     <div class="image-upload-field">
-        <form method="POST" enctype="multipart/form-data">
-            <label class="image-upload-label">Event image</label>
-            <label class="image-upload-wrapper"
-                    :style="{ backgroundImage: `url('${eventImage ? eventImage : defaultImage}')` }" >
-                <span class="image-upload-layover">
-                    <div class="text-center">{{ eventImage ? 'Change' : 'Upload' }}</div>
-                </span>
-                <image-upload name="eventImage" @loaded="onImageUpload"></image-upload>
-            </label>
-        </form>
+        <label class="image-upload-label">Event image</label>
+        <label class="image-upload-wrapper"
+                :style="{ backgroundImage: `url('${eventImage ? eventImage : defaultImage}')` }" >
+            <span class="image-upload-layover">
+                <div class="text-center">{{ eventImage ? 'Change' : 'Upload' }}</div>
+            </span>
+            <image-upload @loaded="onImageUpload"></image-upload>
+        </label>
     </div>
     <div>
         <button type="submit" class="create" @click.prevent="createImage()"> Save and Continue </button>
@@ -58,18 +56,13 @@ export default {
 
         createImage() {
             let data = new FormData();
+            let headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
             data.append('eventImage', this.eventImage);
-            const config = {
-                    headers: { 'content-type': 'multipart/form-data' }
-                }
 
             console.log(this.eventImage);
 
-            axios.post('/create-your-event/' + this.event.slug + '/images', {
-                data: this.data,
-                _method: 'patch',
-                
-            })
+            axios.patch(`${this.eventUrl}/images`, data, headers)
             .then(response => {
                 // all is well. move on to the next page
                 console.log(response.data);

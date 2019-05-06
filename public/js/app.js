@@ -2693,8 +2693,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2720,17 +2718,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     createImage: function createImage() {
       var data = new FormData();
-      data.append('eventImage', this.eventImage);
-      var config = {
-        headers: {
-          'content-type': 'multipart/form-data'
-        }
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
       };
+      data.append('eventImage', this.eventImage);
       console.log(this.eventImage);
-      axios.post('/create-your-event/' + this.event.slug + '/images', {
-        data: this.data,
-        _method: 'patch'
-      }).then(function (response) {
+      axios.patch("".concat(this.eventUrl, "/images"), data, headers).then(function (response) {
         // all is well. move on to the next page
         console.log(response.data);
       });
@@ -44092,40 +44085,31 @@ var render = function() {
     _vm._m(1),
     _vm._v(" "),
     _c("div", { staticClass: "image-upload-field" }, [
+      _c("label", { staticClass: "image-upload-label" }, [
+        _vm._v("Event image")
+      ]),
+      _vm._v(" "),
       _c(
-        "form",
-        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        "label",
+        {
+          staticClass: "image-upload-wrapper",
+          style: {
+            backgroundImage:
+              "url('" +
+              (_vm.eventImage ? _vm.eventImage : _vm.defaultImage) +
+              "')"
+          }
+        },
         [
-          _c("label", { staticClass: "image-upload-label" }, [
-            _vm._v("Event image")
+          _c("span", { staticClass: "image-upload-layover" }, [
+            _c("div", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(_vm.eventImage ? "Change" : "Upload"))
+            ])
           ]),
           _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "image-upload-wrapper",
-              style: {
-                backgroundImage:
-                  "url('" +
-                  (_vm.eventImage ? _vm.eventImage : _vm.defaultImage) +
-                  "')"
-              }
-            },
-            [
-              _c("span", { staticClass: "image-upload-layover" }, [
-                _c("div", { staticClass: "text-center" }, [
-                  _vm._v(_vm._s(_vm.eventImage ? "Change" : "Upload"))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("image-upload", {
-                attrs: { name: "eventImage" },
-                on: { loaded: _vm.onImageUpload }
-              })
-            ],
-            1
-          )
-        ]
+          _c("image-upload", { on: { loaded: _vm.onImageUpload } })
+        ],
+        1
       )
     ]),
     _vm._v(" "),
