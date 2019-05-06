@@ -70,7 +70,7 @@
 
 <script>
 import _ from 'lodash';
-import ImageUpload from './imageupload.vue';
+import ImageUpload from '../imageupload.vue';
 import Multiselect from 'vue-multiselect'
 
 

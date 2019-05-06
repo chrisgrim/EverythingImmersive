@@ -63,7 +63,8 @@ export default {
         return {
             dateFormat: 'D MMM',
             dateOne: '',
-            dateTwo: ''
+            dateTwo: '',
+            eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,
         }
     },
 
@@ -74,12 +75,21 @@ export default {
             'closingDate': this.dateTwo,
             };
 
-            axios.patch('/create-your-event/' + this.event.slug + '/dates', data).catch(error => {
-            console.log(error.response.data.errors);
-            });
-
-            window.location.href = '/create-your-event/' + this.event.slug + '/category'; 
-        },
+            axios.patch(`${this.eventUrl}/dates`, data)
+                .then(response => {
+                    // all is well. move on to the next page
+                    window.location.href = `${this.eventUrl}/details`;
+                })
+                .catch(errorResponse => {
+                    // show if there are server side validation errors
+                    if (!_.has(errorResponse, 'response.data.errors')) { return false; }
+                    for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
+                        for (const error in errors) {
+                            this.errors.add({ field: field, msg: errors[error] });
+                        }
+                    }
+                });
+            },
 
         formatDates(dateOne) {
             let formattedDates = ''

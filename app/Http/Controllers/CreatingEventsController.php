@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ValidateOrganizerRequest;
 use App\Http\Requests\ValidateDescriptionRequest;
 use App\Http\Requests\ValidateDetailsRequest;
+use App\Http\Requests\ValidateExpectRequest;
+use App\Http\Requests\ValidateLocationRequest;
+use App\Http\Requests\ValidateCategoryRequest;
+use App\Http\Requests\ValidateTitleRequest;
 use App\Event;
 use App\Region;
 use App\Genre;
@@ -37,17 +41,9 @@ class CreatingEventsController extends Controller
     	return view('events.create.Create_Location', compact('event','regions','pivots'));
     }
 
-    public function updateLocation(Request $request, Event $event)
+    public function updateLocation(ValidateLocationRequest $request, Event $event)
     {
-    	$event->update(request()->validate([
-    		'eventCity' => 'required',
-            'eventState' => 'required',
-            'eventStreetAddress' => 'required',
-            'specificLocation' => 'required',
-            'eventCountry' => 'required',
-            'eventZipcode' => 'required',
-    	]));
-
+    	$event->update($request->all());
         $event->regions()->sync(request('eventRegion'));
 
 
@@ -62,13 +58,9 @@ class CreatingEventsController extends Controller
 
     	return view('events.create.Create_Category', compact('event', 'categories'));
     }
-    public function updateCategory(Request $request, Event $event)
+    public function updateCategory(ValidateCategoryRequest $request, Event $event)
     {
-    	$event->update(request()->validate([
-    		'category_id' => 'required'
-    	]));
-
-    	return redirect('/create-your-event/'.$event->slug.'/organizer')->with(compact('event'));
+    	$event->update(['category_id'=> request('id')]);
     }
 
     // ------------------------------------------------------
@@ -145,34 +137,22 @@ class CreatingEventsController extends Controller
         return view('events.create.Create_Expectations', compact('event','contactLevels','pivots'));
     }
 
-    public function updateExpect(Request $request, Event $event)
+    public function updateExpect(ValidateExpectRequest $request, Event $event)
     {
-        $event->update(request()->validate([
-            'contentAdvisories' => 'required',
-            'mobilityAdvisories' => 'required',
-            'sexualViolence' => 'required',
-            'sexualViolenceDescription' => '',
-            'touchAdvisoryDescription' => 'required',
-            'wheelchairReady' => 'required',
-        ]));
-
+        $event->update($request->all());
         $event->contactlevels()->sync(request('contactLevel'));
-
     }
 
     // ------------------------------------------------------
-
 
     public function createTitle(Event $event)
     {
         return view('events.create.Create_Title', compact('event'));
     }
-    public function updateTitle(Request $request, Event $event)
+    public function updateTitle(ValidateTitleRequest $request, Event $event)
     {
-        $event->update(request()->validate([
-            'eventTitle' => 'required',
-        ]) + ['slug'=> str_slug(request('eventTitle'))]);
-        return redirect('/create-your-event/'.$event->slug.'/images')->with(compact('event'));
+        $event->updateTitle($request);
+        return response()->json(compact('event'));
     }
 
      // ------------------------------------------------------
@@ -184,22 +164,7 @@ class CreatingEventsController extends Controller
     }
     public function storeImages(Request $request, Event $event)
     {
-        if ($request->hasFile('eventImage')) {
-            $filename = $this->eventImageName($request, $event);
-
-            $request->file('eventImage')->storeAs('/public/event-images', $filename);
-                $large = storage_path().'/app/public/event-images/'.$filename;
-                $small = storage_path().'/app/public/thumb-images/'.'thumb'.'-'.$filename;
-                Image::make($large)->fit(1200, 800)->save($large)->fit(600, 400)->save($small);
-
-                $event->update([
-                    'eventImagePath' => 'event-images/' . $filename,
-                    'thumbImagePath' => 'thumb-images/'.'thumb'.'-'.$filename,
-                ]);
-            return redirect('/create-your-event/'.$event->slug.'/thanks')->with(compact('event'));
-        } else {
-            return back()->withErrors(['Alert', 'No file selected!']);
-        }
+        $path = request()->file('eventImage')->store('avatars', 'public');
     }
 
     // ------------------------------------------------------

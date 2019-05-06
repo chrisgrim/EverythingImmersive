@@ -8,32 +8,32 @@
 	    </div>
         <div class="floating-form">
             
-            <input type="checkbox" v-model="eventDetails.eventStudentCost" @click="zeroOut()"> Student Cost<br>
-            <input type="checkbox" v-model="eventDetails.eventVIPCost" @click="zeroOut()"> VIP Cost<br>
-            <input type="checkbox" v-model="eventDetails.eventSeniorCost" @click="zeroOut()"> Senior Cost<br>
-            <input type="checkbox" v-model="eventDetails.eventMilitaryCost" @click="zeroOut()"> Military Cost<br>
-            <input type="checkbox" v-model="eventDetails.eventAllOtherCost" @click="zeroOut()"> Any other type of ticket<br>
+            <input type="checkbox" v-model="studentCost" @click="zeroOut()"> Student Cost<br>
+            <input type="checkbox" v-model="VIPCost" @click="zeroOut()"> VIP Cost<br>
+            <input type="checkbox" v-model="seniorCost" @click="zeroOut()"> Senior Cost<br>
+            <input type="checkbox" v-model="militaryCost" @click="zeroOut()"> Military Cost<br>
+            <input type="checkbox" v-model="allOtherCost" @click="zeroOut()"> Any other type of ticket<br>
             <div class="floating-label">
                 <input type="text" class="floating-input" v-model="eventDetails.eventGeneralCost" placeholder=" " required>
                 <label>General Cost</label>
             </div>
-            <div class="floating-label" v-if="studentCostCheck">
+            <div class="floating-label" v-if="studentCost">
                 <input type="text" class="floating-input" v-model="eventDetails.eventStudentCost" placeholder=" " required>
                 <label>Student Cost</label>
             </div>
-            <div class="floating-label" v-if="vipCostCheck">
+            <div class="floating-label" v-if="VIPCost">
                 <input type="text" class="floating-input" v-model="eventDetails.eventVIPCost" placeholder=" " required>
                 <label>VIP Cost</label>
             </div>
-            <div class="floating-label" v-if="seniorCostCheck">
+            <div class="floating-label" v-if="seniorCost">
                 <input type="text" class="floating-input" v-model="eventDetails.eventSeniorCost" placeholder=" " required>
                 <label>Senior Cost</label>
             </div>
-            <div class="floating-label" v-if="militaryCostCheck">
+            <div class="floating-label" v-if="militaryCost">
                 <input type="text" class="floating-input" v-model="eventDetails.eventMilitaryCost" placeholder=" " required>
                 <label>Military Cost</label>
             </div>
-            <div class="floating-label" v-if="anyOtherCostCheck">
+            <div class="floating-label" v-if="allOtherCost">
                 <input type="text" class="floating-input" v-model="eventDetails.eventAllOtherCost" placeholder=" " required>
                 <label>Any Other Cost</label>
             </div>
@@ -43,7 +43,7 @@
             </div>
             <div class="floating-label">
                 <input type="text" class="floating-input" v-model="eventDetails.eventTicketUrl" placeholder=" " required>
-                <label>Ticket URL (if different from Website url above)</label>
+                <label>Ticket URL</label>
             </div>
             <div class="floating-label">
                 <input type="text" class="floating-input" v-model="eventDetails.ageRestriction" placeholder=" " required>
@@ -70,6 +70,11 @@
 			return {
                 eventDetails: this.initializeEventObject(),
                 eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,
+                studentCost: this.event.eventStudentCost,
+                seniorCost: this.event.eventSeniorCost,
+                VIPCost: this.event.eventVIPCost,
+                allOtherCost: this.event.eventAllOtherCost,
+                militaryCost: this.event.eventMilitaryCost,
 			}
 		},
 
@@ -94,16 +99,8 @@
             },
 
 			submitDetails() {
-                console.log('test')
-                const params = new FormData();
-
-                for (var field in this.eventDetails) {
-                    params.append(field, this.eventDetails[field]);
-                }
-                for (var value of params.values()) {
-                   console.log(value); 
-                }
-                axios.patch(`${this.eventUrl}/details`, params)
+                console.log(this.eventDetails);
+                axios.patch(`${this.eventUrl}/details`, this.eventDetails)
                 .then(response => {
                     // all is well. move on to the next page
                     window.location.href = `${this.eventUrl}/description`;
@@ -120,17 +117,13 @@
 			},
 
             updateEventFields(input) {
-            if ((input !== null) && (typeof input === "object") && (input.id !== null)) {
-                this.eventDetails = _.pick(input, _.intersection( _.keys(this.eventDetails), _.keys(input) ));
-            }
-        },
+                if ((input !== null) && (typeof input === "object") && (input.id !== null)) {
+                    this.eventDetails = _.pick(input, _.intersection( _.keys(this.eventDetails), _.keys(input) ));
+                }
+            },
 
             zeroOut() {
-                this.eventDetails.eventStudentCost = null
-                this.eventDetails.eventVIPCost = null
-                this.eventDetails.eventSeniorCost = null
-                this.eventDetails.eventMilitaryCost = null
-                this.eventDetails.eventAllOtherCost = null
+                
             },
 		},
 

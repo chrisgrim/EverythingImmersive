@@ -53,13 +53,16 @@ Vue.component('avatar-form', require('./components/avatar-form.vue').default);
 Vue.component('profile-button', require('./components/profile-button.vue').default);
 Vue.component('featured-image', require('./components/featured-image.vue').default);
 Vue.component('autocomplete', require('./components/autocomplete.vue').default);
-Vue.component('create-organization', require('./components/create-organization.vue').default);
-Vue.component('create-location', require('./components/create-location.vue').default);
-Vue.component('create-date-picker', require('./components/create-datepicker.vue').default);
-Vue.component('create-details', require('./components/create-details.vue').default);
-Vue.component('create-description', require('./components/create-description.vue').default);
-Vue.component('create-guide', require('./components/create-guide.vue').default);
-Vue.component('create-expect', require('./components/create-expect.vue').default);
+Vue.component('create-organization', require('./components/Create-Event/create-organization.vue').default);
+Vue.component('create-location', require('./components/Create-Event/create-location.vue').default);
+Vue.component('create-date-picker', require('./components/Create-Event/create-datepicker.vue').default);
+Vue.component('create-details', require('./components/Create-Event/create-details.vue').default);
+Vue.component('create-description', require('./components/Create-Event/create-description.vue').default);
+Vue.component('create-guide', require('./components/Create-Event/create-guide.vue').default);
+Vue.component('create-expect', require('./components/Create-Event/create-expect.vue').default);
+Vue.component('create-categories', require('./components/Create-Event/create-categories.vue').default);
+Vue.component('create-title', require('./components/Create-Event/create-title.vue').default);
+Vue.component('create-image', require('./components/Create-Event/create-image.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

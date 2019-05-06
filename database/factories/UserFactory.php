@@ -59,7 +59,7 @@ $factory->define(App\Organizer::class, function (Faker $faker) {
         'facebookHandle' => '@'. $name,
         'twitterHandle' => '@'. $name,
         'organizationWebsite' => $faker->url,
-        'organizationImagePath' => 'organizer/'. $imagesave,
+        'organizationImagePath' => 'organizers/'. $imagesave,
     ];
 });
 
@@ -106,11 +106,11 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'eventLong' => $faker->randomDigit,
         'eventLat' => $faker->randomDigit,
         'ageRestriction' => $faker->randomDigit,
-        'wheelchairReady' => $faker->boolean(50),
-        'sexualViolence' => $faker->boolean(50),
+        'wheelchairReady' => $faker->randomElement(['Yes', 'No']),
+        'sexualViolence' => $faker->randomElement(['Yes', 'No']),
         'mobilityAdvisories' => $faker->paragraph,
         'sexualViolenceDescription' => $faker->paragraph,
-        'touchAdvisoryDescription' => $faker->paragraph,
+        'contactAdvisoryDescription' => $faker->paragraph,
         'contentAdvisories' => $faker->paragraph,
         'openingDate' => $faker->dateTimeThisMonth($max = 'now', $timezone = null),
         'closingDate' => $faker->dateTimeThisMonth($max = 'now', $timezone = null),

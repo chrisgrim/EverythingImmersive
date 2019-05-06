@@ -27,7 +27,7 @@
                 ></multiselect>
             </div>
             <div class="">
-                <button @click.prevent="submit()" class="create"> Save and Continue </button>
+                <button @click.prevent="submitDescription()" class="create"> Save and Continue </button>
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@
 		},
 
 		methods: {
-			submit() {
+			submitDescription() {
 				let data = {
                     'eventDescription': this.description,
            		};

@@ -38,10 +38,10 @@ class CreateEventsTable extends Migration
             $table->string('eventZipcode')->nullable();
             $table->string('eventLong')->nullable();
             $table->string('eventLat')->nullable();
-            $table->boolean('wheelchairReady')->nullable()->default(null);
-            $table->boolean('sexualViolence')->nullable()->default(null);
+            $table->string('wheelchairReady')->nullable();
+            $table->string('sexualViolence')->nullable();
             $table->longtext('sexualViolenceDescription')->nullable();
-            $table->longtext('touchAdvisoryDescription')->nullable();
+            $table->longtext('contactAdvisoryDescription')->nullable();
             $table->longtext('mobilityAdvisories')->nullable();
             $table->longtext('contentAdvisories')->nullable();
             $table->unsignedInteger('ageRestriction')->nullable();
