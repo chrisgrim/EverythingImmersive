@@ -7,7 +7,6 @@
 	    	<p>Lets start with an address</p>
 	    	<br>
 	    </div>
-	    <validation-errors :errors="validationErrors" v-if="validationErrors"></validation-errors>
 	    <div>
 	    	<input type="checkbox" v-model="specificLocation"> The specific location is withheld until closer to the date<br>
 	    </div>
@@ -24,20 +23,25 @@
 	            <label class="area"> Please enter how participants will be notified </label>
 	        </div>
 	    	<div class="floating-label" v-else="specificLocation">
-		        <input type="text" class="floating-input" v-model="eventLocation.eventStreetAddress" value=" " placeholder=" " required @click="hideError()">
+		        <input type="text" class="floating-input" v-model="eventLocation.eventStreetAddress" placeholder=" " name="streetAddress" v-validate="'required|max:100'" data-vv-as="Street Address">
 		        <label>Street</label>
+		        <span class="text-sm text-danger">{{ errors.first('streetAddress') }}</span>
 		    </div>
 		    <div class="floating-label">
-		        <input type="text" class="floating-input" v-model="eventLocation.eventCity" value=" " placeholder=" " required @click="hideError()">
+		        <input type="text" class="floating-input" v-model="eventLocation.eventCity" name="city" v-validate="'required|max:80'" data-vv-as="City Address" placeholder=" ">
 		        <label>City</label>
+		        <span class="text-sm text-danger">{{ errors.first('city') }}</span>
+
 		    </div>
 		    <div class="floating-label">
-		        <input type="text" class="floating-input" v-model="eventLocation.eventState" value=" " placeholder=" " required @click="hideError()">
+		        <input type="text" class="floating-input" v-model="eventLocation.eventState" name="state" v-validate="'required|max:50'" data-vv-as="State Address" placeholder=" ">
 		        <label>State</label>
+		        <span class="text-sm text-danger">{{ errors.first('state') }}</span>
 		    </div>
 		    <div class="floating-label">
-		        <input type="text" class="floating-input" v-model="eventLocation.eventZipcode" value=" " placeholder=" " required @click="hideError()">
+		        <input type="text" class="floating-input" v-model="eventLocation.eventZipcode" name="zip" v-validate="'required|max:5|numeric'" data-vv-as="Zip Address" placeholder=" ">
 		        <label>Zip</label>
+		        <span class="text-sm text-danger">{{ errors.first('zip') }}</span>
 		    </div>
 		    <div class="floating-label">
 		    	Country
@@ -119,7 +123,8 @@
                 }
             },
 
-			submitLocation() {
+			async submitLocation() {
+				if (!await this.$validator.validate()) { return false; }
 				let data = this.eventLocation;
 				data.eventCountry = this.selectedCountry;
            		data.eventRegion = this.selectedRegions.map(a => a.id);

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Genre;
 use Illuminate\Database\Eloquent\Model;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 class Event extends Model

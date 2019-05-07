@@ -10,7 +10,7 @@
 	        <multiselect 
 	        v-show="categories.length > 0" 
 	        v-model="selectedCategory" 
-	        placeholder="Select or Create Organizer"
+	        placeholder="Select Category"
 	        label="categoryName" 
 	        track-by="categoryName" 
 	        deselectLabel=''

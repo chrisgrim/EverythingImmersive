@@ -21,6 +21,8 @@
             </template>
             <span slot="noResult">Create A New</span>
         </multiselect>
+        <input type="hidden" name="searchModel" v-model="searchModel" v-validate="'required'" data-vv-as="Organizer">
+        <span class="text-sm text-danger">{{ errors.first('searchModel') }}</span>
     </div>
     
         
@@ -137,7 +139,6 @@ export default {
         onOrganizerSelect(organizer) {
             this.updateOrganizerFields(organizer);
         },
-
         
         updateOrganizerFields(input) {
             if ((input !== null) && (typeof input === "object") && (input.id !== null)) {
@@ -150,24 +151,24 @@ export default {
             }
         },
 
-        createOrganizer() {
-            async onImageUpload(image) {
-                const { valid, errors } = await this,$validator.verify(image.file, 'image', {'name' : 'Organization Image'});
-                if(!valid) {
-                    this.errors.remove('organizationImagePath');
-                    this.errors.add({ field: 'organizationImagePath', msg: errors[0]});
-                    return false;
-                }
-
-                this.organizationImageModel = image.src;
-                this.organizer.organizationImagePath = image.file;
-            },
-            async createOrganizer() {
-            //do not go further if there are validation errors
-            if( !await.this.$validator.validate()) { return false; }
+        async onImageUpload(image) {
+            // validate the uploaded file is an image before updating object files
+            const { valid, errors } = await this.$validator.verify(image.file, 'image', {'name' : 'Organization Image'});
+            if(!valid) {
+                this.errors.remove('organizationImagePath');
+                this.errors.add({ field: 'organizationImagePath', msg: errors[0] });
+                return false;
+            }
+            this.organizationImageModel = image.src;
+            this.organizer.organizationImagePath = image.file;
+        },
+        async createOrganizer() {
+            // do not go further if there are validation errors
+            if (!await this.$validator.validate()) { return false; }
 
             const params = new FormData();
             const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
             for (var field in this.organizer) {
                 params.append(field, this.organizer[field]);
             }
