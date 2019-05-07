@@ -1,44 +1,48 @@
 <template>
     <div>
-        Opening Date of the Event
-        <div class="datepicker-trigger">
-          <input
-            type="text"
-            id="datepicker-trigger"
-            placeholder="Opening Date"
-            :value="formatDates(dateOne)"
-          >
+        <div class="dates-grid">
+            <div>
+                Opening Date of the Event
+                <div class="datepicker-trigger ">
+                  <input
+                    type="text"
+                    id="datepicker-trigger"
+                    placeholder="Opening Date"
+                    :value="formatDates(dateOne)"
+                  >
 
-          <AirbnbStyleDatepicker
-            :trigger-element-id="'datepicker-trigger'"
-            :mode="'single'"
-            :start-open="true"
-            :key="1"
-            :months-to-show="1"
-            :fullscreen-mobile="true"
-            :date-one="dateOne"
-            @date-one-selected="val => { dateOne = val }"
-          />
-        </div>
+                  <AirbnbStyleDatepicker
+                    :trigger-element-id="'datepicker-trigger'"
+                    :mode="'single'"
+                    :key="1"
+                    :months-to-show="1"
+                    :fullscreen-mobile="true"
+                    :date-one="dateOne"
+                    @date-one-selected="val => { dateOne = val }"
+                  />
+                </div>
+            </div>
+            <div>
+            Closing Date
+                <div class="datepicker-trigger">
+                  <input
+                    type="text"
+                    id="datepicker-trigger1"
+                    placeholder="Closing Date"
+                    :value="formatDatesA(dateTwo)"
+                  >
 
-        Closing Date
-        <div class="datepicker-trigger">
-          <input
-            type="text"
-            id="datepicker-trigger1"
-            placeholder="Closing Date"
-            :value="formatDatesA(dateTwo)"
-          >
-
-          <AirbnbStyleDatepicker
-            :trigger-element-id="'datepicker-trigger1'"
-            :mode="'single'"
-            :key="2"
-            :months-to-show="1"
-            :fullscreen-mobile="true"
-            :date-one="dateTwo"
-            @date-one-selected="val => { dateTwo = val }"
-          />
+                  <AirbnbStyleDatepicker
+                    :trigger-element-id="'datepicker-trigger1'"
+                    :mode="'single'"
+                    :key="2"
+                    :months-to-show="1"
+                    :fullscreen-mobile="true"
+                    :date-one="dateTwo"
+                    @date-one-selected="val => { dateTwo = val }"
+                  />
+                </div>
+            </div>
         </div>
         <div class="">
             <button @click.prevent="submit()" class="create"> Next </button>

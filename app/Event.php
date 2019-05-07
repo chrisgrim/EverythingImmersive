@@ -99,4 +99,27 @@ class Event extends Model
             'slug' => str_slug(request('eventTitle')),
         ]);
     }
+    public function storeEventImage($request)
+    {
+        if ($request->hasFile('eventImage')) {
+            $filename = $this->eventImageName($request);
+
+            $request->file('eventImage')->storeAs('/public/event-images', $filename);
+                $large = storage_path().'/app/public/event-images/'.$filename;
+                $small = storage_path().'/app/public/thumb-images/'.'thumb'.'-'.$filename;
+                Image::make($large)->fit(1200, 800)->save($large)->fit(600, 400)->save($small);
+
+            $this->update([
+                    'eventImagePath' => 'event-images/' . $filename,
+                    'thumbImagePath' => 'thumb-images/'.'thumb'.'-'.$filename,
+            ]);
+        }
+    }
+    public function eventImageName($request)
+    {
+        $title = $this->slug;
+        $extension = $request->file('eventImage')->getClientOriginalExtension();
+        $fileNameToStore= $title.'.'.$extension;
+        return $fileNameToStore;
+    }
 }

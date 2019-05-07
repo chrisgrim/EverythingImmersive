@@ -73,6 +73,13 @@ h3 {
   margin-left: 10%;
 }
 
+.dates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  grid-gap: 1rem 1rem;
+}
+
 .event-background-image {
   padding: 14%;
   width: 20%;
@@ -807,6 +814,21 @@ button#hover::after {
   position: relative;
   margin-bottom: 2rem;
   padding-top: 3rem;
+}
+
+.floating-label .text-danger {
+  position: absolute;
+  pointer-events: none;
+  top: 6rem;
+}
+
+.text-sm {
+  font-size: 1.1rem;
+}
+
+.text-danger,
+.text-red {
+  color: #e3342f;
 }
 
 .floating-input {

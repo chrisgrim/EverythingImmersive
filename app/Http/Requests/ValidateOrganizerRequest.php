@@ -32,9 +32,9 @@ class ValidateOrganizerRequest extends FormRequest
         $rules = [
             'organizationName' => ['required', Rule::unique('organizers')->ignore($this->id)],
             'organizationDescription' => 'required',
-            'instagramHandle' => 'min:3',
-            'twitterHandle' => 'min:3',
-            'facebookHandle' => 'min:3',
+            'instagramHandle' => 'max:30',
+            'twitterHandle' => 'max:15',
+            'facebookHandle' => 'max:50',
             'organizationWebsite' => ['required', Rule::unique('organizers')->ignore($this->id)],
         ];
         if (is_file($this->organizationImagePath)) {

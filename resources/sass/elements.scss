@@ -5,6 +5,17 @@
   position:relative;
   margin-bottom:2rem;
   padding-top: 3rem;
+  .text-danger {
+    position: absolute;
+    pointer-events: none;
+    top: 6rem;
+  }
+}
+.text-sm {
+  font-size: 1.1rem;
+}
+.text-danger, .text-red {
+  color: $red;
 }
 .floating-input {
 	font-size:14px;

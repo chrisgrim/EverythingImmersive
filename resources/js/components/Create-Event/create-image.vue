@@ -56,16 +56,15 @@ export default {
 
         createImage() {
             let data = new FormData();
-            let headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
-            data.append('eventImage', this.eventImage);
+            data.append('eventImage', this.event.eventImagePath);
 
-            console.log(this.eventImage);
+            console.log(this.event.eventImagePath);
 
-            axios.patch(`${this.eventUrl}/images`, data, headers)
+            axios.post(`${this.eventUrl}/images`, data)
             .then(response => {
                 // all is well. move on to the next page
-                console.log(response.data);
+                window.location.href = `${this.eventUrl}/thanks`;
             });
         },
     },

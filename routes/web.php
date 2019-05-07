@@ -72,7 +72,7 @@ Route::PATCH('/create-your-event/{event}/expect', 'CreatingEventsController@upda
 Route::GET('/create-your-event/{event}/title', 'CreatingEventsController@createTitle');
 Route::PATCH('/create-your-event/{event}/title', 'CreatingEventsController@updateTitle');
 Route::GET('/create-your-event/{event}/images', 'CreatingEventsController@createImages');
-Route::PATCH('/create-your-event/{event}/images', 'CreatingEventsController@storeImages');
+Route::POST('/create-your-event/{event}/images', 'CreatingEventsController@storeImages');
 Route::GET('/create-your-event/{event}/thanks', 'CreatingEventsController@thanks');
 
 

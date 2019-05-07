@@ -164,7 +164,7 @@ class CreatingEventsController extends Controller
     }
     public function storeImages(Request $request, Event $event)
     {
-        $path = request()->file('eventImage')->store('avatars', 'public');
+        $event->storeEventImage($request);
     }
 
     // ------------------------------------------------------
@@ -177,12 +177,6 @@ class CreatingEventsController extends Controller
     
 
 
-     public function eventImageName($request, $event)
-    {
-        $title = $event->slug;
-        $extension = $request->file('eventImage')->getClientOriginalExtension();
-        $fileNameToStore= $title.'.'.$extension;
-        return $fileNameToStore;
-    }
+
 
 }
