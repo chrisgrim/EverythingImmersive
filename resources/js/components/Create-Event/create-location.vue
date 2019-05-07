@@ -7,6 +7,7 @@
 	    	<p>Lets start with an address</p>
 	    	<br>
 	    </div>
+	    <validation-errors :errors="validationErrors" v-if="validationErrors"></validation-errors>
 	    <div>
 	    	<input type="checkbox" v-model="specificLocation"> The specific location is withheld until closer to the date<br>
 	    </div>
@@ -23,19 +24,19 @@
 	            <label class="area"> Please enter how participants will be notified </label>
 	        </div>
 	    	<div class="floating-label" v-else="specificLocation">
-		        <input type="text" class="floating-input" v-model="eventLocation.eventStreetAddress" value=" " placeholder=" " required>
+		        <input type="text" class="floating-input" v-model="eventLocation.eventStreetAddress" value=" " placeholder=" " required @click="hideError()">
 		        <label>Street</label>
 		    </div>
 		    <div class="floating-label">
-		        <input type="text" class="floating-input" v-model="eventLocation.eventCity" value=" " placeholder=" " required>
+		        <input type="text" class="floating-input" v-model="eventLocation.eventCity" value=" " placeholder=" " required @click="hideError()">
 		        <label>City</label>
 		    </div>
 		    <div class="floating-label">
-		        <input type="text" class="floating-input" v-model="eventLocation.eventState" value=" " placeholder=" " required>
+		        <input type="text" class="floating-input" v-model="eventLocation.eventState" value=" " placeholder=" " required @click="hideError()">
 		        <label>State</label>
 		    </div>
 		    <div class="floating-label">
-		        <input type="text" class="floating-input" v-model="eventLocation.eventZipcode" value=" " placeholder=" " required>
+		        <input type="text" class="floating-input" v-model="eventLocation.eventZipcode" value=" " placeholder=" " required @click="hideError()">
 		        <label>Zip</label>
 		    </div>
 		    <div class="floating-label">
@@ -95,7 +96,8 @@
 				selectedRegions: this.pivots,
 				countryData: '',
 				selectedCountry: 'United States of America',
-				eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null
+				eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,
+				validationErrors: ''
 			}
 		},
 
@@ -125,16 +127,11 @@
 				axios.patch(`${this.eventUrl}/location`, data)
 				.then(response => {
                     // all is well. move on to the next page
-                    // window.location.href = `${this.eventUrl}/category`;
+                    window.location.href = `${this.eventUrl}/category`;
                 })
                 .catch(errorResponse => {
                     // show if there are server side validation errors
-                    if (!_.has(errorResponse, 'response.data.errors')) { return false; }
-                    for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
-                        for (const error in errors) {
-                            this.errors.add({ field: field, msg: errors[error] });
-                        }
-                    }
+                    this.validationErrors = errorResponse.response.data.errors
                 });
 			},
 
@@ -149,6 +146,9 @@
 			toggle() {
 				this.specificLocation = !this.specificLocation;
 			},
+			hideError() {
+                this.validationErrors = ''
+            }
 		},
 
 		created() {

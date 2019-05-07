@@ -6,9 +6,17 @@
         <div>
             <p>What can your guests expect with the event?</p>
         </div>
+        <validation-errors :errors="validationErrors" v-if="validationErrors"></validation-errors>
         <div class="floating-form">
             <div class="floating-label area">
-                <textarea class="floating-input area" v-model="description" rows="8" placeholder=" " required autofocus></textarea>
+                <textarea 
+                class="floating-input area" 
+                v-model="description" 
+                rows="8" 
+                placeholder=" " 
+                @click="hideError()"
+                required 
+                autofocus></textarea>
                 <label class="area"> Let your guests know what to expect with the event/performance </label>
             </div>
             <div>
@@ -54,6 +62,7 @@
                 genreName: this.pivots,
                 options: this.genres,
                 eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,
+                validationErrors: ''
 			}
 		},
 
@@ -67,16 +76,11 @@
 				axios.patch(`${this.eventUrl}/description`, data)
                 .then(response => {
                     // all is well. move on to the next page
-                    window.location.href = `${this.eventUrl}/dates`;
+                    window.location.href = `${this.eventUrl}/expect`;
                 })
                 .catch(errorResponse => {
                     // show if there are server side validation errors
-                    if (!_.has(errorResponse, 'response.data.errors')) { return false; }
-                    for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
-                        for (const error in errors) {
-                            this.errors.add({ field: field, msg: errors[error] });
-                        }
-                    }
+                    this.validationErrors = errorResponse.response.data.errors
                 });
 			},
 
@@ -88,6 +92,10 @@
                 this.options.push(tag)
                 this.genreName.push(tag)
             },
+
+            hideError() {
+                this.validationErrors = ''
+            }
 
 		},
     };

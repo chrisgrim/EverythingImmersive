@@ -63,7 +63,7 @@ Vue.component('create-expect', require('./components/Create-Event/create-expect.
 Vue.component('create-categories', require('./components/Create-Event/create-categories.vue').default);
 Vue.component('create-title', require('./components/Create-Event/create-title.vue').default);
 Vue.component('create-image', require('./components/Create-Event/create-image.vue').default);
-
+Vue.component('validation-errors', require('./components/validation-errors.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
