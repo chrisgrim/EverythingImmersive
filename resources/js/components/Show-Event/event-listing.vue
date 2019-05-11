@@ -9,6 +9,7 @@
 		        label="eventTitle" 
 		        track-by="eventTitle" 
 		        deselectLabel=''
+		        @keyup="filteredEvents"
 		        :allow-empty="false"  
 		        :options="searchOptions" 
 		        >
@@ -47,9 +48,9 @@
 
 		computed: {
 			filteredEvents(){
-				return this.events.filter(event => {
-					return event.eventTitle.toLowerCase().indexOf(this.value.toLowerCase()) > -1
-				})
+				if( !this.value ) {return this.allEvents;}
+					const search = this.value.eventTitle.toLowerCase().trim();
+					return this.events.filter(c => c.eventTitle.toLowerCase().indexOf(search) > -1);
 			}
 		},
 
