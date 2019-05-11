@@ -98,6 +98,7 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'eventStudentCost' => $faker->randomDigit,
         'eventExpectations' => $faker->paragraph,
         'eventTicketUrl' => $faker->url,
+        'specificLocation' => $faker->randomElement(['Yes', 'No']),
     	'eventStreetAddress' => $faker->streetAddress,
     	'eventCity' => $faker->city,
     	'eventState' => $faker->state,
@@ -117,5 +118,6 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'eventImagePath' => 'event-images/'. $eventimagesave,
         'thumbImagePath' => 'thumb-images/'. $thumbimagesave,
         'visitors' => $faker->randomDigit,
+        'approved' => $faker->randomElement(['1', '0']),
     ];
 });

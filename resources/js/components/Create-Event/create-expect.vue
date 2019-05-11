@@ -4,9 +4,6 @@
     		<h2> What can your guests expect?</h2>
 	    </div>
 	    <div>
-	    	<flash></flash>
-	    </div>
-	    <div>
 	    	<p>Let the guests know what they can expect. Will there be scary noises or bright flashes?</p>
 	    	<p>Some common ones include: 
 				* strong language
@@ -76,7 +73,7 @@
 	  				</multiselect>
 				</div>
 			</div>
-			<div v-if="eventExpect.sexualViolence">
+			<div v-if="showSexViolenceReason">
 				<div class="floating-label area">
 		            <textarea v-model="eventExpect.sexualViolenceDescription" class="floating-input area" rows="8" placeholder=" " required autofocus></textarea>
 		            <label class="area"> Explain more about the sexual violence </label>
@@ -139,10 +136,17 @@
 			return {
 				eventExpect: this.initializeEventObject(),
 				contactLevelOptions: this.contact,
-				contactLevel: '',
+				contactLevel: this.pivots,
 				sexualViolenceOptions: [ 'Yes', 'No' ],
 				wheelchairOptions: [ 'Yes', 'No' ],
 				eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null
+			}
+		},
+
+		computed: {
+			showSexViolenceReason: function() {
+				if ( this.eventExpect.sexualViolence == 'Yes' ) {
+					return 'The show includes' } else { return ''}
 			}
 		},
 

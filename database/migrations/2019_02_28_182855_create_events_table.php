@@ -30,7 +30,7 @@ class CreateEventsTable extends Migration
             $table->string('eventAllOtherCost')->nullable();
             $table->string('eventTicketUrl')->nullable();
             $table->longtext('eventExpectations')->nullable();
-            $table->boolean('specificLocation')->default(false);
+            $table->string('specificLocation')->nullable();
             $table->string('eventStreetAddress')->nullable();
             $table->string('eventCity')->nullable();
             $table->string('eventState')->nullable();

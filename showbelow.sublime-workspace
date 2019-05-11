@@ -4,6 +4,470 @@
 		"selected_items":
 		[
 			[
+				"sex",
+				"sexualViolenceDescription"
+			],
+			[
+				"show",
+				"showSexViolenceReason"
+			],
+			[
+				"eventLocat",
+				"eventLocation"
+			],
+			[
+				"eventLoc",
+				"eventLocation"
+			],
+			[
+				"Militar",
+				"militaryCost"
+			],
+			[
+				"Mi",
+				"militaryCost"
+			],
+			[
+				"Cate",
+				"category"
+			],
+			[
+				"va",
+				"validator"
+			],
+			[
+				"organizationIm",
+				"organizationImagePath"
+			],
+			[
+				"organiz",
+				"organizationWebsite"
+			],
+			[
+				"orga",
+				"organizationDescription"
+			],
+			[
+				"or",
+				"organizationName"
+			],
+			[
+				"event",
+				"eventImagePath"
+			],
+			[
+				"val",
+				"validationErrors"
+			],
+			[
+				"create",
+				"createImage"
+			],
+			[
+				"Valida",
+				"ValidateTitleRequest"
+			],
+			[
+				"eve",
+				"eventImagePath"
+			],
+			[
+				"even",
+				"eventImageModel"
+			],
+			[
+				"re",
+				"response"
+			],
+			[
+				"lo",
+				"eventLocation"
+			],
+			[
+				"evet",
+				"eventTitle"
+			],
+			[
+				"Val",
+				"ValidateCategoryRequest"
+			],
+			[
+				"cate",
+				"category"
+			],
+			[
+				"categ",
+				"category_id"
+			],
+			[
+				"select",
+				"selectedCategory"
+			],
+			[
+				"search",
+				"searchOptions"
+			],
+			[
+				"ca",
+				"catch"
+			],
+			[
+				"sub",
+				"submitCategory"
+			],
+			[
+				"sele",
+				"selectedCategory"
+			],
+			[
+				"eventc",
+				"eventCountry"
+			],
+			[
+				"co",
+				"countryData1"
+			],
+			[
+				"sel",
+				"selectedCountry"
+			],
+			[
+				"get",
+				"getCountriesList"
+			],
+			[
+				"region",
+				"regionOptions"
+			],
+			[
+				"selected",
+				"selectedRegions"
+			],
+			[
+				"stre",
+				"eventStreetAddress"
+			],
+			[
+				"cont",
+				"contactLevel1"
+			],
+			[
+				"ex",
+				"eventExpect"
+			],
+			[
+				"content",
+				"contentAdvisories"
+			],
+			[
+				"st",
+				"eventStudentCost"
+			],
+			[
+				"all",
+				"allOtherCost"
+			],
+			[
+				"vi",
+				"VIPCost"
+			],
+			[
+				"ev",
+				"eventVIPCost"
+			],
+			[
+				"ini",
+				"initializeEventObject"
+			],
+			[
+				"Va",
+				"ValidateDescriptionRequest"
+			],
+			[
+				"init",
+				"initializeDescriptionObject"
+			],
+			[
+				"error",
+				"errorResponse"
+			],
+			[
+				"organizationN",
+				"organizationName"
+			],
+			[
+				"organizati",
+				"organizationName"
+			],
+			[
+				"initiali",
+				"initializeSearchOptions"
+			],
+			[
+				"sea",
+				"searchOptions"
+			],
+			[
+				"instagra",
+				"instagramHandle"
+			],
+			[
+				"organization",
+				"organizationName"
+			],
+			[
+				"autocom",
+				"AutocompleteResults"
+			],
+			[
+				"organizationImage",
+				"organizationImageModel"
+			],
+			[
+				"organ",
+				"organizer"
+			],
+			[
+				"org",
+				"organizationImagePath"
+			],
+			[
+				"organi",
+				"organizationImagePath"
+			],
+			[
+				"Validate",
+				"ValidateOrganizerRequest"
+			],
+			[
+				"temp",
+				"tempImage"
+			],
+			[
+				"twitt",
+				"twitterHandle"
+			],
+			[
+				"organizationName",
+				"organizationNameModel"
+			],
+			[
+				"isNew",
+				"isNewOrganizer"
+			],
+			[
+				"ins",
+				"instagramHandle"
+			],
+			[
+				"face",
+				"facebookHandle"
+			],
+			[
+				"organizatio",
+				"organizationDescription"
+			],
+			[
+				"na",
+				"navArea"
+			],
+			[
+				"countr",
+				"countryData"
+			],
+			[
+				"da",
+				"dateTwo"
+			],
+			[
+				"form",
+				"formattedDates"
+			],
+			[
+				"load",
+				"loadSexualViolence"
+			],
+			[
+				"whee",
+				"wheelchairReady"
+			],
+			[
+				"wheel",
+				"wheelchair"
+			],
+			[
+				"whe",
+				"wheelchairReady"
+			],
+			[
+				"contact",
+				"contactLevel"
+			],
+			[
+				"mobi",
+				"mobilityAdvisories"
+			],
+			[
+				"se",
+				"sexualViolenceDescription"
+			],
+			[
+				"touch",
+				"touchAdvisoryDescription"
+			],
+			[
+				"conten",
+				"contentAdvisories"
+			],
+			[
+				"conte",
+				"contactLevel"
+			],
+			[
+				"conta",
+				"contactLevelOptions"
+			],
+			[
+				"level",
+				"contactLevel"
+			],
+			[
+				"con",
+				"contactLevelOptions"
+			],
+			[
+				"contactL",
+				"contactLevelOptions"
+			],
+			[
+				"caet",
+				"categoryId"
+			],
+			[
+				"category",
+				"category_id"
+			],
+			[
+				"selec",
+				"selectedCountry"
+			],
+			[
+				"sy",
+				"sync"
+			],
+			[
+				"coun",
+				"countryFilteredList"
+			],
+			[
+				"any",
+				"anyOtherCost"
+			],
+			[
+				"sen",
+				"seniorCost"
+			],
+			[
+				"an",
+				"anyOtherCost"
+			],
+			[
+				"ax",
+				"axiosResult"
+			],
+			[
+				"country",
+				"countrydata"
+			],
+			[
+				"cou",
+				"countryFilteredList"
+			],
+			[
+				"to",
+				"toLowerCase"
+			],
+			[
+				"specific",
+				"specificLocation"
+			],
+			[
+				"axi",
+				"axiosTestResult"
+			],
+			[
+				"floa",
+				"floating-form"
+			],
+			[
+				"flo",
+				"floating-input"
+			],
+			[
+				"float",
+				"floating-label"
+			],
+			[
+				"organizer",
+				"organizerWebsite"
+			],
+			[
+				"we",
+				"organizerWebsite"
+			],
+			[
+				"organize",
+				"organizer_id"
+			],
+			[
+				"organizat",
+				"organizationId"
+			],
+			[
+				"o",
+				"organizationName"
+			],
+			[
+				"on",
+				"onEnter"
+			],
+			[
+				"onAr",
+				"onArrowUp"
+			],
+			[
+				"t",
+				"type\tAttr"
+			],
+			[
+				"filter",
+				"filterResults"
+			],
+			[
+				"orgi",
+				"organizer"
+			],
+			[
+				"fav",
+				"favorites"
+			],
+			[
+				"grid-te",
+				"grid-template-columns"
+			],
+			[
+				"padding",
+				"padding-right"
+			],
+			[
+				"paddi",
+				"padding"
+			],
+			[
+				"backg",
+				"background-image"
+			],
+			[
 				"back",
 				"background-color"
 			],
@@ -12,20 +476,12 @@
 				"padding-top"
 			],
 			[
-				"fav",
-				"favorited-type"
-			],
-			[
 				"favo",
 				"favorited_id"
 			],
 			[
 				"uns",
 				"unsignedInteger"
-			],
-			[
-				"cate",
-				"categories"
 			],
 			[
 				"paddin",
@@ -52,100 +508,12 @@
 				"padding-bottom"
 			],
 			[
-				"categ",
-				"categories"
-			],
-			[
 				"file",
 				"fileNameToStore"
 			],
 			[
 				"requ",
 				"request"
-			],
-			[
-				"org",
-				"organizationDescription"
-			],
-			[
-				"req",
-				"required"
-			],
-			[
-				"organi",
-				"organizationName"
-			],
-			[
-				"in",
-				"inline-flex"
-			],
-			[
-				"form",
-				"form-control"
-			],
-			[
-				"chgr",
-				"chgrim"
-			],
-			[
-				"Vali",
-				"Validate"
-			],
-			[
-				"bac",
-				"background-repeat"
-			],
-			[
-				"padd",
-				"padding-top"
-			],
-			[
-				"inli",
-				"inline-block"
-			],
-			[
-				"text-a",
-				"text-align"
-			],
-			[
-				"border-top",
-				"border-top-left-radius"
-			],
-			[
-				"background-c",
-				"background-color"
-			],
-			[
-				"bt",
-				"btn-default"
-			],
-			[
-				"grid-te",
-				"grid-template-rows"
-			],
-			[
-				"grid-templ",
-				"grid-template-rows"
-			],
-			[
-				"grid-templa",
-				"grid-template-areas"
-			],
-			[
-				"light",
-				"lightslategray"
-			],
-			[
-				"h",
-				"h1\tTag"
-			],
-			[
-				"var",
-				"var_dump"
-			],
-			[
-				"htmlspecialca",
-				"htmlspecialchars"
 			]
 		]
 	},
@@ -155,63 +523,54 @@
 			"file": "routes/web.php",
 			"settings":
 			{
-				"buffer_size": 3147,
+				"buffer_size": 3779,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "resources/sass/createSection.scss",
+			"file": "app/Http/Controllers/EventsController.php",
 			"settings":
 			{
-				"buffer_size": 540,
+				"buffer_size": 2921,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "resources/sass/container.scss",
+			"file": "resources/views/events/index.blade.php",
 			"settings":
 			{
-				"buffer_size": 1456,
+				"buffer_size": 827,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "resources/views/events/create/imageCreate.blade.php",
+			"file": "resources/js/components/Show-Event/event-listing.vue",
 			"settings":
 			{
-				"buffer_size": 811,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "resources/js/components/featured-image.vue",
-			"settings":
-			{
-				"buffer_size": 902,
+				"buffer_size": 451,
 				"encoding": "UTF-8",
 				"line_ending": "Unix",
-				"name": "featured-image.vue"
+				"name": "event-listing.vue"
 			}
 		},
 		{
-			"file": "resources/views/events/create/editEvents.blade.php",
+			"file": "resources/js/components/Show-Event/event-listing-item.vue",
 			"settings":
 			{
-				"buffer_size": 1280,
+				"buffer_size": 1133,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"line_ending": "Unix",
+				"name": "event-listing-item.vue"
 			}
 		},
 		{
-			"file": "resources/views/events/create/expectCreate.blade.php",
+			"file": "resources/views/events/grid.blade.php",
 			"settings":
 			{
-				"buffer_size": 1762,
-				"encoding": "UTF-8",
+				"buffer_size": 847,
 				"line_ending": "Unix"
 			}
 		}
@@ -261,163 +620,160 @@
 		"/Users/Chris/code/showbelow/app",
 		"/Users/Chris/code/showbelow/app/Http",
 		"/Users/Chris/code/showbelow/app/Http/Controllers",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/Auth",
-		"/Users/Chris/code/showbelow/app/Policies",
-		"/Users/Chris/code/showbelow/app/Providers",
+		"/Users/Chris/code/showbelow/app/Http/Requests",
 		"/Users/Chris/code/showbelow/database",
 		"/Users/Chris/code/showbelow/database/factories",
 		"/Users/Chris/code/showbelow/database/migrations",
-		"/Users/Chris/code/showbelow/public",
-		"/Users/Chris/code/showbelow/public/css",
-		"/Users/Chris/code/showbelow/public/js",
 		"/Users/Chris/code/showbelow/resources",
 		"/Users/Chris/code/showbelow/resources/js",
 		"/Users/Chris/code/showbelow/resources/js/components",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event",
+		"/Users/Chris/code/showbelow/resources/js/components/Show-Event",
 		"/Users/Chris/code/showbelow/resources/sass",
 		"/Users/Chris/code/showbelow/resources/views",
-		"/Users/Chris/code/showbelow/resources/views/category",
-		"/Users/Chris/code/showbelow/resources/views/contact",
 		"/Users/Chris/code/showbelow/resources/views/events",
 		"/Users/Chris/code/showbelow/resources/views/events/create",
-		"/Users/Chris/code/showbelow/resources/views/favorites",
 		"/Users/Chris/code/showbelow/resources/views/layouts",
+		"/Users/Chris/code/showbelow/resources/views/organization",
 		"/Users/Chris/code/showbelow/resources/views/profiles",
-		"/Users/Chris/code/showbelow/routes"
+		"/Users/Chris/code/showbelow/resources/views/RSS",
+		"/Users/Chris/code/showbelow/routes",
+		"/Users/Chris/code/showbelow/storage"
 	],
 	"file_history":
 	[
-		"/Users/Chris/code/showbelow/resources/sass/elements.scss",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-expect.vue",
 		"/Users/Chris/code/showbelow/resources/js/app.js",
-		"/Users/Chris/code/showbelow/resources/js/components/favorite.vue",
-		"/Users/Chris/code/showbelow/resources/views/layouts/footer.blade.php",
-		"/Users/Chris/code/showbelow/.env",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/CreatingEventsController.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-details.vue",
+		"/Users/Chris/code/showbelow/resources/views/layouts/meta.blade.php",
+		"/Users/Chris/code/showbelow/database/factories/UserFactory.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-location.vue",
+		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_182855_create_events_table.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-title.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-image.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-description.vue",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateTitleRequest.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-datepicker.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-categories.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-organization.vue",
+		"/Users/Chris/code/showbelow/app/Event.php",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateOrganizerRequest.php",
+		"/Users/Chris/code/showbelow/resources/sass/elements.scss",
+		"/Users/Chris/code/showbelow/package.json",
+		"/Users/Chris/code/showbelow/resources/sass/grid.scss",
+		"/Users/Chris/code/showbelow/resources/js/components/validation-errors.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/flash.vue",
+		"/Users/Chris/code/showbelow/resources/views/events/create/Create_Image.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/Create_Title.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/Create_Location.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/components/create-categories.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/create-datepicker.vue",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateCategoryRequest.php",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateLocationRequest.php",
+		"/Users/Chris/code/showbelow/resources/js/components/create-expect.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/create-location.vue",
+		"/Users/Chris/code/showbelow/resources/views/events/create/Create_Category.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/components/create-details.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/create-organization.vue",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateExpectRequest.php",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateDetailsRequest.php",
+		"/Users/Chris/code/showbelow/app/Organizer.php",
+		"/Users/Chris/code/showbelow/resources/js/components/create-description.vue",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateDescriptionRequest.php",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateOrganizerRequest1.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/Create_Organizer.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/questions.blade.php",
+		"/Users/Chris/code/showbelow/node_modules/caniuse-lite/data/features/cors.js",
+		"/Users/Chris/code/showbelow/resources/views/layouts/nav.blade.php",
+		"/Users/Chris/code/showbelow/resources/sass/nav.scss",
+		"/Users/Chris/code/showbelow/resources/sass/app.scss",
+		"/Users/Chris/code/showbelow/resources/sass/multiselect.scss",
+		"/Users/Chris/code/showbelow/resources/views/events/create/Create_Dates.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/components/create-guide.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-datepicker2.vue",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/RssController.php",
+		"/Users/Chris/code/showbelow/resources/views/RSS/index.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/createWalkthrough.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/expectCreate.blade.php",
+		"/Users/Chris/code/showbelow/database/migrations/2019_04_22_212624_create_contact_levels_table.php",
+		"/Users/Chris/code/showbelow/app/ContactLevel.php",
+		"/Users/Chris/code/showbelow/database/migrations/2019_04_18_213051_create_genres_table.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/dateCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/locationCreate.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/guide.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/titleCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/detailsCreate.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/organizerCreate.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/descriptionCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/categoryCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/container.scss",
-		"/Users/Chris/code/showbelow/resources/views/events/index.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/locationCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/buttons.scss",
-		"/Users/Chris/code/showbelow/resources/views/layouts/navMenu.blade.php",
-		"/Users/Chris/code/showbelow/app/Providers/AppServiceProvider.php",
-		"/Users/Chris/code/showbelow/resources/views/layouts/navLogo.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/favorites/index.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/grid.blade.php",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/SearchController.php",
-		"/Users/Chris/code/showbelow/app/User.php",
-		"/Users/Chris/code/showbelow/resources/sass/nav.scss",
+		"/Users/Chris/code/showbelow/app/Genre.php",
+		"/Users/Chris/code/showbelow/resources/js/components/description-create.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/guide-create.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/location-create.vue",
+		"/Users/Chris/code/showbelow/database/migrations/2019_04_12_023703_create_regions_table.php",
+		"/Users/Chris/code/showbelow/app/Region.php",
+		"/Users/Chris/code/showbelow/resources/js/components/details-create.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/organization-create.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/datepicker.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/AirbnbStyleDatepicker1.vue",
+		"/Users/Chris/code/showbelow/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php",
+		"/Users/Chris/code/showbelow/resources/js/components/profile-button.vue",
+		"/Users/Chris/code/showbelow/resources/js/components/organization-autocomplete.vue",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/FavoritesController.php",
-		"/Users/Chris/code/showbelow/app/Favorite.php",
-		"/Users/Chris/code/showbelow/app/Event.php",
-		"/Users/Chris/code/showbelow/resources/sass/_variables.scss",
-		"/Users/Chris/code/showbelow/resources/js/components/autocomplete.vue",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
-		"/Users/Chris/code/showbelow/resources/views/events/search.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/profiles/show.blade.php",
-		"/Users/Chris/code/showbelow/resources/js/components/flash.vue",
-		"/Users/Chris/code/showbelow/resources/js/components/avatar-form.vue",
+		"/Users/Chris/code/showbelow/resources/sass/createSection.scss",
+		"/Users/Chris/code/showbelow/resources/js/components/organizationAutocomplete.vue",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/ProfilesController.php",
-		"/Users/Chris/code/showbelow/resources/sass/profile.scss",
-		"/Users/Chris/code/showbelow/resources/sass/app.scss",
-		"/Users/Chris/code/showbelow/database/migrations/2019_03_16_221006_create_favorites_table.php",
-		"/Users/Chris/code/showbelow/resources/sass/modal.scss",
-		"/Users/Chris/code/showbelow/app/Policies/UserPolicy.php",
-		"/Users/Chris/code/showbelow/app/Policies/EventPolicy.php",
-		"/Users/Chris/code/showbelow/app/Providers/AuthServiceProvider.php",
-		"/Users/Chris/code/showbelow/resources/js/components/imageupload.vue",
-		"/Users/Chris/code/showbelow/resources/views/profiles/index.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/grid.scss",
-		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_182855_create_events_table.php",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/LikesController.php",
-		"/Users/Chris/code/showbelow/resources/js/components/likes.vue",
-		"/Users/Chris/code/showbelow/app/Like.php",
-		"/Users/Chris/code/showbelow/database/factories/UserFactory.php",
-		"/Users/Chris/code/showbelow/vendor/fzaninotto/faker/src/Faker/Provider/Person.php",
-		"/Users/Chris/code/showbelow/app/Organizer.php",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/ApproveEventsController.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/RegionsController.php",
 		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_232112_create_organizers_table.php",
-		"/Users/Chris/code/showbelow/database/migrations/2019_03_01_012154_create_categories_table.php",
-		"/Users/Chris/code/showbelow/database/migrations/2019_03_14_220830_create_likes_table.php",
-		"/Users/Chris/code/showbelow/resources/views/events/approval/emailApprovalForm.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/approval/unapprovedreason.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/approval/show.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/approval/grid.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/approval/index.blade.php",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/CreatingEventsController.php",
-		"/Users/Chris/code/showbelow/app/Category.php",
-		"/Users/Chris/code/showbelow/config/app.php",
+		"/Users/Chris/code/showbelow/resources/js/components/featured-image.vue",
+		"/Users/Chris/code/showbelow/resources/views/events/create/titleCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/components/AirbnbStyleDatepicker.vue",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/OrganizerController.php",
+		"/Users/Chris/code/showbelow/app/User.php",
+		"/Users/Chris/code/showbelow/app/Http/Middleware/IsOrganizer.php",
+		"/Users/Chris/code/showbelow/app/Http/Kernel.php",
 		"/Users/Chris/code/showbelow/config/services.php",
 		"/Users/Chris/code/showbelow/node_modules/dotenv/config.js",
-		"/Users/Chris/code/showbelow/bootstrap/app.php",
-		"/Users/Chris/code/showbelow/app/Http/Kernel.php",
-		"/Users/Chris/code/showbelow/app/Http/Middleware/IsAdmin.php",
-		"/Users/Chris/code/showbelow/app/Http/Middleware/Admin.php",
-		"/Users/Chris/code/showbelow/resources/sass/event.scss",
 		"/Users/Chris/code/showbelow/resources/views/events/show.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/category/show.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/layouts/meta.blade.php",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/CategoryController.php",
-		"/Users/Chris/code/showbelow/resources/views/category/index.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/test.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/category/grid.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/editEvents.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/thanksCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/imageCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/createSection.scss",
-		"/Users/Chris/code/showbelow/resources/views/events/create/expectCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/createWalkthrough.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/locationContent.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/locationGuide.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/contact/create.blade.php",
-		"/Users/Chris/code/showbelow/public/css/app.css",
-		"/Users/Chris/code/showbelow/routes/web.php",
-		"/Users/Chris/code/showbelow/webpack.mix.js",
-		"/Users/Chris/code/showbelow/app/Http/Requests/EventRequest.php",
+		"/Users/Chris/code/showbelow/resources/views/organization/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/components/favorite.vue",
+		"/Users/Chris/code/showbelow/resources/views/auth/login.blade.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/Auth/LoginController.php",
 		"/Users/Chris/code/showbelow/database/migrations/2014_10_12_000000_create_users_table.php",
-		"/Users/Chris/code/demo/sftp-config.json",
-		"/Users/Chris/code/demo/resources/views/Brands/test.blade.php",
-		"/Users/Chris/code/demo/vendor/psy/psysh/test/fixtures/default/.config/psysh/config.php",
-		"/Users/Chris/code/demo/app/Http/Controllers/BrandsController.php",
-		"/Users/Chris/code/demo/resources/views/Brands/reviews.blade.php",
-		"/Users/Chris/code/demo/resources/assets/js/components/PostReview.vue",
-		"/Users/Chris/code/demo/resources/assets/js/components/review.vue",
-		"/Users/Chris/code/demo/resources/assets/js/components/ReviewForm.vue",
-		"/Users/Chris/code/demo/resources/views/Brands/show.blade.php",
-		"/Users/Chris/code/demo/app/Providers/AuthServiceProvider.php",
-		"/Users/Chris/code/demo/resources/assets/js/app.js",
-		"/Users/Chris/code/demo/app/Http/Controllers/ReviewsController.php",
-		"/Users/Chris/code/demo/database/factories/UserFactory.php",
-		"/Users/Chris/code/demo/resources/views/layouts/master.blade.php",
-		"/Users/Chris/code/demo/app/Http/Controllers/MailContactsController.php",
-		"/Users/Chris/code/demo/resources/views/auth/register.blade.php",
-		"/Users/Chris/code/demo/resources/views/auth/login.blade.php",
-		"/Users/Chris/code/demo/app/Brand.php",
-		"/Users/Chris/code/demo/resources/assets/sass/homepage.scss",
-		"/Users/Chris/code/demo/resources/assets/sass/app.scss",
-		"/Users/Chris/code/demo/resources/views/Brands/index.blade.php",
-		"/Users/Chris/code/demo/resources/assets/js/components/avatarform.vue",
-		"/Users/Chris/code/demo/resources/views/profiles/show.blade.php",
-		"/Users/Chris/code/demo/resources/views/Contact/create.blade.php",
-		"/Users/Chris/code/demo/app/Rules/Recaptcha.php",
-		"/Users/Chris/code/demo/.env",
-		"/Users/Chris/code/demo/config/services.php",
-		"/Users/Chris/code/demo/app/Http/Controllers/ProfilesController.php",
-		"/Users/Chris/code/demo/app/Mail/ContactUs.php",
-		"/Users/Chris/code/demo/resources/views/emails/contact.blade.php",
-		"/Users/Chris/code/demo/config/mail.php",
-		"/Users/Chris/code/demo/database/migrations/2018_07_31_232007_create_mail_contacts_table.php",
-		"/Users/Chris/code/demo/app/MailContact.php",
-		"/Users/Chris/code/demo/app/Http/Controllers/ContactController.php",
-		"/Users/Chris/code/demo/app/Http/Controllers/MailContactController.php",
-		"/Users/Chris/code/demo/app/Http/Requests/ContactFormRequest.php",
-		"/Users/Chris/code/demo/app/User.php"
+		"/Users/Chris/code/showbelow/.env",
+		"/Users/Chris/code/showbelow/.editorconfig",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/AdminController.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
+		"/Users/Chris/code/showbelow/resources/views/events/index.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/profiles/adminIndex.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/favorites/index.blade.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/CategoryController.php",
+		"/Users/Chris/code/showbelow/app/Category.php",
+		"/Users/Chris/code/showbelow/resources/views/category/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/approval/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/layouts/navMenu.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/layouts/navLogo.blade.php",
+		"/Users/Chris/code/showbelow/resources/sass/_variables.scss",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/ApproveEventsController.php",
+		"/Users/Chris/code/showbelow/resources/sass/buttons.scss",
+		"/Users/Chris/code/showbelow/resources/views/events/create/editEvents.blade.php",
+		"/Users/Chris/code/showbelow/app/Http/Middleware/IsAdmin.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create.blade.php",
+		"/Users/Chris/code/showbelow/config/session.php",
+		"/Users/Chris/code/showbelow/app/Favorite.php",
+		"/Users/Chris/code/showbelow/resources/views/events/grid.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/profiles/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/sass/event.scss",
+		"/Users/Chris/code/showbelow/resources/views/events/create/categoryCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/views/events/create/imageCreate.blade.php",
+		"/Users/Chris/code/showbelow/resources/sass/container.scss",
+		"/Users/Chris/code/showbelow/sftp-config.json",
+		"/Users/Chris/code/showbelow/app/Http/Middleware/RedirectIfAuthenticated.php",
+		"/Users/Chris/code/showbelow/resources/views/layouts/footer.blade.php",
+		"/Users/Chris/code/showbelow/app/Providers/AppServiceProvider.php"
 	],
 	"find":
 	{
-		"height": 72.0
+		"height": 98.0
 	},
 	"find_in_files":
 	{
@@ -433,6 +789,88 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"listing",
+			"this.eventImage = image.src;\n            this.event.eventImagePath = image.file;",
+			"required",
+			"errors",
+			"eventImage",
+			"title",
+			"categories",
+			"/components/",
+			"expect",
+			"eventPivot",
+			"options",
+			"length",
+			"lenght",
+			"length",
+			"options",
+			"eventDetails",
+			",",
+			"this.",
+			"'",
+			"contactLevel",
+			": ''",
+			"required",
+			"military",
+			"organizer",
+			"this",
+			"new",
+			"onImage",
+			"autocompleteResults",
+			"null",
+			"organizers",
+			"organizationNameModel",
+			"organiationName",
+			"united",
+			"dateThree",
+			"dateTwo",
+			"dateOne",
+			"dateTwo",
+			"dateOne",
+			"response",
+			"organization",
+			"description",
+			"wheelchair",
+			"wheelchairReady",
+			"touch",
+			"immersive",
+			"immerive",
+			"immersve",
+			"guide",
+			"eventExpectations",
+			"description",
+			"organization-create",
+			"location-create",
+			"genre",
+			"code",
+			"id",
+			"name",
+			"string",
+			"tostring",
+			"console",
+			"countryData",
+			"genre",
+			"details",
+			"Check",
+			"min:3",
+			"min",
+			"specific",
+			"location",
+			"name",
+			";",
+			"v-model=\"city\"",
+			"this",
+			"public",
+			"storage",
+			".desktop-menu-item",
+			"30px",
+			"62.5px",
+			"2px",
+			"2",
+			"62.5",
+			"@color",
+			"color",
+			"link",
 			"avatar-form",
 			"important",
 			")",
@@ -501,7 +939,38 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3147,
+						"buffer_size": 3779,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								824,
+								757
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 421.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/Http/Controllers/EventsController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2921,
 						"regions":
 						{
 						},
@@ -517,41 +986,12 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 530.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "resources/sass/createSection.scss",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 540,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								521,
-								521
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/CSS/CSS.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 534.0,
+						"translation.y": 424.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -559,19 +999,19 @@
 				},
 				{
 					"buffer": 2,
-					"file": "resources/sass/container.scss",
+					"file": "resources/views/events/index.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1456,
+						"buffer_size": 827,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1035,
-								1035
+								663,
+								663
 							]
 						],
 						"settings":
@@ -579,10 +1019,11 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/CSS/CSS.sublime-syntax"
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1867.0,
+						"translation.y": 247.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -590,115 +1031,79 @@
 				},
 				{
 					"buffer": 3,
-					"file": "resources/views/events/create/imageCreate.blade.php",
+					"file": "resources/js/components/Show-Event/event-listing.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 811,
+						"buffer_size": 451,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								346,
-								258
+								164,
+								164
 							]
 						],
 						"settings":
 						{
+							"auto_name": "event-listing.vue",
 							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 103.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "resources/js/components/featured-image.vue",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 902,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								881,
-								881
-							]
-						],
-						"settings":
-						{
-							"auto_name": "featured-image.vue",
-							"incomplete_sync": null,
-							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1009.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "resources/views/events/create/editEvents.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1280,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								255,
-								255
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 181.0,
+						"translation.y": 51.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "resources/views/events/create/expectCreate.blade.php",
+					"buffer": 4,
+					"file": "resources/js/components/Show-Event/event-listing-item.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1762,
+						"buffer_size": 1133,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1731,
-								1624
+								950,
+								950
+							]
+						],
+						"settings":
+						{
+							"auto_name": "event-listing-item.vue",
+							"incomplete_sync": null,
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 38.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "resources/views/events/grid.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 847,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								127,
+								198
 							]
 						],
 						"settings":
@@ -707,11 +1112,10 @@
 							"remote_loading": false,
 							"synced": false,
 							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 736.0,
+						"translation.y": 1.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -773,20 +1177,48 @@
 		"selected_items":
 		[
 			[
-				"faker/provider/",
-				"vendor/fzaninotto/faker/src/Faker/Provider/Person.php"
+				"cors.",
+				"node_modules/caniuse-lite/data/features/cors.js"
 			],
 			[
-				"app",
-				"config/app.php"
+				"authen",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php"
+			],
+			[
+				"",
+				"resources/sass/elements.scss"
+			],
+			[
+				"ser",
+				"config/services.php"
+			],
+			[
+				"conf",
+				"node_modules/dotenv/config.js"
+			],
+			[
+				"authenicateus",
+				"vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php"
 			],
 			[
 				"service",
 				"config/services.php"
 			],
 			[
-				"conf",
-				"node_modules/dotenv/config.js"
+				"servi",
+				"config/services.php"
+			],
+			[
+				"session",
+				"config/session.php"
+			],
+			[
+				"faker/provider/",
+				"vendor/fzaninotto/faker/src/Faker/Provider/Person.php"
+			],
+			[
+				"app",
+				"config/app.php"
 			],
 			[
 				"app.p",
@@ -863,10 +1295,6 @@
 			[
 				"footer",
 				"resources/views/layouts/footer.blade.php"
-			],
-			[
-				"",
-				"app/Http/Controllers/PostsController.php"
 			]
 		],
 		"width": 0.0

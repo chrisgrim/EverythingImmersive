@@ -6,18 +6,11 @@
         <div>
             <p>What can your guests expect with the event?</p>
         </div>
-        <validation-errors :errors="validationErrors" v-if="validationErrors"></validation-errors>
         <div class="floating-form">
             <div class="floating-label area">
-                <textarea 
-                class="floating-input area" 
-                v-model="description" 
-                rows="8" 
-                placeholder=" " 
-                @click="hideError()"
-                required 
-                autofocus></textarea>
+                <textarea class="floating-input area" v-model="description" rows="8" name="description" v-validate="'required|max:400'" data-vv-as="Event Description" placeholder=" "></textarea>
                 <label class="area"> Let your guests know what to expect with the event/performance </label>
+                <span class="text-sm text-danger">{{ errors.first('description') }}</span>
             </div>
             <div>
                 Event Genre
@@ -62,12 +55,13 @@
                 genreName: this.pivots,
                 options: this.genres,
                 eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,
-                validationErrors: ''
 			}
 		},
 
 		methods: {
-			submitDescription() {
+			async submitDescription() {
+                if(!await this.$validator.validate()) { return false; }
+                
 				let data = {
                     'eventDescription': this.description,
            		};
@@ -93,9 +87,6 @@
                 this.genreName.push(tag)
             },
 
-            hideError() {
-                this.validationErrors = ''
-            }
 
 		},
     };

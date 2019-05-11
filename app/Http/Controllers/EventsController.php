@@ -23,10 +23,8 @@ class EventsController extends Controller
     public function index()
     {
         $categories = Category::whereHas('events')->oldest()->get();
-        
-        $events = Event::where('approved', true)->paginate(15);
+        $events = Event::latest()->where('approved', true)->get();
 
-        //return $events;
         return view('events.index',compact('events','categories'));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ValidateTitleRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class ValidateTitleRequest extends FormRequest
     public function rules()
     {
         return [
-            'eventTitle' => 'required',
+            'eventTitle' => ['required', Rule::unique('events')->ignore($this->id)],
         ];
     }
 }

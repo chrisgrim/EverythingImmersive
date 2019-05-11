@@ -8,10 +8,18 @@
 	    	<br>
 	    </div>
 	    <div>
-	    	<input type="checkbox" v-model="specificLocation"> The specific location is withheld until closer to the date<br>
+			<multiselect 
+			v-model="eventLocation.specificLocation" 
+			deselect-label="Can't remove this value" 
+			placeholder="Is the location is being withheld?" 
+			:options="eventLocationOptions" 
+			open-direction="bottom"
+			:searchable="false" 
+			:allow-empty="false">
+			</multiselect>
 	    </div>
 	    <div class="floating-form">
-	    	<div class="floating-label area" v-if="specificLocation">
+	    	<div class="floating-label area" v-if="showSpecificLocation">
 	            <textarea 
 	            v-model="eventLocation.eventStreetAddress" 
 	            class="floating-input area" 
@@ -92,16 +100,23 @@
 			Multiselect 
 		},
 
+		computed: {
+			showSpecificLocation: function() {
+				if( this.eventLocation.specificLocation === 'Yes' ) { 
+					return '1'; } else { return ''}
+			}
+		},
+
 		data() {
 			return {
 				eventLocation:this.initializeEventObject(),
-				specificLocation: '',
+				specificLocation: 'false',
 				regionOptions:this.regions,
 				selectedRegions: this.pivots,
+				eventLocationOptions: [ 'Yes', 'No' ],
 				countryData: '',
 				selectedCountry: 'United States of America',
 				eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,
-				validationErrors: ''
 			}
 		},
 
@@ -151,9 +166,6 @@
 			toggle() {
 				this.specificLocation = !this.specificLocation;
 			},
-			hideError() {
-                this.validationErrors = ''
-            }
 		},
 
 		created() {
@@ -166,7 +178,11 @@
 			if (this.event.eventCountry) {
 				this.selectedCountry = this.event.eventCountry;
 			}
+			if (this.event.specificLocation == 1) {
+				this.specificLocation = 'true';
+			}
 		},
+
     };
 
 

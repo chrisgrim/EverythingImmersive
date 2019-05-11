@@ -27,6 +27,8 @@
 	                </div>
 	            </template>
 	        </multiselect>
+	        <input type="hidden" name="category" v-model="selectedCategory" v-validate="'required'" data-vv-as="Category">
+        	<span class="text-sm text-danger">{{ errors.first('category') }}</span>
 	    </div>
 	    <img v-if="this.selectedCategory" class="option__image" :src="'/storage/' + selectedCategory.categoryImagePath " alt="defaultImage">
 	    <div>
@@ -64,8 +66,9 @@
 
 		methods: {
 
-			submitCategory() {
-
+			async submitCategory() {
+				if (!await this.$validator.validate()) { return false; }
+				
 				axios.patch(`${this.eventUrl}/category`, this.selectedCategory)
 				.then(response => {
                     // all is well. move on to the next page

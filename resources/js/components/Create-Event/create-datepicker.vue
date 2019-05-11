@@ -9,7 +9,11 @@
                     id="datepicker-trigger"
                     placeholder="Opening Date"
                     :value="formatDates(dateOne)"
-                  >
+                    name="openingDate"
+                    v-validate="'required'"
+                    data-vv-as="Opening Date"
+                  ><br>
+                  <span class="text-sm text-danger">{{ errors.first('openingDate') }}</span>
 
                   <AirbnbStyleDatepicker
                     :trigger-element-id="'datepicker-trigger'"
@@ -30,7 +34,11 @@
                     id="datepicker-trigger1"
                     placeholder="Closing Date"
                     :value="formatDatesA(dateTwo)"
-                  >
+                    name="closingDate"
+                    v-validate="'required'"
+                    data-vv-as="Closing Date"
+                  ><br>
+                  <span class="text-sm text-danger">{{ errors.first('closingDate') }}</span>
 
                   <AirbnbStyleDatepicker
                     :trigger-element-id="'datepicker-trigger1'"
@@ -45,7 +53,7 @@
             </div>
         </div>
         <div class="">
-            <button @click.prevent="submit()" class="create"> Next </button>
+            <button @click.prevent="submitDates()" class="create"> Next </button>
         </div>
 
 
@@ -73,7 +81,8 @@ export default {
     },
 
     methods: {
-        submit() {
+        async submitDates() {
+            if (!await this.$validator.validate()) { return false; }
             let data = {
             'openingDate': this.dateOne,
             'closingDate': this.dateTwo,

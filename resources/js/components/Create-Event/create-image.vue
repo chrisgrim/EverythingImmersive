@@ -16,6 +16,8 @@
             </span>
             <image-upload @loaded="onImageUpload"></image-upload>
         </label>
+        <input type="hidden" name="eventImagePath" v-model="eventImage" v-validate="'required'" data-vv-as="Event Image" >
+        <span class="text-sm text-danger">{{ errors.first('eventImagePath') }}</span>
     </div>
     <div>
         <button type="submit" class="create" @click.prevent="createImage()"> Save and Continue </button>
@@ -48,13 +50,21 @@ export default {
 
     methods: {
 
-        onImageUpload(image) {
+        async onImageUpload(image) {
+            const { valid, errors } = await this.$validator.verify(image.file, 'image', {'name' : 'Organization Image'});
+            if(!valid) {
+                this.errors.remove('eventImagePath');
+                this.errors.add({ field: 'eventImagePath', msg: errors[0] });
+                return false;
+            }
             this.eventImage = image.src;
             this.event.eventImagePath = image.file;
 
         },
 
-        createImage() {
+        async createImage() {
+            if (!await this.$validator.validate()) { return false; }
+            
             let data = new FormData();
 
             data.append('eventImage', this.event.eventImagePath);
