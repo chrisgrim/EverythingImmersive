@@ -7,4 +7,8 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700|Montserrat:300,400,500,600" rel="stylesheet">
 		<link href="/css/app.css" rel="stylesheet">
 		<script src="/js/app.js" defer></script>
+        <!-- send logged in user information to javascript -->
+        <script>
+            window.user = <?php echo auth()->user() ? auth()->user() : "null"; ?>
+        </script>
 		@yield('head')

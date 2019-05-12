@@ -19,7 +19,7 @@
 				</a>
 			@endforeach
 		</div>
-		<event-listing :user="{{ auth()->user() ? auth()->user() : 'guest' }}" :events="{{$events}}"></event-listing>
+		<event-listing :events="{{$events}}"></event-listing>
 
 	</div>
 @endsection

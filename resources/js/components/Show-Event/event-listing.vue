@@ -1,5 +1,10 @@
 <template>
 	<div>
+        <a v-if="isGuest" class="btn" href="/login">Please login</a>
+        <div v-if="isLoggedIn">
+            <button @click="setUserEmail(`updated-${loggedInUser.email}`)"> Update Email </button>
+            <div>user email : {{ loggedInUser.email }}</div>
+        </div>		
 		<h2>Our Latest Events</h2>
 		<div id="app">
 			<div>
@@ -27,6 +32,8 @@
 <script>
 	import _ from 'lodash';
     import Multiselect from 'vue-multiselect';
+    import usersMixin from '../../mixins/users.js'
+
 
 	export default {
 		props: {
@@ -37,6 +44,10 @@
 		components: {
             Multiselect
         },
+
+        mixins: [
+            usersMixin,
+        ],
 
 		data() {
 			return {
