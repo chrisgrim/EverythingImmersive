@@ -50,6 +50,7 @@ Vue.use(VeeValidate);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 
+import store from './store/index';
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('likes', require('./components/likes.vue').default);
@@ -82,25 +83,29 @@ Vue.component('event-listing-item', require('./components/Show-Event/event-listi
 
 if(document.getElementById("app")){
     const app = new Vue({
-        el: '#app'
+        el: '#app',
+        store,
     });
 };
 
 if(document.getElementById("navArea")){
 	const navsearch = new Vue({
-    	el: '#navArea'
+    	el: '#navArea',
+        store,
 	});
 };
 
 if(document.getElementById("createContentArea")){
 	const createContentArea = new Vue({
-   		el: '#createContentArea'
+   		el: '#createContentArea',
+        store,
 	});
 };
 
 if(document.getElementById("guide")){
 	const guide = new Vue({
-    	el: '#guide'
+    	el: '#guide',
+        store,
 	});
 };
 
