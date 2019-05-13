@@ -52,6 +52,12 @@
 					<event-listing-item :user="user" :event="event"></event-listing-item>
 				</div>
 			</div>
+			<div id="grid-section">
+				<div v-for="event in list">
+					<event-listing-item :user="user" :event="event"></event-listing-item>
+				</div>
+				<infinite-loading @infinite="infiniteHandler"></infinite-loading>
+			</div>
 		</div>
     </div>
 </template>
@@ -60,7 +66,10 @@
 	import _ from 'lodash';
     import Multiselect from 'vue-multiselect';
     import format from 'date-fns/format';
-    import usersMixin from '../../mixins/users.js'
+    import usersMixin from '../../mixins/users.js';
+    import InfiniteLoading from 'vue-infinite-loading';
+
+    const api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
 
 	export default {
 		props: {
@@ -73,7 +82,8 @@
 		],
 
 		components: {
-            Multiselect
+            Multiselect,
+            InfiniteLoading,
         },
 
 		data() {
@@ -84,6 +94,7 @@
 				 dateFormat: 'D MMM',
 	            dateOne: '',
 	            dateTwo: '',
+      			list: [],
 			}
 		},
 
@@ -103,6 +114,16 @@
 	               	eventTitle: '',
             	}
         	},
+
+			infiniteHandler($state) {
+					const data = this.events;
+					if (data) {
+				      this.list = this.list.concat(data);
+				      $state.loaded();
+				    } else {
+				      $state.complete();
+				    };
+			},
 
         	formatDates(dateOne, dateTwo) {
 		    	let formattedDates = ''

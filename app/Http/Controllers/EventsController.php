@@ -23,8 +23,10 @@ class EventsController extends Controller
     public function index()
     {
         $categories = Category::whereHas('events')->oldest()->get();
+        //This works, but not with infinite loading
         $events = Event::latest()->where('approved', true)->get();
-
+        //I cant figure out how to get this to work with infinite loading. 
+        //$events = Event::latest()->where('approved', true)->paginate(4);
         return view('events.index',compact('events','categories'));
     }
 

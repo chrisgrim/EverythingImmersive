@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"com",
+				"complete"
+			],
+			[
+				"users",
+				"usersMixin"
+			],
+			[
+				"fil",
+				"filteredEvents"
+			],
+			[
+				"in",
+				"initializeOrganizerObject"
+			],
+			[
 				"sex",
 				"sexualViolenceDescription"
 			],
@@ -498,22 +514,6 @@
 			[
 				"grid-tem",
 				"grid-template-columns"
-			],
-			[
-				"bacl",
-				"background-color"
-			],
-			[
-				"pad",
-				"padding-bottom"
-			],
-			[
-				"file",
-				"fileNameToStore"
-			],
-			[
-				"requ",
-				"request"
 			]
 		]
 	},
@@ -529,19 +529,10 @@
 			}
 		},
 		{
-			"file": "app/Http/Controllers/EventsController.php",
-			"settings":
-			{
-				"buffer_size": 2921,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "resources/views/events/index.blade.php",
 			"settings":
 			{
-				"buffer_size": 827,
+				"buffer_size": 679,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -550,27 +541,18 @@
 			"file": "resources/js/components/Show-Event/event-listing.vue",
 			"settings":
 			{
-				"buffer_size": 451,
+				"buffer_size": 3497,
 				"encoding": "UTF-8",
 				"line_ending": "Unix",
 				"name": "event-listing.vue"
 			}
 		},
 		{
-			"file": "resources/js/components/Show-Event/event-listing-item.vue",
+			"file": "resources/js/app.js",
 			"settings":
 			{
-				"buffer_size": 1133,
+				"buffer_size": 3942,
 				"encoding": "UTF-8",
-				"line_ending": "Unix",
-				"name": "event-listing-item.vue"
-			}
-		},
-		{
-			"file": "resources/views/events/grid.blade.php",
-			"settings":
-			{
-				"buffer_size": 847,
 				"line_ending": "Unix"
 			}
 		}
@@ -627,12 +609,12 @@
 		"/Users/Chris/code/showbelow/resources",
 		"/Users/Chris/code/showbelow/resources/js",
 		"/Users/Chris/code/showbelow/resources/js/components",
-		"/Users/Chris/code/showbelow/resources/js/components/Create-Event",
-		"/Users/Chris/code/showbelow/resources/js/components/Show-Event",
+		"/Users/Chris/code/showbelow/resources/js/mixins",
+		"/Users/Chris/code/showbelow/resources/js/store",
+		"/Users/Chris/code/showbelow/resources/js/store/modules",
 		"/Users/Chris/code/showbelow/resources/sass",
 		"/Users/Chris/code/showbelow/resources/views",
 		"/Users/Chris/code/showbelow/resources/views/events",
-		"/Users/Chris/code/showbelow/resources/views/events/create",
 		"/Users/Chris/code/showbelow/resources/views/layouts",
 		"/Users/Chris/code/showbelow/resources/views/organization",
 		"/Users/Chris/code/showbelow/resources/views/profiles",
@@ -642,11 +624,17 @@
 	],
 	"file_history":
 	[
+		"/Users/Chris/code/showbelow/resources/views/layouts/meta.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/store/modules/users.js",
+		"/Users/Chris/code/showbelow/resources/js/mixins/users.js",
+		"/Users/Chris/code/showbelow/resources/js/store/index.js",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
+		"/Users/Chris/code/showbelow/resources/views/events/grid.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Show-Event/event-listing-item.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-expect.vue",
 		"/Users/Chris/code/showbelow/resources/js/app.js",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/CreatingEventsController.php",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-details.vue",
-		"/Users/Chris/code/showbelow/resources/views/layouts/meta.blade.php",
 		"/Users/Chris/code/showbelow/database/factories/UserFactory.php",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-location.vue",
 		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_182855_create_events_table.php",
@@ -742,7 +730,6 @@
 		"/Users/Chris/code/showbelow/.env",
 		"/Users/Chris/code/showbelow/.editorconfig",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/AdminController.php",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
 		"/Users/Chris/code/showbelow/resources/views/events/index.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/profiles/adminIndex.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/favorites/index.blade.php",
@@ -760,20 +747,15 @@
 		"/Users/Chris/code/showbelow/resources/views/events/create.blade.php",
 		"/Users/Chris/code/showbelow/config/session.php",
 		"/Users/Chris/code/showbelow/app/Favorite.php",
-		"/Users/Chris/code/showbelow/resources/views/events/grid.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/profiles/show.blade.php",
 		"/Users/Chris/code/showbelow/resources/sass/event.scss",
 		"/Users/Chris/code/showbelow/resources/views/events/create/categoryCreate.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/imageCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/container.scss",
-		"/Users/Chris/code/showbelow/sftp-config.json",
-		"/Users/Chris/code/showbelow/app/Http/Middleware/RedirectIfAuthenticated.php",
-		"/Users/Chris/code/showbelow/resources/views/layouts/footer.blade.php",
-		"/Users/Chris/code/showbelow/app/Providers/AppServiceProvider.php"
+		"/Users/Chris/code/showbelow/resources/sass/container.scss"
 	],
 	"find":
 	{
-		"height": 98.0
+		"height": 72.0
 	},
 	"find_in_files":
 	{
@@ -789,6 +771,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"organizationName",
+			"name",
+			"organizationName",
 			"listing",
 			"this.eventImage = image.src;\n            this.event.eventImagePath = image.file;",
 			"required",
@@ -958,27 +943,27 @@
 							"syntax": "Packages/PHP/PHP.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 421.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/Http/Controllers/EventsController.php",
+					"file": "resources/views/events/index.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2921,
+						"buffer_size": 679,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								754,
-								754
+								666,
+								666
 							]
 						],
 						"settings":
@@ -986,12 +971,11 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 424.0,
+						"translation.y": 228.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -999,31 +983,32 @@
 				},
 				{
 					"buffer": 2,
-					"file": "resources/views/events/index.blade.php",
+					"file": "resources/js/components/Show-Event/event-listing.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 827,
+						"buffer_size": 3497,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								663,
-								663
+								3096,
+								3102
 							]
 						],
 						"settings":
 						{
+							"auto_name": "event-listing.vue",
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 247.0,
+						"translation.y": 3460.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1031,79 +1016,19 @@
 				},
 				{
 					"buffer": 3,
-					"file": "resources/js/components/Show-Event/event-listing.vue",
+					"file": "resources/js/app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 451,
+						"buffer_size": 3942,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								164,
-								164
-							]
-						],
-						"settings":
-						{
-							"auto_name": "event-listing.vue",
-							"incomplete_sync": null,
-							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 51.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "resources/js/components/Show-Event/event-listing-item.vue",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1133,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								950,
-								950
-							]
-						],
-						"settings":
-						{
-							"auto_name": "event-listing-item.vue",
-							"incomplete_sync": null,
-							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 38.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "resources/views/events/grid.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 847,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								127,
-								198
+								1411,
+								1411
 							]
 						],
 						"settings":
@@ -1111,14 +1036,13 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1.0,
+						"translation.y": 1490.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
