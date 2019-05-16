@@ -125,10 +125,28 @@ class Event extends Model
     }
      public function scopePriceFilter($query, $param)
     {
-        return $query->where('eventGeneralCost', 'LIKE', $param);
+        return $query->where('eventGeneralCost', '<=', $param);
     }
     public function scopeNameFilter($query, $param)
     {
         return $query->where('eventTitle', 'LIKE', $param);
+    }
+    public function scopeLocationLatFilter($query, $request, $radius = 20)
+    {
+        $latitude=$request->eventLat;
+        $longitude=$request->eventLong;
+        return $query->select('events.*')
+                ->selectRaw('( 3959 * acos( cos( radians(?) ) *
+                               cos( radians( eventLat ) )
+                               * cos( radians( eventLong ) - radians(?)
+                               ) + sin( radians(?) ) *
+                               sin( radians( eventLat ) ) )
+                             ) AS distance', [$latitude, $longitude, $latitude])
+                ->havingRaw("distance < ?", [$radius]);
+    }
+    public function scopeLocationNameFilter($query, $request)
+    {
+        $locationName = $request->locationName;
+        return $query->where('eventCity', '=', $locationName);
     }
 }

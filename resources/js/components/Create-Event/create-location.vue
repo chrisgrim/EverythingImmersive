@@ -117,6 +117,8 @@
 				countryData: '',
 				selectedCountry: 'United States of America',
 				eventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,
+				lat: '',
+				lon: ''
 			}
 		},
 
@@ -129,6 +131,8 @@
 	                eventCountry: '',
 	                eventZipcode: '',
 	                specificLocation: '',
+	                eventLat: '',
+	                eventLong: '',
 				}
 			},
 
@@ -140,19 +144,31 @@
 
 			async submitLocation() {
 				if (!await this.$validator.validate()) { return false; }
-				let data = this.eventLocation;
-				data.eventCountry = this.selectedCountry;
-           		data.eventRegion = this.selectedRegions.map(a => a.id);
+				let url = `https://cors-anywhere.herokuapp.com/https://us1.locationiq.com/v1/search.php?key=af4b25e28c2b00&q=` + this.eventLocation.eventStreetAddress + ' ' + this.eventLocation.eventCity + ' ' + this.eventLocation.eventState + ' ' + this.eventLocation.eventZipcode + `&format=json`;
 
-				axios.patch(`${this.eventUrl}/location`, data)
-				.then(response => {
-                    // all is well. move on to the next page
-                    window.location.href = `${this.eventUrl}/category`;
-                })
-                .catch(errorResponse => {
-                    // show if there are server side validation errors
-                    this.validationErrors = errorResponse.response.data.errors
+				axios.get(url)
+		    	.then(response => {
+                	this.eventLocation.eventLat = response.data[0].lat;
+                	this.eventLocation.eventLong = response.data[0].lon;
+                	let data = this.eventLocation;
+					data.eventCountry = this.selectedCountry;
+	           		data.eventRegion = this.selectedRegions.map(a => a.id);
+
+					axios.patch(`${this.eventUrl}/location`, data)
+					.then(response => {
+	                    console.log(response)
+	                    //window.location.href = `${this.eventUrl}/category`;
+	                })
+	                .catch(errorResponse => {
+	                    // show if there are server side validation errors
+	                    this.validationErrors = errorResponse.response.data.errors
+	             	});
+            	})
+            	.catch(errorResponse => {
+                // show if there are server side validation errors
                 });
+
+				
 			},
 
 			addTag (newTag) {

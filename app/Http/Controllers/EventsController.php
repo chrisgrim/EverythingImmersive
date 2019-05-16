@@ -13,7 +13,7 @@ class EventsController extends Controller
 {
     public function __construct(Event $event)
     {
-        $this->middleware('auth')->except(['index','show','filter']);
+        $this->middleware('auth')->except(['index','show','costfilter', 'namefilter', 'datefilter']);
     }
     /**
      * Display a listing of the resource.
@@ -118,10 +118,39 @@ class EventsController extends Controller
     {
         return $request;
     }
-    public function filter(Request $request, $filter)
+    public function namefilter(Request $request)
     {
         $param = $request->var;
-        $events = Event::priceFilter($param)->orWhere->nameFilter()->get();
+        $events = Event::priceFilter($param)->orWhere->nameFilter($param)->get();
+        return $events;
+    }
+    public function costfilter(Request $request)
+    {
+        $param = $request->var;
+        $events = Event::priceFilter($param)->get();
+        return $events;
+    }
+    public function datefilter(Request $request)
+    {
+        $start = $request->from_date;
+        $end = $request->to_date ?? $start;
+
+        $events = Event::where(function($query) use ($start) {
+            return $query->where('openingDate', '<=', $start)->where('closingDate', '>=', $start);
+        })
+        ->orWhere(function($query) use ($end) {
+            return $query->where('openingDate', '<=', $end)->where('closingDate', '>=', $end);
+        })
+        ->get();
+        return $events;
+    }
+    public function locationfilter(Request $request, $radius = 20)
+    {
+        if ($request->eventLat){
+            $events = Event::locationLatFilter($request)->get();
+        } else {
+            $events = Event::locationNameFilter($request)->get();
+        }
         return $events;
     }
 

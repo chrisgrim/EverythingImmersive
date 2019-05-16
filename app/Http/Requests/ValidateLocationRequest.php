@@ -30,6 +30,8 @@ class ValidateLocationRequest extends FormRequest
             'specificLocation' => 'required',
             'eventCountry' => 'required',
             'eventZipcode' => 'required',
+            'eventLat' => '',
+            'eventLong' => '',
         ];
     }
 }
