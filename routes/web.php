@@ -75,6 +75,9 @@ Route::GET('/create-your-event/{event}/images', 'CreatingEventsController@create
 Route::POST('/create-your-event/{event}/images', 'CreatingEventsController@storeImages');
 Route::GET('/create-your-event/{event}/thanks', 'CreatingEventsController@thanks');
 
+Route::POST('/eventsFilter/{filter}', 'EventsController@filter');
+
+
 
 
 

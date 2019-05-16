@@ -13,7 +13,7 @@ class EventsController extends Controller
 {
     public function __construct(Event $event)
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index','show','filter']);
     }
     /**
      * Display a listing of the resource.
@@ -27,6 +27,7 @@ class EventsController extends Controller
         $events = Event::latest()->where('approved', true)->get();
         //I cant figure out how to get this to work with infinite loading. 
         //$events = Event::latest()->where('approved', true)->paginate(4);
+        //return $events;
         return view('events.index',compact('events','categories'));
     }
 
@@ -116,6 +117,12 @@ class EventsController extends Controller
     public function cities(Request $request)
     {
         return $request;
+    }
+    public function filter(Request $request, $filter)
+    {
+        $param = $request->var;
+        $events = Event::priceFilter($param)->orWhere->nameFilter()->get();
+        return $events;
     }
 
 }

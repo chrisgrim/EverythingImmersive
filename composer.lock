@@ -4,8 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b7b6e3e0deb8538032a31da799a5b7e",
+    "content-hash": "88240f86a48eb6b6583ab77f2a1ea228",
     "packages": [
+        {
+            "name": "davidzadrazil/airtable-api-php",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DavidZadrazil/airtable-api-php.git",
+                "reference": "d3dabbd0906f704eb5042d98dbf2c2f6b9a414f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DavidZadrazil/airtable-api-php/zipball/d3dabbd0906f704eb5042d98dbf2c2f6b9a414f0",
+                "reference": "d3dabbd0906f704eb5042d98dbf2c2f6b9a414f0",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "lib-curl": "*",
+                "php": ">=7.0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DavidZadrazil\\AirtableApi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Zadražil",
+                    "email": "me@davidzadrazil.cz"
+                }
+            ],
+            "description": "PHP wrapper for Airtable API",
+            "time": "2017-11-23T10:45:43+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",

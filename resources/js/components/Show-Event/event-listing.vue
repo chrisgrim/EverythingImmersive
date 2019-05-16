@@ -10,20 +10,20 @@
 			<div id="grid-section">
 				<div>
 					<multiselect 
-			        v-model="value" 
+			        v-model="eventName" 
 			        placeholder="Filter by name"
 			        label="eventTitle" 
 			        track-by="eventTitle" 
 			        deselectLabel=''
-			        @keyup="filteredEvents"
+			        @input="nameFilter()"
 			        :allow-empty="false"  
 			        :options="searchOptions" 
 			        >
 				    </multiselect>
 			    </div>
 			    <div>
-					<input type="text" placeholder="Filter by Price">
-					<button>Go</button>
+					<input type="text" placeholder="Filter by Price" v-model="price">
+					<button @click="priceFilter()">Go</button>
 				</div>
 				<div>
 					 <div class="datepicker-trigger">
@@ -48,8 +48,8 @@
 			</div>
 			
 			<div id="grid-section">
-				<div v-for="event in filteredEvents">
-					<event-listing-item :user="user" :event="event"></event-listing-item>
+				<div v-for="displayEvent in filteredEvents">
+					<event-listing-item :user="user" :event="displayEvent"></event-listing-item>
 				</div>
 			</div>
 			<div id="grid-section">
@@ -69,7 +69,6 @@
     import usersMixin from '../../mixins/users.js';
     import InfiniteLoading from 'vue-infinite-loading';
 
-    const api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
 
 	export default {
 		props: {
@@ -91,10 +90,12 @@
 				allEvents: this.events,
 				value: '',
 				searchOptions: this.events,
-				 dateFormat: 'D MMM',
+				dateFormat: 'D MMM',
 	            dateOne: '',
 	            dateTwo: '',
       			list: [],
+      			price: '',
+      			eventName: '',
 			}
 		},
 
@@ -107,7 +108,7 @@
 		},
 
 		methods: {
-
+		
 			initializeEventObject() {
             	return {
 	                id: '',
@@ -136,6 +137,42 @@
 		      		return formattedDates
 		    },
 
-		}
+		    priceFilter() {
+		    	let money = {var: this.price};
+		    	console.log(money);
+		    	axios.post('/eventsFilter/price', money)
+		    	.then(response => {
+                console.log(response);
+            	})
+            	.catch(errorResponse => {
+                // show if there are server side validation errors
+                if (!_.has(errorResponse, 'response.data.errors')) { return false; }
+                	for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
+                    	for (const error in errors) {
+                        this.errors.add({ field: field, msg: errors[error] });
+                    	}
+               		}
+            	});
+		    },
+
+		    nameFilter() {
+		    	let params = {var: this.eventName.eventTitle};
+		    	console.log(params);
+		    	axios.post('/eventsFilter/price', params)
+		    	.then(response => {
+                console.log(response);
+            	})
+            	.catch(errorResponse => {
+                // show if there are server side validation errors
+                if (!_.has(errorResponse, 'response.data.errors')) { return false; }
+                	for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
+                    	for (const error in errors) {
+                        this.errors.add({ field: field, msg: errors[error] });
+                    	}
+               		}
+            	});
+		    },
+
+		},
     };
 </script>

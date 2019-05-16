@@ -3772,7 +3772,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      event: this.event,
       divBackground: "background-image: url(\"/storage/".concat(this.event.thumbImagePath, "\");")
     };
   },
@@ -3799,6 +3798,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_users_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/users.js */ "./resources/js/mixins/users.js");
 /* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-infinite-loading */ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js");
 /* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 //
 //
 //
@@ -3868,7 +3875,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     events: {
@@ -3891,7 +3897,9 @@ var api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
       dateFormat: 'D MMM',
       dateOne: '',
       dateTwo: '',
-      list: []
+      list: [],
+      price: '',
+      eventName: ''
     };
   },
   computed: {
@@ -3937,6 +3945,68 @@ var api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
       }
 
       return formattedDates;
+    },
+    priceFilter: function priceFilter() {
+      var _this = this;
+
+      var money = {
+        var: this.price
+      };
+      console.log(money);
+      axios.post('/eventsFilter/price', money).then(function (response) {
+        console.log(response);
+      }).catch(function (errorResponse) {
+        // show if there are server side validation errors
+        if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
+          return false;
+        }
+
+        var _arr = Object.entries(errorResponse.response.data.errors);
+
+        for (var _i = 0; _i < _arr.length; _i++) {
+          var _arr$_i = _slicedToArray(_arr[_i], 2),
+              field = _arr$_i[0],
+              errors = _arr$_i[1];
+
+          for (var error in errors) {
+            _this.errors.add({
+              field: field,
+              msg: errors[error]
+            });
+          }
+        }
+      });
+    },
+    nameFilter: function nameFilter() {
+      var _this2 = this;
+
+      var params = {
+        var: this.eventName.eventTitle
+      };
+      console.log(params);
+      axios.post('/eventsFilter/price', params).then(function (response) {
+        console.log(response);
+      }).catch(function (errorResponse) {
+        // show if there are server side validation errors
+        if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
+          return false;
+        }
+
+        var _arr2 = Object.entries(errorResponse.response.data.errors);
+
+        for (var _i2 = 0; _i2 < _arr2.length; _i2++) {
+          var _arr2$_i = _slicedToArray(_arr2[_i2], 2),
+              field = _arr2$_i[0],
+              errors = _arr2$_i[1];
+
+          for (var error in errors) {
+            _this2.errors.add({
+              field: field,
+              msg: errors[error]
+            });
+          }
+        }
+      });
     }
   }
 });
@@ -58082,20 +58152,57 @@ var render = function() {
                 "allow-empty": false,
                 options: _vm.searchOptions
               },
-              on: { keyup: _vm.filteredEvents },
+              on: {
+                input: function($event) {
+                  _vm.nameFilter()
+                }
+              },
               model: {
-                value: _vm.value,
+                value: _vm.eventName,
                 callback: function($$v) {
-                  _vm.value = $$v
+                  _vm.eventName = $$v
                 },
-                expression: "value"
+                expression: "eventName"
               }
             })
           ],
           1
         ),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.price,
+                expression: "price"
+              }
+            ],
+            attrs: { type: "text", placeholder: "Filter by Price" },
+            domProps: { value: _vm.price },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.price = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  _vm.priceFilter()
+                }
+              }
+            },
+            [_vm._v("Go")]
+          )
+        ]),
         _vm._v(" "),
         _c("div", [
           _c(
@@ -58137,12 +58244,12 @@ var render = function() {
       _c(
         "div",
         { attrs: { id: "grid-section" } },
-        _vm._l(_vm.filteredEvents, function(event) {
+        _vm._l(_vm.filteredEvents, function(displayEvent) {
           return _c(
             "div",
             [
               _c("event-listing-item", {
-                attrs: { user: _vm.user, event: event }
+                attrs: { user: _vm.user, event: displayEvent }
               })
             ],
             1
@@ -58174,18 +58281,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("input", { attrs: { type: "text", placeholder: "Filter by Price" } }),
-      _vm._v(" "),
-      _c("button", [_vm._v("Go")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

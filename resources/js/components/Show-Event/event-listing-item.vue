@@ -31,7 +31,6 @@
 
 		data() {
 			return {
-				event: this.event,
 				divBackground: `background-image: url("/storage/${this.event.thumbImagePath}");`
 			}
 		},

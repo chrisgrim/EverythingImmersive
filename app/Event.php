@@ -10,7 +10,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 class Event extends Model
 {
     protected $fillable = [
-    	'eventTitle','eventDescription','eventWebsite','eventGeneralCost','eventTicketUrl','specificLocation','eventCity','eventState','eventCountry','eventZipcode','slug','eventImagePath','thumbImagePath','eventLong','eventLat','user_id', 'eventStreetAddress', 'category_id', 'organizer_id', 'eventExpectations', 'approved', 'wheelchairReady', 'mobilityAdvisories', 'contentAdvisories', 'sexualViolence', 'sexualViolenceDescription', 'contactAdvisoryDescription', 'overallRating', 'embargoDate', 'openingDate', 'closingDate', 'ageRestriction', 'eventSeniorCost', 'eventVIPCost', 'eventAllOtherCost', 'eventMilitaryCost', 'eventStudentCost', 'eventImage',
+    	'eventTitle','eventDescription','eventWebsite','eventGeneralCost','eventTicketUrl','specificLocation','eventCity','eventState','eventCountry','eventZipcode','slug','eventImagePath','thumbImagePath','eventLong','eventLat','user_id', 'eventStreetAddress', 'category_id', 'organizer_id', 'eventExpectations', 'approved', 'wheelchairReady', 'mobilityAdvisories', 'contentAdvisories', 'sexualViolence', 'sexualViolenceDescription', 'contactAdvisoryDescription', 'overallRating', 'embargoDate', 'openingDate', 'closingDate', 'ageRestriction', 'eventSeniorCost', 'eventVIPCost', 'eventAllOtherCost', 'eventMilitaryCost', 'eventStudentCost', 'eventImage', 'cost'
 
     ];
     protected $appends = ['isFavorited'];
@@ -122,5 +122,13 @@ class Event extends Model
         $extension = $request->file('eventImage')->getClientOriginalExtension();
         $fileNameToStore= $title.'.'.$extension;
         return $fileNameToStore;
+    }
+     public function scopePriceFilter($query, $param)
+    {
+        return $query->where('eventGeneralCost', 'LIKE', $param);
+    }
+    public function scopeNameFilter($query, $param)
+    {
+        return $query->where('eventTitle', 'LIKE', $param);
     }
 }
