@@ -52,10 +52,9 @@
 			</div>
 			
 			<div id="grid-section">
-				<div v-for="event in list">
+				<div v-for="event in allEvents">
 					<event-listing-item :user="user" :event="event"></event-listing-item>
 				</div>
-				<infinite-loading @infinite="infiniteHandler"></infinite-loading>
 			</div>
 		</div>
     </div>

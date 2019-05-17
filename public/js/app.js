@@ -3879,7 +3879,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
 
 
 
@@ -58361,22 +58360,18 @@ var render = function() {
       _c(
         "div",
         { attrs: { id: "grid-section" } },
-        [
-          _vm._l(_vm.list, function(event) {
-            return _c(
-              "div",
-              [
-                _c("event-listing-item", {
-                  attrs: { user: _vm.user, event: event }
-                })
-              ],
-              1
-            )
-          }),
-          _vm._v(" "),
-          _c("infinite-loading", { on: { infinite: _vm.infiniteHandler } })
-        ],
-        2
+        _vm._l(_vm.allEvents, function(event) {
+          return _c(
+            "div",
+            [
+              _c("event-listing-item", {
+                attrs: { user: _vm.user, event: event }
+              })
+            ],
+            1
+          )
+        }),
+        0
       )
     ])
   ])
