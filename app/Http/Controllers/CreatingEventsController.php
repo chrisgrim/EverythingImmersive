@@ -174,9 +174,5 @@ class CreatingEventsController extends Controller
     {
         return view('events.create.thanksCreate', compact('event'));
     }
-    
-
-
-
 
 }

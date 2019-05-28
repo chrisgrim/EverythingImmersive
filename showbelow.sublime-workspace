@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"reque",
+				"required"
+			],
+			[
+				"even",
+				"eventZipcode"
+			],
+			[
+				"event",
+				"eventLocation"
+			],
+			[
+				"eve",
+				"eventState"
+			],
+			[
+				"events",
+				"eventStreetAddress"
+			],
+			[
+				"loca",
+				"location"
+			],
+			[
+				"datef",
+				"dateFilter"
+			],
+			[
+				"eventGner",
+				"eventGeneralCost"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"price",
+				"priceFilter"
+			],
+			[
 				"com",
 				"complete"
 			],
@@ -68,10 +108,6 @@
 				"organizationName"
 			],
 			[
-				"event",
-				"eventImagePath"
-			],
-			[
 				"val",
 				"validationErrors"
 			],
@@ -82,14 +118,6 @@
 			[
 				"Valida",
 				"ValidateTitleRequest"
-			],
-			[
-				"eve",
-				"eventImagePath"
-			],
-			[
-				"even",
-				"eventImageModel"
 			],
 			[
 				"re",
@@ -486,34 +514,6 @@
 			[
 				"back",
 				"background-color"
-			],
-			[
-				"padding-",
-				"padding-top"
-			],
-			[
-				"favo",
-				"favorited_id"
-			],
-			[
-				"uns",
-				"unsignedInteger"
-			],
-			[
-				"paddin",
-				"padding-top"
-			],
-			[
-				"pos",
-				"position"
-			],
-			[
-				"grid",
-				"grid-gap"
-			],
-			[
-				"grid-tem",
-				"grid-template-columns"
 			]
 		]
 	},
@@ -523,8 +523,16 @@
 			"file": "routes/web.php",
 			"settings":
 			{
-				"buffer_size": 3779,
+				"buffer_size": 4077,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/sass/event.scss",
+			"settings":
+			{
+				"buffer_size": 1149,
 				"line_ending": "Unix"
 			}
 		},
@@ -541,17 +549,36 @@
 			"file": "resources/js/components/Show-Event/event-listing.vue",
 			"settings":
 			{
-				"buffer_size": 3497,
+				"buffer_size": 7144,
 				"encoding": "UTF-8",
 				"line_ending": "Unix",
 				"name": "event-listing.vue"
 			}
 		},
 		{
-			"file": "resources/js/app.js",
+			"file": "sftp-config.json",
 			"settings":
 			{
-				"buffer_size": 3942,
+				"buffer_size": 1539,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\nuse App\\Http\\Requests\\ValidateOrganizerRequest;\nuse App\\Http\\Requests\\ValidateDescriptionRequest;\nuse App\\Http\\Requests\\ValidateDetailsRequest;\nuse App\\Http\\Requests\\ValidateExpectRequest;\nuse App\\Http\\Requests\\ValidateLocationRequest;\nuse App\\Http\\Requests\\ValidateCategoryRequest;\nuse App\\Http\\Requests\\ValidateTitleRequest;\nuse App\\Event;\nuse App\\Region;\nuse App\\Genre;\nuse App\\ContactLevel;\nuse App\\Organizer;\nuse App\\User;\nuse App\\Category;\nuse Intervention\\Image\\ImageManagerStatic as Image;\n\nclass CreatingEventsController extends Controller\n{\n    public function __construct(Event $event)\n    {\n        $this->middleware('auth');\n    }\n\n    public function editEvents()\n    {\n        $events = User::find(Auth()->id())->events;\n\n        return view('events.create.editEvents', compact('events'));\n    }\n\n    public function createLocation(Event $event)\n    {\n        $regions = Region::all();\n        $pivots = $event->regions()->get();\n\n    \treturn view('events.create.Create_Location', compact('event','regions','pivots'));\n    }\n\n    public function updateLocation(ValidateLocationRequest $request, Event $event)\n    {\n    \t$event->update($request->all());\n        $event->regions()->sync(request('eventRegion'));\n\n\n    }\n\n\t\t// ------------------------------------------------------\n\n    public function createCategory(Event $event)\n    {\n        $categories = Category::latest()->get();\n        $event->load('category');\n\n    \treturn view('events.create.Create_Category', compact('event', 'categories'));\n    }\n    public function updateCategory(ValidateCategoryRequest $request, Event $event)\n    {\n    \t$event->update(['category_id'=> request('id')]);\n    }\n\n    // ------------------------------------------------------\n\n    public function createOrganizer(Event $event)\n    {\n        $event->load('organizer');\n        $organizers = Organizer::all();\n    \treturn view('events.create.Create_Organizer', compact('event', 'organizers'));\n    }\n\n    public function storeOrganizer(ValidateOrganizerRequest $request, Event $event, Organizer $organizer)\n    {\n        if (!$organizer = $organizer->updateOrCreate($request->all())) {\n            return response()->json(['error' => 'Failed to save organizer'], 402);\n        }\n\n    \t$event->update(['organizer_id' => $organizer->id]);\n        return response()->json(compact('organizer'));\n    }\n\n// ------------------------------------------------------\n\n    public function createDates(Event $event)\n    {\n        return view('events.create.Create_Dates', compact('event'));\n    }\n\n    public function updateDates(Request $request, Event $event)\n    {\n        $event->update(request()->validate([\n            'openingDate' => 'required',\n            'closingDate' => 'required',\n        ]));\n\n    }\n\n    // ------------------------------------------------------\n\n\n    public function createDetails(Event $event)\n    {\n        return view('events.create.Create_Details', compact('event'));\n    }\n\n    public function updateDetails(ValidateDetailsRequest $request, Event $event)\n    {\n        $event->update(request()->all());\n    }\n\n     // ------------------------------------------------------\n\n    public function createDescription(Event $event)\n    {\n        $pivots = $event->genres()->get();\n        $genres = Genre::all();\n\n        return view('events.create.Create_Description', compact('event','genres','pivots'));\n    }\n\n    public function updateDescription(ValidateDescriptionRequest $request, Event $event)\n    {\n        $event->updateDescription($request->all());\n    }\n\n     // ------------------------------------------------------\n\n\n    public function createExpect(Event $event)\n    {\n        $pivots = $event->contactLevels()->get();\n        $contactLevels = ContactLevel::all();\n\n        return view('events.create.Create_Expectations', compact('event','contactLevels','pivots'));\n    }\n\n    public function updateExpect(ValidateExpectRequest $request, Event $event)\n    {\n        $event->update($request->all());\n        $event->contactlevels()->sync(request('contactLevel'));\n    }\n\n    // ------------------------------------------------------\n\n    public function createTitle(Event $event)\n    {\n        return view('events.create.Create_Title', compact('event'));\n    }\n    public function updateTitle(ValidateTitleRequest $request, Event $event)\n    {\n        $event->updateTitle($request);\n        return response()->json(compact('event'));\n    }\n\n     // ------------------------------------------------------\n\n\n    public function createImages(Event $event)\n    {\n        return view('events.create.Create_Image', compact('event'));\n    }\n    public function storeImages(Request $request, Event $event)\n    {\n        $event->storeEventImage($request);\n    }\n\n    // ------------------------------------------------------\n\n\n    public function thanks(Event $event)\n    {\n        return view('events.create.thanksCreate', compact('event'));\n    }\n\n}\n",
+			"file": "app/Http/Controllers/CreatingEventsController.php",
+			"file_size": 5014,
+			"file_write_time": 132025051284683815,
+			"settings":
+			{
+				"buffer_size": 5006,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/Event.php",
+			"settings":
+			{
+				"buffer_size": 5419,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -609,11 +636,14 @@
 		"/Users/Chris/code/showbelow/resources",
 		"/Users/Chris/code/showbelow/resources/js",
 		"/Users/Chris/code/showbelow/resources/js/components",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event",
+		"/Users/Chris/code/showbelow/resources/js/components/Show-Event",
 		"/Users/Chris/code/showbelow/resources/js/mixins",
 		"/Users/Chris/code/showbelow/resources/js/store",
 		"/Users/Chris/code/showbelow/resources/js/store/modules",
 		"/Users/Chris/code/showbelow/resources/sass",
 		"/Users/Chris/code/showbelow/resources/views",
+		"/Users/Chris/code/showbelow/resources/views/auth",
 		"/Users/Chris/code/showbelow/resources/views/events",
 		"/Users/Chris/code/showbelow/resources/views/layouts",
 		"/Users/Chris/code/showbelow/resources/views/organization",
@@ -624,19 +654,26 @@
 	],
 	"file_history":
 	[
+		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/CreatingEventsController.php",
+		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateLocationRequest.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-location.vue",
+		"/Users/Chris/code/showbelow/app/Event.php",
+		"/Users/Chris/code/showbelow/composer.json",
+		"/Users/Chris/code/showbelow/app/Http/Controllers/RssController.php",
+		"/Users/Chris/code/showbelow/.env",
+		"/Users/Chris/code/showbelow/resources/js/app.js",
+		"/Users/Chris/code/showbelow/vendor/beyondcode/laravel-dump-server/config/config.php",
+		"/Users/Chris/code/showbelow/config/app.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Show-Event/event-listing-item.vue",
 		"/Users/Chris/code/showbelow/resources/views/layouts/meta.blade.php",
 		"/Users/Chris/code/showbelow/resources/js/store/modules/users.js",
 		"/Users/Chris/code/showbelow/resources/js/mixins/users.js",
 		"/Users/Chris/code/showbelow/resources/js/store/index.js",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
 		"/Users/Chris/code/showbelow/resources/views/events/grid.blade.php",
-		"/Users/Chris/code/showbelow/resources/js/components/Show-Event/event-listing-item.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-expect.vue",
-		"/Users/Chris/code/showbelow/resources/js/app.js",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/CreatingEventsController.php",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-details.vue",
 		"/Users/Chris/code/showbelow/database/factories/UserFactory.php",
-		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-location.vue",
 		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_182855_create_events_table.php",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-title.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-image.vue",
@@ -645,7 +682,6 @@
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-datepicker.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-categories.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-organization.vue",
-		"/Users/Chris/code/showbelow/app/Event.php",
 		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateOrganizerRequest.php",
 		"/Users/Chris/code/showbelow/resources/sass/elements.scss",
 		"/Users/Chris/code/showbelow/package.json",
@@ -658,7 +694,6 @@
 		"/Users/Chris/code/showbelow/resources/js/components/create-categories.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/create-datepicker.vue",
 		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateCategoryRequest.php",
-		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateLocationRequest.php",
 		"/Users/Chris/code/showbelow/resources/js/components/create-expect.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/create-location.vue",
 		"/Users/Chris/code/showbelow/resources/views/events/create/Create_Category.blade.php",
@@ -680,7 +715,6 @@
 		"/Users/Chris/code/showbelow/resources/views/events/create/Create_Dates.blade.php",
 		"/Users/Chris/code/showbelow/resources/js/components/create-guide.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-datepicker2.vue",
-		"/Users/Chris/code/showbelow/app/Http/Controllers/RssController.php",
 		"/Users/Chris/code/showbelow/resources/views/RSS/index.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/createWalkthrough.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/events/create/expectCreate.blade.php",
@@ -727,7 +761,6 @@
 		"/Users/Chris/code/showbelow/resources/views/auth/login.blade.php",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/Auth/LoginController.php",
 		"/Users/Chris/code/showbelow/database/migrations/2014_10_12_000000_create_users_table.php",
-		"/Users/Chris/code/showbelow/.env",
 		"/Users/Chris/code/showbelow/.editorconfig",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/AdminController.php",
 		"/Users/Chris/code/showbelow/resources/views/events/index.blade.php",
@@ -748,10 +781,7 @@
 		"/Users/Chris/code/showbelow/config/session.php",
 		"/Users/Chris/code/showbelow/app/Favorite.php",
 		"/Users/Chris/code/showbelow/resources/views/profiles/show.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/event.scss",
-		"/Users/Chris/code/showbelow/resources/views/events/create/categoryCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create/imageCreate.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/container.scss"
+		"/Users/Chris/code/showbelow/resources/sass/event.scss"
 	],
 	"find":
 	{
@@ -771,6 +801,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"axios",
+			"rss",
+			"\"navigation\"",
+			"navigation",
+			"role=",
 			"organizationName",
 			"name",
 			"organizationName",
@@ -893,11 +928,7 @@
 			"Optimize",
 			"OptimizeCssAssetsPlugin",
 			"posts",
-			"postreview",
-			"body",
-			"postLogin",
-			"active",
-			"header"
+			"postreview"
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -915,7 +946,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -924,15 +955,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3779,
+						"buffer_size": 4077,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								824,
-								757
+								678,
+								710
 							]
 						],
 						"settings":
@@ -943,14 +974,47 @@
 							"syntax": "Packages/PHP/PHP.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 210.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "resources/sass/event.scss",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1149,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 349.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "resources/views/events/index.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -962,8 +1026,8 @@
 						"selection":
 						[
 							[
-								666,
-								666
+								678,
+								667
 							]
 						],
 						"settings":
@@ -975,27 +1039,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 228.0,
+						"translation.y": 121.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "resources/js/components/Show-Event/event-listing.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3497,
+						"buffer_size": 7144,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3096,
-								3102
+								1660,
+								1660
 							]
 						],
 						"settings":
@@ -1008,27 +1072,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3460.0,
+						"translation.y": 1383.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "resources/js/app.js",
+					"buffer": 4,
+					"file": "sftp-config.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3942,
+						"buffer_size": 1539,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1411,
-								1411
+								440,
+								193
 							]
 						],
 						"settings":
@@ -1036,13 +1100,81 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1490.0,
+						"translation.y": 204.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/Http/Controllers/CreatingEventsController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5006,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5002,
+								5002
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1972.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/Event.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5419,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3361,
+								3398
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3327.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1100,6 +1232,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"config.php",
+				"showbelow/vendor/beyondcode/laravel-dump-server/config/config.php"
+			],
+			[
+				"app.",
+				"showbelow/config/app.php"
+			],
 			[
 				"cors.",
 				"node_modules/caniuse-lite/data/features/cors.js"

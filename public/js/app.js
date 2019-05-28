@@ -3622,6 +3622,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     event: {
@@ -3635,6 +3638,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    getTable: function getTable() {
+      axios.defaults.headers = {
+        Authorization: 'Bearer keyFh096OT6FXNB3x'
+      };
+      axios.get('https://api.airtable.com/v0/applHDrxw5M9KzTWT/tasks').then(function (response) {
+        console.log(response);
+      });
+    },
+    postTable: function postTable() {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer keyFh096OT6FXNB3x'
+      };
+      var Name = {
+        Name: 'name'
+      };
+      var Notes = {
+        Notes: 'MoreNotes'
+      };
+      var data = {
+        fields: {
+          Name: 'name',
+          Notes: 'MoreNotes'
+        }
+      };
+      console.log(data);
+      axios.post('https://api.airtable.com/v0/applHDrxw5M9KzTWT/tasks', data).then(function (response) {
+        console.log(response);
+      });
+    },
     submitTitle: function () {
       var _submitTitle = _asyncToGenerator(
       /*#__PURE__*/
@@ -58051,7 +58084,28 @@ var render = function() {
         },
         [_vm._v(" Next ")]
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c("input", { attrs: { type: "text", name: "Name" } }),
+    _vm._v(" "),
+    _c(
+      "textarea",
+      { attrs: { name: "notes", id: "", cols: "30", rows: "10" } },
+      [_vm._v("Test")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            _vm.postTable()
+          }
+        }
+      },
+      [_vm._v("Post table")]
+    )
   ])
 }
 var staticRenderFns = [

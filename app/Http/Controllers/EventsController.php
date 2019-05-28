@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use Airtable;
 use App\Category;
 use App\Organizer;
 use App\Http\Requests\EventRequest;
@@ -28,7 +29,7 @@ class EventsController extends Controller
         //I cant figure out how to get this to work with infinite loading. 
         //$events = Event::latest()->where('approved', true)->paginate(4);
         //return $events;
-        return view('events.index',compact('events','categories'));
+        return view('events.index',compact('events','categories', 'bugs'));
     }
 
     /**

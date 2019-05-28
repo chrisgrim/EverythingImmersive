@@ -16,6 +16,9 @@
 	    <div class="">
 	        <button @click.prevent="submitTitle()" class="create"> Next </button>
 	    </div>
+	    <input type="text" name="Name">
+	    <textarea name="notes" id="" cols="30" rows="10">Test</textarea>
+	    <button @click.prevent="postTable()">Post table</button>
     </div>
 </template>
 
@@ -34,6 +37,34 @@
 		},
 
 		methods: {
+
+			getTable() {
+				axios.defaults.headers = {
+					Authorization: 'Bearer keyFh096OT6FXNB3x'
+			    }
+				axios.get('https://api.airtable.com/v0/applHDrxw5M9KzTWT/tasks')
+				.then(response => {
+					console.log(response);
+				})
+			},
+			postTable() {
+				axios.defaults.headers = {
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer keyFh096OT6FXNB3x'
+			    }
+			    let Name = {Name:'name'};
+			    let Notes = {Notes:'MoreNotes'};
+			    let data = {
+					  fields: {
+					  	Name:'name',
+					  	Notes:'MoreNotes'
+					}};
+				console.log(data);
+				axios.post('https://api.airtable.com/v0/applHDrxw5M9KzTWT/tasks', data)
+				.then(response => {
+					console.log(response);
+				})
+			},
 
 			async submitTitle() {
 				if(!await this.$validator.validate()) { return false; }
