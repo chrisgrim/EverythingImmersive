@@ -154,5 +154,34 @@ class EventsController extends Controller
         }
         return $events;
     }
+    public function eventfilter(Request $request)
+    {
+	$eventModel = Event::whereRaw("1=1");
+
+	if($request->money) {
+		$eventModel->where('eventGeneralCost', '<=', $request->money);
+	}
+	if($request->eventTitle) {
+		$eventModel->where('eventTitle', 'LIKE', $request->eventTitle);
+	}
+	if($request->from_date) {
+		$start = $request->from_date;
+		$end   = $request->to_date ?? $start;
+
+		$eventModel->where(function($query) use ($start) {
+			return $query->where('openingDate', '<=', $start)->where('closingDate', '>=', $start);
+		})
+		->orWhere(function($query) use ($end) {
+			return $query->where('openingDate', '<=', $end)->where('closingDate', '>=', $end);
+		});
+	}
+	if($request->eventLat) {
+		// here should be code to filter by lat and long
+	} else {
+		$eventModel->where('eventCity', '=', $request->location);
+	}
+
+	return $eventModel->get();
+    }
 
 }
