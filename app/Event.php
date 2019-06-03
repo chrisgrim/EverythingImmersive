@@ -84,13 +84,21 @@ class Event extends Model
     }
     public function updateDescription($request)
     {
+        //get the new genres submitted on the page
         $genres = $request['eventGenre'];
 
+        //go through them and if it exists then it does nothing, otherwise it will create a new genre
         foreach ($genres as $genre) {
             Genre::firstOrCreate(['genre' => $genre]);
         }
+
+        //newSync is given all the objects where the name is the same as the submitted names
         $newSync = Genre::all()->whereIn('genre', $genres);
+        
+        //using laravels sync and belongsTo relationship we can easy add these to the event_genre table
         $this->genres()->sync($newSync);
+
+        //update the event model with the request(it is full request because update has to be an array)
         $this->update($request);
     }
     public function updateTitle($request)
@@ -103,16 +111,22 @@ class Event extends Model
     public function storeEventImage($request)
     {
         if ($request->hasFile('eventImage')) {
+            
+            //Create File Info
             $filename = $this->eventImageName($request);
+            $imagePath = "event-images/$filename";
+            $thumbnailPath = "thumb-images/thumb-$filename";
 
+            //Store File
             $request->file('eventImage')->storeAs('/public/event-images', $filename);
-                $large = storage_path().'/app/public/event-images/'.$filename;
-                $small = storage_path().'/app/public/thumb-images/'.'thumb'.'-'.$filename;
-                Image::make($large)->fit(1200, 800)->save($large)->fit(600, 400)->save($small);
 
+            //Resize File   
+            Image::make(storage_path()."/app/public/event-images/$filename")->fit(1200, 800)->save(storage_path("/app/public/$imagePath"))->fit(600, 400)->save(storage_path("/app/public/$thumbnailPath"));
+
+            //Update Image Paths
             $this->update([
-                    'eventImagePath' => 'event-images/' . $filename,
-                    'thumbImagePath' => 'thumb-images/'.'thumb'.'-'.$filename,
+                    'eventImagePath' => $imagePath,
+                    'thumbImagePath' => $thumbnailPath,
             ]);
         }
     }

@@ -3589,21 +3589,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
 //
 //
 //
@@ -3638,36 +3627,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    getTable: function getTable() {
-      axios.defaults.headers = {
-        Authorization: 'Bearer keyFh096OT6FXNB3x'
-      };
-      axios.get('https://api.airtable.com/v0/applHDrxw5M9KzTWT/tasks').then(function (response) {
-        console.log(response);
-      });
-    },
-    postTable: function postTable() {
-      axios.defaults.headers = {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer keyFh096OT6FXNB3x'
-      };
-      var Name = {
-        Name: 'name'
-      };
-      var Notes = {
-        Notes: 'MoreNotes'
-      };
-      var data = {
-        fields: {
-          Name: 'name',
-          Notes: 'MoreNotes'
-        }
-      };
-      console.log(data);
-      axios.post('https://api.airtable.com/v0/applHDrxw5M9KzTWT/tasks', data).then(function (response) {
-        console.log(response);
-      });
-    },
     submitTitle: function () {
       var _submitTitle = _asyncToGenerator(
       /*#__PURE__*/
@@ -3693,32 +3652,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 data = {};
                 data.eventTitle = this.eventTitle;
+                console.log(data);
                 axios.patch("".concat(this.eventUrl, "/title"), data).then(function (response) {
                   // all is well. move on to the next page
+                  console.log(response);
                   window.location.href = "/create-your-event/".concat(response.data.event.slug, "/images");
-                }).catch(function (errorResponse) {
-                  // show if there are server side validation errors
-                  if (!_.has(errorResponse, 'response.data.errors')) {
-                    return false;
-                  }
-
-                  var _arr = Object.entries(errorResponse.response.data.errors);
-
-                  for (var _i = 0; _i < _arr.length; _i++) {
-                    var _arr$_i = _slicedToArray(_arr[_i], 2),
-                        field = _arr$_i[0],
-                        errors = _arr$_i[1];
-
-                    for (var error in errors) {
-                      _this.errors.add({
-                        field: field,
-                        msg: errors[error]
-                      });
-                    }
-                  }
+                }).catch(function (error) {
+                  console.log(error.response);
+                  _this.validationErrors = error.response.data.errors;
                 });
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -3765,6 +3709,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Send-Event/airtable.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Send-Event/airtable.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    event: {
+      type: Object
+    }
+  },
+  methods: {
+    postEventAirtable: function postEventAirtable() {
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer keyFh096OT6FXNB3x'
+      };
+      var data = {
+        fields: {
+          Title: this.event.eventTitle,
+          Description: this.event.eventDescription,
+          EventWebsite: this.event.eventWebsite,
+          TicketURL: this.event.eventTickerUrl,
+          Expectations: this.event.eventExpectations,
+          City: this.event.eventCity
+        }
+      };
+      console.log(data);
+      axios.post("https://api.airtable.com/v0/applHDrxw5M9KzTWT/events", data).then(function (response) {
+        console.log(response);
+      });
+    }
   }
 });
 
@@ -58047,7 +58038,7 @@ var render = function() {
           staticClass: "floating-input",
           attrs: {
             type: "text",
-            name: "title",
+            name: "eventTitle",
             "data-vv-as": "Event Title",
             placeholder: " "
           },
@@ -58065,7 +58056,7 @@ var render = function() {
         _c("label", [_vm._v("Title")]),
         _vm._v(" "),
         _c("span", { staticClass: "text-sm text-danger" }, [
-          _vm._v(_vm._s(_vm.errors.first("title")))
+          _vm._v(_vm._s(_vm.errors.first("eventTitle")))
         ])
       ])
     ]),
@@ -58084,28 +58075,7 @@ var render = function() {
         },
         [_vm._v(" Next ")]
       )
-    ]),
-    _vm._v(" "),
-    _c("input", { attrs: { type: "text", name: "Name" } }),
-    _vm._v(" "),
-    _c(
-      "textarea",
-      { attrs: { name: "notes", id: "", cols: "30", rows: "10" } },
-      [_vm._v("Test")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        on: {
-          click: function($event) {
-            $event.preventDefault()
-            _vm.postTable()
-          }
-        }
-      },
-      [_vm._v("Post table")]
-    )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -58171,6 +58141,43 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Send-Event/airtable.vue?vue&type=template&id=02bb76fa&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Send-Event/airtable.vue?vue&type=template&id=02bb76fa& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            _vm.postEventAirtable()
+          }
+        }
+      },
+      [_vm._v("Post To Airtable")]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -71236,6 +71243,7 @@ Vue.component('create-title', __webpack_require__(/*! ./components/Create-Event/
 Vue.component('create-image', __webpack_require__(/*! ./components/Create-Event/create-image.vue */ "./resources/js/components/Create-Event/create-image.vue").default);
 Vue.component('event-listing', __webpack_require__(/*! ./components/Show-Event/event-listing.vue */ "./resources/js/components/Show-Event/event-listing.vue").default);
 Vue.component('event-listing-item', __webpack_require__(/*! ./components/Show-Event/event-listing-item.vue */ "./resources/js/components/Show-Event/event-listing-item.vue").default);
+Vue.component('airtable', __webpack_require__(/*! ./components/Send-Event/airtable.vue */ "./resources/js/components/Send-Event/airtable.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -72092,6 +72100,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Send-Event/airtable.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/Send-Event/airtable.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _airtable_vue_vue_type_template_id_02bb76fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./airtable.vue?vue&type=template&id=02bb76fa& */ "./resources/js/components/Send-Event/airtable.vue?vue&type=template&id=02bb76fa&");
+/* harmony import */ var _airtable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./airtable.vue?vue&type=script&lang=js& */ "./resources/js/components/Send-Event/airtable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _airtable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _airtable_vue_vue_type_template_id_02bb76fa___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _airtable_vue_vue_type_template_id_02bb76fa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Send-Event/airtable.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Send-Event/airtable.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/Send-Event/airtable.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_airtable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./airtable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Send-Event/airtable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_airtable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Send-Event/airtable.vue?vue&type=template&id=02bb76fa&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/Send-Event/airtable.vue?vue&type=template&id=02bb76fa& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_airtable_vue_vue_type_template_id_02bb76fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./airtable.vue?vue&type=template&id=02bb76fa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Send-Event/airtable.vue?vue&type=template&id=02bb76fa&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_airtable_vue_vue_type_template_id_02bb76fa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_airtable_vue_vue_type_template_id_02bb76fa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

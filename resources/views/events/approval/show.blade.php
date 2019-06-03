@@ -13,7 +13,9 @@
 			<a href="/RSS/Approve/{{ $event->slug }}">
 			<button> Rss Feed</button>
 			</a>
-
+			<div id="createContentArea">
+				<airtable :event="{{ $event }}"></airtable>
+			</div>
 		</div>
 
 		<div class="event-container">

@@ -529,10 +529,11 @@
 			}
 		},
 		{
-			"file": "resources/sass/event.scss",
+			"file": ".env",
 			"settings":
 			{
-				"buffer_size": 1149,
+				"buffer_size": 1025,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
@@ -546,31 +547,13 @@
 			}
 		},
 		{
-			"file": "resources/js/components/Show-Event/event-listing.vue",
+			"contents": "<template>\n\t<div>\n\t\t<div class=\"create-guide-title\">\n    \t\t<h2> Location</h2>\n    \t</div>\n\t    <div>\n\t    \t<p>Lets start with an address</p>\n\t    \t<br>\n\t    </div>\n\t    <div>\n\t\t\t<multiselect \n\t\t\tv-model=\"eventLocation.specificLocation\" \n\t\t\tdeselect-label=\"Can't remove this value\" \n\t\t\tplaceholder=\"Is the location is being withheld?\" \n\t\t\t:options=\"eventLocationOptions\" \n\t\t\topen-direction=\"bottom\"\n\t\t\t:searchable=\"false\" \n\t\t\t:allow-empty=\"false\">\n\t\t\t</multiselect>\n\t    </div>\n\t    <div class=\"floating-form\">\n\t    \t<div class=\"floating-label area\" v-if=\"showSpecificLocation\">\n\t            <textarea \n\t            v-model=\"eventLocation.eventStreetAddress\" \n\t            class=\"floating-input area\" \n\t            rows=\"8\" \n\t            placeholder=\" \" \n\t            required \n\t            autofocus>\n\t            </textarea>\n\t            <label class=\"area\"> Please enter how participants will be notified </label>\n\t        </div>\n\t    \t<div class=\"floating-label\" v-else=\"specificLocation\">\n\t\t        <input type=\"text\" class=\"floating-input\" v-model=\"eventLocation.eventStreetAddress\" placeholder=\" \" name=\"streetAddress\" v-validate=\"'required|max:100'\" data-vv-as=\"Street Address\">\n\t\t        <label>Street</label>\n\t\t        <span class=\"text-sm text-danger\">{{ errors.first('streetAddress') }}</span>\n\t\t    </div>\n\t\t    <div class=\"floating-label\">\n\t\t        <input type=\"text\" class=\"floating-input\" v-model=\"eventLocation.eventCity\" name=\"city\" v-validate=\"'required|max:80'\" data-vv-as=\"City Address\" placeholder=\" \">\n\t\t        <label>City</label>\n\t\t        <span class=\"text-sm text-danger\">{{ errors.first('city') }}</span>\n\n\t\t    </div>\n\t\t    <div class=\"floating-label\">\n\t\t        <input type=\"text\" class=\"floating-input\" v-model=\"eventLocation.eventState\" name=\"state\" v-validate=\"'required|max:50'\" data-vv-as=\"State Address\" placeholder=\" \">\n\t\t        <label>State</label>\n\t\t        <span class=\"text-sm text-danger\">{{ errors.first('state') }}</span>\n\t\t    </div>\n\t\t    <div class=\"floating-label\">\n\t\t        <input type=\"text\" class=\"floating-input\" v-model=\"eventLocation.eventZipcode\" name=\"zip\" v-validate=\"'required|max:5|numeric'\" data-vv-as=\"Zip Address\" placeholder=\" \">\n\t\t        <label>Zip</label>\n\t\t        <span class=\"text-sm text-danger\">{{ errors.first('zip') }}</span>\n\t\t    </div>\n\t\t    <div class=\"floating-label\">\n\t\t    \tCountry\n\t\t\t\t<multiselect \n\t\t\t\tv-model=\"selectedCountry\" \n\t\t\t\t:options=\"this.countryData ? countryData : []\" \n\t\t\t\t:searchable=\"true\" \n\t\t\t\tplaceholder=\"Select Country\" \n\t\t\t\topen-direction=\"bottom\" \n\t\t\t\tautocomplete=\"off\"\n\t\t\t\t></multiselect>\n\t\t\t</div>\n\t\t</div>\n\t    <div>\n\t\t\t<div>\n\t\t\t\t  <label class=\"typo__label\">Regions</label>\n\t\t\t\t  <multiselect \n\t\t\t\t  v-model=\"selectedRegions\" \n\t\t\t\t  :options=\"this.regions ? regionOptions : []\" \n\t\t\t\t  :multiple=\"true\" \n\t\t\t\t  placeholder=\"Select Region. You may select more than one.\" \n\t\t\t\t  track-by=\"id\"\n\t\t\t\t  open-direction=\"bottom\"\n\t\t\t\t  required \n\t\t\t\t  label=\"region\">\n\n\t\t\t\t  <span slot=\"noResult\">Please select from our list of approved Regions</span></multiselect>\n\t\t\t</div>\n\t\t</div>\n\t    <div class=\"\">\n\t        <button @click.prevent=\"submitLocation()\" class=\"create\"> Next </button>\n\t    </div>\n    </div>\n</template>\n\n<script>\n\timport Multiselect from 'vue-multiselect';\n\timport _ from 'lodash'\n\n\texport default {\n\t\tprops: {\n\t\t\tevent: { type:Object },\n\t\t\tregions: { type:Array },\n\t\t\tpivots: { type:Array },\n\t\t},\n\n\t\tcomponents: { \n\t\t\tMultiselect \n\t\t},\n\n\t\tcomputed: {\n\t\t\tshowSpecificLocation: function() {\n\t\t\t\tif( this.eventLocation.specificLocation === 'Yes' ) { \n\t\t\t\t\treturn '1'; } else { return ''}\n\t\t\t}\n\t\t},\n\n\t\tdata() {\n\t\t\treturn {\n\t\t\t\teventLocation:this.initializeEventObject(),\n\t\t\t\tspecificLocation: 'false',\n\t\t\t\tregionOptions:this.regions,\n\t\t\t\tselectedRegions: this.pivots,\n\t\t\t\teventLocationOptions: [ 'Yes', 'No' ],\n\t\t\t\tcountryData: '',\n\t\t\t\tselectedCountry: 'United States of America',\n\t\t\t\teventUrl:_.has(this.event, 'slug') ? `/create-your-event/${this.event.slug}` : null,\n\t\t\t\tlat: '',\n\t\t\t\tlon: ''\n\t\t\t}\n\t\t},\n\n\t\tmethods: {\n\t\t\tinitializeEventObject() {\n\t\t\t\treturn {\n\t\t\t\t\teventStreetAddress: '',\n\t                eventCity: '',\n\t                eventState: '',\n\t                eventCountry: '',\n\t                eventZipcode: '',\n\t                specificLocation: '',\n\t                eventLat: '',\n\t                eventLong: '',\n\t\t\t\t}\n\t\t\t},\n\n\t\t\tupdateEventFields(input) {\n                if ((input !== null) && (typeof input === \"object\") && (input.id !== null)) {\n                    this.eventLocation = _.pick(input, _.intersection( _.keys(this.eventLocation), _.keys(input) ));\n                }\n            },\n\n\t\t\tasync submitLocation() {\n\t\t\t\tif (!await this.$validator.validate()) { return false; }\n\t\t\t\tlet url = `https://cors-anywhere.herokuapp.com/https://us1.locationiq.com/v1/search.php?key=af4b25e28c2b00&q=` + this.eventLocation.eventStreetAddress + ' ' + this.eventLocation.eventCity + ' ' + this.eventLocation.eventState + ' ' + this.eventLocation.eventZipcode + `&format=json`;\n\n\t\t\t\taxios.get(url)\n\t\t    \t.then(response => {\n                \tthis.eventLocation.eventLat = response.data[0].lat;\n                \tthis.eventLocation.eventLong = response.data[0].lon;\n                \tlet data = this.eventLocation;\n\t\t\t\t\tdata.eventCountry = this.selectedCountry;\n\t           \t\tdata.eventRegion = this.selectedRegions.map(a => a.id);\n\n\t\t\t\t\taxios.patch(`${this.eventUrl}/location`, data)\n\t\t\t\t\t.then(response => {\n\t                    console.log(response)\n\t                    //window.location.href = `${this.eventUrl}/category`;\n\t                })\n\t                .catch(errorResponse => {\n\t                    // show if there are server side validation errors\n\t                    this.validationErrors = errorResponse.response.data.errors\n\t             \t});\n            \t})\n            \t.catch(errorResponse => {\n                // show if there are server side validation errors\n                });\n\n\t\t\t\t\n\t\t\t},\n\n\t\t\taddTag (newTag) {\n\t\t    \tconst tag = {\n\t\t\t        location: newTag,\n\t\t\t        id: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))\n\t\t\t    }\n\t\t\t    this.regionOptions.push(tag)\n      \t\t\tthis.selectedRegions.push(tag)\n\t\t\t},\n\t\t\ttoggle() {\n\t\t\t\tthis.specificLocation = !this.specificLocation;\n\t\t\t},\n\t\t},\n\n\t\tcreated() {\n\t\t\taxios.get('https://restcountries.eu/rest/v2/all?fields=name')\n\t\t\t\t.then(axiosResult => this.countryData = axiosResult.data.map(a => a.name));\n\t\t},\t\t\n\n\t\tmounted() {\n\t\t\tthis.updateEventFields(this.event);\n\t\t\tif (this.event.eventCountry) {\n\t\t\t\tthis.selectedCountry = this.event.eventCountry;\n\t\t\t}\n\t\t\tif (this.event.specificLocation == 1) {\n\t\t\t\tthis.specificLocation = 'true';\n\t\t\t}\n\t\t},\n\n    };\n\n\n\n</script>",
+			"file": "resources/js/components/Create-Event/create-location.vue",
+			"file_size": 6681,
+			"file_write_time": 132025049253328545,
 			"settings":
 			{
-				"buffer_size": 7144,
-				"encoding": "UTF-8",
-				"line_ending": "Unix",
-				"name": "event-listing.vue"
-			}
-		},
-		{
-			"file": "sftp-config.json",
-			"settings":
-			{
-				"buffer_size": 1539,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\nuse App\\Http\\Requests\\ValidateOrganizerRequest;\nuse App\\Http\\Requests\\ValidateDescriptionRequest;\nuse App\\Http\\Requests\\ValidateDetailsRequest;\nuse App\\Http\\Requests\\ValidateExpectRequest;\nuse App\\Http\\Requests\\ValidateLocationRequest;\nuse App\\Http\\Requests\\ValidateCategoryRequest;\nuse App\\Http\\Requests\\ValidateTitleRequest;\nuse App\\Event;\nuse App\\Region;\nuse App\\Genre;\nuse App\\ContactLevel;\nuse App\\Organizer;\nuse App\\User;\nuse App\\Category;\nuse Intervention\\Image\\ImageManagerStatic as Image;\n\nclass CreatingEventsController extends Controller\n{\n    public function __construct(Event $event)\n    {\n        $this->middleware('auth');\n    }\n\n    public function editEvents()\n    {\n        $events = User::find(Auth()->id())->events;\n\n        return view('events.create.editEvents', compact('events'));\n    }\n\n    public function createLocation(Event $event)\n    {\n        $regions = Region::all();\n        $pivots = $event->regions()->get();\n\n    \treturn view('events.create.Create_Location', compact('event','regions','pivots'));\n    }\n\n    public function updateLocation(ValidateLocationRequest $request, Event $event)\n    {\n    \t$event->update($request->all());\n        $event->regions()->sync(request('eventRegion'));\n\n\n    }\n\n\t\t// ------------------------------------------------------\n\n    public function createCategory(Event $event)\n    {\n        $categories = Category::latest()->get();\n        $event->load('category');\n\n    \treturn view('events.create.Create_Category', compact('event', 'categories'));\n    }\n    public function updateCategory(ValidateCategoryRequest $request, Event $event)\n    {\n    \t$event->update(['category_id'=> request('id')]);\n    }\n\n    // ------------------------------------------------------\n\n    public function createOrganizer(Event $event)\n    {\n        $event->load('organizer');\n        $organizers = Organizer::all();\n    \treturn view('events.create.Create_Organizer', compact('event', 'organizers'));\n    }\n\n    public function storeOrganizer(ValidateOrganizerRequest $request, Event $event, Organizer $organizer)\n    {\n        if (!$organizer = $organizer->updateOrCreate($request->all())) {\n            return response()->json(['error' => 'Failed to save organizer'], 402);\n        }\n\n    \t$event->update(['organizer_id' => $organizer->id]);\n        return response()->json(compact('organizer'));\n    }\n\n// ------------------------------------------------------\n\n    public function createDates(Event $event)\n    {\n        return view('events.create.Create_Dates', compact('event'));\n    }\n\n    public function updateDates(Request $request, Event $event)\n    {\n        $event->update(request()->validate([\n            'openingDate' => 'required',\n            'closingDate' => 'required',\n        ]));\n\n    }\n\n    // ------------------------------------------------------\n\n\n    public function createDetails(Event $event)\n    {\n        return view('events.create.Create_Details', compact('event'));\n    }\n\n    public function updateDetails(ValidateDetailsRequest $request, Event $event)\n    {\n        $event->update(request()->all());\n    }\n\n     // ------------------------------------------------------\n\n    public function createDescription(Event $event)\n    {\n        $pivots = $event->genres()->get();\n        $genres = Genre::all();\n\n        return view('events.create.Create_Description', compact('event','genres','pivots'));\n    }\n\n    public function updateDescription(ValidateDescriptionRequest $request, Event $event)\n    {\n        $event->updateDescription($request->all());\n    }\n\n     // ------------------------------------------------------\n\n\n    public function createExpect(Event $event)\n    {\n        $pivots = $event->contactLevels()->get();\n        $contactLevels = ContactLevel::all();\n\n        return view('events.create.Create_Expectations', compact('event','contactLevels','pivots'));\n    }\n\n    public function updateExpect(ValidateExpectRequest $request, Event $event)\n    {\n        $event->update($request->all());\n        $event->contactlevels()->sync(request('contactLevel'));\n    }\n\n    // ------------------------------------------------------\n\n    public function createTitle(Event $event)\n    {\n        return view('events.create.Create_Title', compact('event'));\n    }\n    public function updateTitle(ValidateTitleRequest $request, Event $event)\n    {\n        $event->updateTitle($request);\n        return response()->json(compact('event'));\n    }\n\n     // ------------------------------------------------------\n\n\n    public function createImages(Event $event)\n    {\n        return view('events.create.Create_Image', compact('event'));\n    }\n    public function storeImages(Request $request, Event $event)\n    {\n        $event->storeEventImage($request);\n    }\n\n    // ------------------------------------------------------\n\n\n    public function thanks(Event $event)\n    {\n        return view('events.create.thanksCreate', compact('event'));\n    }\n\n}\n",
-			"file": "app/Http/Controllers/CreatingEventsController.php",
-			"file_size": 5014,
-			"file_write_time": 132025051284683815,
-			"settings":
-			{
-				"buffer_size": 5006,
+				"buffer_size": 6681,
 				"line_ending": "Unix"
 			}
 		},
@@ -578,7 +561,16 @@
 			"file": "app/Event.php",
 			"settings":
 			{
-				"buffer_size": 5419,
+				"buffer_size": 6027,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/js/components/Create-Event/create-description.vue",
+			"settings":
+			{
+				"buffer_size": 3028,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -637,6 +629,7 @@
 		"/Users/Chris/code/showbelow/resources/js",
 		"/Users/Chris/code/showbelow/resources/js/components",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event",
+		"/Users/Chris/code/showbelow/resources/js/components/Send-Event",
 		"/Users/Chris/code/showbelow/resources/js/components/Show-Event",
 		"/Users/Chris/code/showbelow/resources/js/mixins",
 		"/Users/Chris/code/showbelow/resources/js/store",
@@ -645,6 +638,7 @@
 		"/Users/Chris/code/showbelow/resources/views",
 		"/Users/Chris/code/showbelow/resources/views/auth",
 		"/Users/Chris/code/showbelow/resources/views/events",
+		"/Users/Chris/code/showbelow/resources/views/events/approval",
 		"/Users/Chris/code/showbelow/resources/views/layouts",
 		"/Users/Chris/code/showbelow/resources/views/organization",
 		"/Users/Chris/code/showbelow/resources/views/profiles",
@@ -654,15 +648,21 @@
 	],
 	"file_history":
 	[
+		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-title.vue",
+		"/Users/Chris/code/showbelow/resources/js/app.js",
+		"/Users/Chris/code/showbelow/app/Event.php",
+		"/Users/Chris/code/showbelow/resources/views/events/approval/show.blade.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Send-Event/airtable.vue",
+		"/Users/Chris/code/showbelow/composer.json",
+		"/Users/Chris/code/showbelow/sftp-config.json",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/EventsController.php",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/CreatingEventsController.php",
+		"/Users/Chris/code/showbelow/config/airtable.php",
+		"/Users/Chris/code/showbelow/resources/js/components/Show-Event/event-listing.vue",
 		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateLocationRequest.php",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-location.vue",
-		"/Users/Chris/code/showbelow/app/Event.php",
-		"/Users/Chris/code/showbelow/composer.json",
 		"/Users/Chris/code/showbelow/app/Http/Controllers/RssController.php",
 		"/Users/Chris/code/showbelow/.env",
-		"/Users/Chris/code/showbelow/resources/js/app.js",
 		"/Users/Chris/code/showbelow/vendor/beyondcode/laravel-dump-server/config/config.php",
 		"/Users/Chris/code/showbelow/config/app.php",
 		"/Users/Chris/code/showbelow/resources/js/components/Show-Event/event-listing-item.vue",
@@ -675,7 +675,6 @@
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-details.vue",
 		"/Users/Chris/code/showbelow/database/factories/UserFactory.php",
 		"/Users/Chris/code/showbelow/database/migrations/2019_02_28_182855_create_events_table.php",
-		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-title.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-image.vue",
 		"/Users/Chris/code/showbelow/resources/js/components/Create-Event/create-description.vue",
 		"/Users/Chris/code/showbelow/app/Http/Requests/ValidateTitleRequest.php",
@@ -769,7 +768,6 @@
 		"/Users/Chris/code/showbelow/app/Http/Controllers/CategoryController.php",
 		"/Users/Chris/code/showbelow/app/Category.php",
 		"/Users/Chris/code/showbelow/resources/views/category/show.blade.php",
-		"/Users/Chris/code/showbelow/resources/views/events/approval/show.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/layouts/navMenu.blade.php",
 		"/Users/Chris/code/showbelow/resources/views/layouts/navLogo.blade.php",
 		"/Users/Chris/code/showbelow/resources/sass/_variables.scss",
@@ -777,11 +775,7 @@
 		"/Users/Chris/code/showbelow/resources/sass/buttons.scss",
 		"/Users/Chris/code/showbelow/resources/views/events/create/editEvents.blade.php",
 		"/Users/Chris/code/showbelow/app/Http/Middleware/IsAdmin.php",
-		"/Users/Chris/code/showbelow/resources/views/events/create.blade.php",
-		"/Users/Chris/code/showbelow/config/session.php",
-		"/Users/Chris/code/showbelow/app/Favorite.php",
-		"/Users/Chris/code/showbelow/resources/views/profiles/show.blade.php",
-		"/Users/Chris/code/showbelow/resources/sass/event.scss"
+		"/Users/Chris/code/showbelow/resources/views/events/create.blade.php"
 	],
 	"find":
 	{
@@ -946,7 +940,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -974,27 +968,27 @@
 							"syntax": "Packages/PHP/PHP.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 210.0,
+						"translation.y": 563.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "resources/sass/event.scss",
-					"semi_transient": true,
+					"file": ".env",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1149,
+						"buffer_size": 1025,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								965,
+								965
 							]
 						],
 						"settings":
@@ -1002,15 +996,13 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 349.0,
+						"translation.y": 926.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1039,7 +1031,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 121.0,
+						"translation.y": 199.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -1047,24 +1039,23 @@
 				},
 				{
 					"buffer": 3,
-					"file": "resources/js/components/Show-Event/event-listing.vue",
+					"file": "resources/js/components/Create-Event/create-location.vue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7144,
+						"buffer_size": 6681,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1660,
-								1660
+								5767,
+								5709
 							]
 						],
 						"settings":
 						{
-							"auto_name": "event-listing.vue",
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
@@ -1072,93 +1063,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1383.0,
+						"translation.y": 2910.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "sftp-config.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1539,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								440,
-								193
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 204.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/Http/Controllers/CreatingEventsController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5006,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5002,
-								5002
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1972.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
 					"file": "app/Event.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5419,
+						"buffer_size": 6027,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3361,
-								3398
+								3336,
+								3336
 							]
 						],
 						"settings":
@@ -1171,10 +1096,43 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3327.0,
+						"translation.y": 4818.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "resources/js/components/Create-Event/create-description.vue",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3028,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2245,
+								2245
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1772.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1232,6 +1190,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"configairta",
+				"showbelow/config/airtable.php"
+			],
 			[
 				"config.php",
 				"showbelow/vendor/beyondcode/laravel-dump-server/config/config.php"

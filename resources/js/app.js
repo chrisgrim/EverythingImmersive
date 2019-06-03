@@ -74,6 +74,8 @@ Vue.component('create-image', require('./components/Create-Event/create-image.vu
 
 Vue.component('event-listing', require('./components/Show-Event/event-listing.vue').default);
 Vue.component('event-listing-item', require('./components/Show-Event/event-listing-item.vue').default);
+
+Vue.component('airtable', require('./components/Send-Event/airtable.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
