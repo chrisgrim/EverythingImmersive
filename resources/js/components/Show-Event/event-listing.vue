@@ -15,18 +15,18 @@
 			        label="eventTitle" 
 			        track-by="eventTitle" 
 			        deselectLabel=''
-			        @input="nameFilter()"
+			        @input="filterEvent()"
 			        :allow-empty="false"  
 			        :options="searchOptions" 
 			        >
 				    </multiselect>
 			    </div>
 			    <div>Event Cost
-			    	<vue-slide-bar @dragEnd="priceFilter()" v-model="price"/>
+			    	<vue-slide-bar @dragEnd="filterEvent()" v-model="price"/>
 				</div>
 				<div>
 					<input type="text" placeholder="Location" v-model="location">
-					<button @click="locationSearch()">Go</button>
+					<button @click="filterEvent()">Go</button>
 				</div>
 				<div>
 					 <div class="datepicker-trigger">
@@ -45,7 +45,7 @@
 				        :date-two="dateTwo"
 				        @date-one-selected="val => { dateOne = val }"
 				        @date-two-selected="val => { dateTwo = val }"
-				        @apply="dateFilter()"
+				        @apply="filterEvent()"
 				      />
 				    </div>
 				</div>
@@ -71,8 +71,12 @@
 
 	export default {
 		props: {
-			events: { type:Array },
-			user: { type:Object },
+			events: {
+				type:Array 
+			},
+			user: { 
+				type:Object 
+			},
 		},
 
 		mixins: [
@@ -98,10 +102,6 @@
       			eventName: '',
       			location: '',
 			}
-		},
-
-		computed: {
-			
 		},
 
 		methods: {
@@ -134,59 +134,73 @@
 		      		return formattedDates
 		    },
 
-		    priceFilter() {
-		    	let money = {var: this.price};
-		    	console.log(money);
-		    	axios.post('/eventsFilter/costfilter', money)
+		    filterEvent() {
+		    	let data = {};
+		    	if(this.price) {
+		    		Vue.set(data, "money", this.price);
+		    	}
+		    	if (this.eventName.eventTitle) {
+		    		Vue.set(data, "eventTitle", this.eventName.eventTitle);
+		    	}
+		    	if(this.dateOne) {
+		    		Vue.set(data, "from_date", this.dateOne);
+		    		Vue.set(data, "to_date", this.dateTwo);
+		    	}
+		    	if(this.location) {
+		    		var self = this;
+		    		Vue.set(data, "location", this.location);
+		    		this.locationPromise().then(function(locationData) {
+		    			Vue.set(data, "eventLat", locationData.eventLat);
+		    			Vue.set(data, "eventLong", locationData.eventLong);
+
+		    			self.getFilteredEvents(data);
+		    			console.log(data);
+		    		}); 
+		    	} else {
+		    		this.getFilteredEvents(data);
+		    	}
+		    },
+
+		    locationPromise() {
+		    	return new Promise((resolve, reject) => {
+		    		let params = {
+		    			key: 'af4b25e28c2b00',
+		    			q: this.location,
+		    		};
+		    		let url = `https://cors-anywhere.herokuapp.com/https://us1.locationiq.com/v1/search.php?key=af4b25e28c2b00&q=` + this.location + `&format=json`;
+					axios.get(url)
+					.then(response => {
+						console.log(response.data[0].lat);
+						let params = {
+							eventLat: response.data[0].lat,
+							eventLong: response.data[0].lon,
+							locationName: this.location
+						};
+						resolve(params);
+					});
+		    	});
+		    },
+
+		    getFilteredEvents(data) {
+		    	axios.post('/eventsFilter/eventfilter', data)
 		    	.then(response => {
 		    		this.allEvents = response.data;
-            	})
-            	.catch(errorResponse => {
-                // show if there are server side validation errors
-                if (!_.has(errorResponse, 'response.data.errors')) { return false; }
-                	for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
-                    	for (const error in errors) {
-                        this.errors.add({ field: field, msg: errors[error] });
-                    	}
-               		}
-            	});
-		    },
-
-		    nameFilter() {
-		    	let params = {var: this.eventName.eventTitle};
-		    	axios.post('/eventsFilter/namefilter', params)
-		    	.then(response => {
-                	this.allEvents = response.data;
-            	})
-            	.catch(errorResponse => {
-                // show if there are server side validation errors
-                if (!_.has(errorResponse, 'response.data.errors')) { return false; }
-                	for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
-                    	for (const error in errors) {
-                        this.errors.add({ field: field, msg: errors[error] });
-                    	}
-               		}
-            	});
-		    },
-
-		    dateFilter() {
-		    	let params = {
-		    		from_date: this.dateOne,
-		    		to_date: this.dateTwo,
-		    	};
-		    	axios.post('/eventsFilter/datefilter', params)
-		    	.then(response => {
-					this.allEvents = response.data;
-            	})
-            	.catch(errorResponse => {
-                // show if there are server side validation errors
-                if (!_.has(errorResponse, 'response.data.errors')) { return false; }
-                	for (const [field, errors] of Object.entries(errorResponse.response.data.errors)) {
-                    	for (const error in errors) {
-                        this.errors.add({ field: field, msg: errors[error] });
-                    	}
-               		}
-            	});
+		    		console.log(response.data);
+		    	})
+		    	.catch(errorResponse => {
+		    		//show if there are server side validation errors
+		    		if(!_.has(errorResponse, 'response.data.errors')) {
+		    			return false;
+		    		}
+		    		for (const[field, errors] of Object.entries(errorResponse.response.data.errors)) {
+		    			for(const error in errors) {
+		    				this.errors.add({
+		    					field: field,
+		    					msg: errors[error]
+		    				});
+		    			}
+		    		}
+		    	});
 		    },
 
 		    locationSearch() {

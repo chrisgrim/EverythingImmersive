@@ -79,6 +79,7 @@ Route::POST('/eventsFilter/namefilter', 'EventsController@namefilter');
 Route::POST('/eventsFilter/costfilter', 'EventsController@costfilter');
 Route::POST('/eventsFilter/datefilter', 'EventsController@datefilter');
 Route::POST('/eventsFilter/locationfilter', 'EventsController@locationfilter');
+Route::POST('/eventsFilter/eventfilter', 'EventsController@eventfilter');
 
 
 

@@ -3938,7 +3938,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       location: ''
     };
   },
-  computed: {},
   methods: {
     initializeEventObject: function initializeEventObject() {
       return {
@@ -3971,17 +3970,63 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       return formattedDates;
     },
-    priceFilter: function priceFilter() {
+    filterEvent: function filterEvent() {
+      var data = {};
+
+      if (this.price) {
+        Vue.set(data, "money", this.price);
+      }
+
+      if (this.eventName.eventTitle) {
+        Vue.set(data, "eventTitle", this.eventName.eventTitle);
+      }
+
+      if (this.dateOne) {
+        Vue.set(data, "from_date", this.dateOne);
+        Vue.set(data, "to_date", this.dateTwo);
+      }
+
+      if (this.location) {
+        var self = this;
+        Vue.set(data, "location", this.location);
+        this.locationPromise().then(function (locationData) {
+          Vue.set(data, "eventLat", locationData.eventLat);
+          Vue.set(data, "eventLong", locationData.eventLong);
+          self.getFilteredEvents(data);
+          console.log(data);
+        });
+      } else {
+        this.getFilteredEvents(data);
+      }
+    },
+    locationPromise: function locationPromise() {
       var _this = this;
 
-      var money = {
-        var: this.price
-      };
-      console.log(money);
-      axios.post('/eventsFilter/costfilter', money).then(function (response) {
-        _this.allEvents = response.data;
+      return new Promise(function (resolve, reject) {
+        var params = {
+          key: 'af4b25e28c2b00',
+          q: _this.location
+        };
+        var url = "https://cors-anywhere.herokuapp.com/https://us1.locationiq.com/v1/search.php?key=af4b25e28c2b00&q=" + _this.location + "&format=json";
+        axios.get(url).then(function (response) {
+          console.log(response.data[0].lat);
+          var params = {
+            eventLat: response.data[0].lat,
+            eventLong: response.data[0].lon,
+            locationName: _this.location
+          };
+          resolve(params);
+        });
+      });
+    },
+    getFilteredEvents: function getFilteredEvents(data) {
+      var _this2 = this;
+
+      axios.post('/eventsFilter/eventfilter', data).then(function (response) {
+        _this2.allEvents = response.data;
+        console.log(response.data);
       }).catch(function (errorResponse) {
-        // show if there are server side validation errors
+        //show if there are server side validation errors
         if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
           return false;
         }
@@ -3994,36 +4039,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               errors = _arr$_i[1];
 
           for (var error in errors) {
-            _this.errors.add({
-              field: field,
-              msg: errors[error]
-            });
-          }
-        }
-      });
-    },
-    nameFilter: function nameFilter() {
-      var _this2 = this;
-
-      var params = {
-        var: this.eventName.eventTitle
-      };
-      axios.post('/eventsFilter/namefilter', params).then(function (response) {
-        _this2.allEvents = response.data;
-      }).catch(function (errorResponse) {
-        // show if there are server side validation errors
-        if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
-          return false;
-        }
-
-        var _arr2 = Object.entries(errorResponse.response.data.errors);
-
-        for (var _i2 = 0; _i2 < _arr2.length; _i2++) {
-          var _arr2$_i = _slicedToArray(_arr2[_i2], 2),
-              field = _arr2$_i[0],
-              errors = _arr2$_i[1];
-
-          for (var error in errors) {
             _this2.errors.add({
               field: field,
               msg: errors[error]
@@ -4032,15 +4047,44 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }
       });
     },
-    dateFilter: function dateFilter() {
+    locationSearch: function locationSearch() {
       var _this3 = this;
 
       var params = {
-        from_date: this.dateOne,
-        to_date: this.dateTwo
+        key: 'af4b25e28c2b00',
+        q: this.location
       };
-      axios.post('/eventsFilter/datefilter', params).then(function (response) {
-        _this3.allEvents = response.data;
+      var url = "https://cors-anywhere.herokuapp.com/https://us1.locationiq.com/v1/search.php?key=af4b25e28c2b00&q=" + this.location + "&format=json";
+      axios.get(url).then(function (response) {
+        console.log(response.data[0].lat);
+        var params = {
+          eventLat: response.data[0].lat,
+          eventLong: response.data[0].lon,
+          locationName: _this3.location
+        };
+        axios.post('/eventsFilter/locationfilter', params).then(function (response) {
+          _this3.allEvents = response.data;
+        }).catch(function (errorResponse) {
+          // show if there are server side validation errors
+          if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
+            return false;
+          }
+
+          var _arr2 = Object.entries(errorResponse.response.data.errors);
+
+          for (var _i2 = 0; _i2 < _arr2.length; _i2++) {
+            var _arr2$_i = _slicedToArray(_arr2[_i2], 2),
+                field = _arr2$_i[0],
+                errors = _arr2$_i[1];
+
+            for (var error in errors) {
+              _this3.errors.add({
+                field: field,
+                msg: errors[error]
+              });
+            }
+          }
+        });
       }).catch(function (errorResponse) {
         // show if there are server side validation errors
         if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
@@ -4056,66 +4100,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
           for (var error in errors) {
             _this3.errors.add({
-              field: field,
-              msg: errors[error]
-            });
-          }
-        }
-      });
-    },
-    locationSearch: function locationSearch() {
-      var _this4 = this;
-
-      var params = {
-        key: 'af4b25e28c2b00',
-        q: this.location
-      };
-      var url = "https://cors-anywhere.herokuapp.com/https://us1.locationiq.com/v1/search.php?key=af4b25e28c2b00&q=" + this.location + "&format=json";
-      axios.get(url).then(function (response) {
-        console.log(response.data[0].lat);
-        var params = {
-          eventLat: response.data[0].lat,
-          eventLong: response.data[0].lon,
-          locationName: _this4.location
-        };
-        axios.post('/eventsFilter/locationfilter', params).then(function (response) {
-          _this4.allEvents = response.data;
-        }).catch(function (errorResponse) {
-          // show if there are server side validation errors
-          if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
-            return false;
-          }
-
-          var _arr4 = Object.entries(errorResponse.response.data.errors);
-
-          for (var _i4 = 0; _i4 < _arr4.length; _i4++) {
-            var _arr4$_i = _slicedToArray(_arr4[_i4], 2),
-                field = _arr4$_i[0],
-                errors = _arr4$_i[1];
-
-            for (var error in errors) {
-              _this4.errors.add({
-                field: field,
-                msg: errors[error]
-              });
-            }
-          }
-        });
-      }).catch(function (errorResponse) {
-        // show if there are server side validation errors
-        if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.has(errorResponse, 'response.data.errors')) {
-          return false;
-        }
-
-        var _arr5 = Object.entries(errorResponse.response.data.errors);
-
-        for (var _i5 = 0; _i5 < _arr5.length; _i5++) {
-          var _arr5$_i = _slicedToArray(_arr5[_i5], 2),
-              field = _arr5$_i[0],
-              errors = _arr5$_i[1];
-
-          for (var error in errors) {
-            _this4.errors.add({
               field: field,
               msg: errors[error]
             });
@@ -58306,7 +58290,7 @@ var render = function() {
               },
               on: {
                 input: function($event) {
-                  _vm.nameFilter()
+                  _vm.filterEvent()
                 }
               },
               model: {
@@ -58328,7 +58312,7 @@ var render = function() {
             _c("vue-slide-bar", {
               on: {
                 dragEnd: function($event) {
-                  _vm.priceFilter()
+                  _vm.filterEvent()
                 }
               },
               model: {
@@ -58370,7 +58354,7 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  _vm.locationSearch()
+                  _vm.filterEvent()
                 }
               }
             },
@@ -58408,7 +58392,7 @@ var render = function() {
                     _vm.dateTwo = val
                   },
                   apply: function($event) {
-                    _vm.dateFilter()
+                    _vm.filterEvent()
                   }
                 }
               })
