@@ -170,7 +170,7 @@ class EventsController extends Controller
             $eventModel = Event::whereRaw("1=1");
 
             if($request->money) {
-                $eventModel->where('eventGeneralCost', '=>', $request->money);
+                $eventModel->where('eventGeneralCost', '<=', $request->money);
             }
             if($request->eventTitle) {
                 $eventModel->where('eventTitle', 'LIKE', $request->eventTitle);
