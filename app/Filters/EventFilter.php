@@ -10,7 +10,7 @@ class EventFilter extends Filter
      * 
      * @var array
      */
-    protected $filters = ['eventTitle'];
+    protected $filters = ['eventTitle','eventGeneralCost'];
 
     /**
      * ------------------------
@@ -31,6 +31,19 @@ class EventFilter extends Filter
     {
         if($eventTitle){
             return $this->builder->where('eventTitle','LIKE',"%$eventTitle%");
+        }
+        return $this->builder;
+    }
+
+    /**
+     * Filtet the query by the given eventGeneralCost
+     * @param int|string $eventGeneralCost
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function eventGeneralCost($eventGeneralCost)
+    {
+        if($eventGeneralCost){
+            return $this->builder->where('eventGeneralCost','>=',$eventGeneralCost);
         }
         return $this->builder;
     }
