@@ -47,4 +47,17 @@ class EventFilter extends Filter
         }
         return $this->builder;
     }
+
+    /**
+     * Filter the query by the given opening date
+     * @param string $openingDate
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function openingDate($openingDate)
+    {
+        if($openingDate){
+            return $this->builder->where('openingDate','=',$openingDate);
+        }
+        return $this->builder;
+    }
 }
