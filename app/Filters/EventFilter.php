@@ -10,7 +10,7 @@ class EventFilter extends Filter
      * 
      * @var array
      */
-    protected $filters = ['eventTitle','eventGeneralCost'];
+    protected $filters = ['eventTitle','eventGeneralCost','openingDate','closingDate'];
 
     /**
      * ------------------------
@@ -36,7 +36,7 @@ class EventFilter extends Filter
     }
 
     /**
-     * Filtet the query by the given eventGeneralCost
+     * Filter the query by the given eventGeneralCost
      * @param int|string $eventGeneralCost
      * @return \Illuminate\Database\Eloquent\Builder
      */
