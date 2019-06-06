@@ -13,6 +13,15 @@ class EventFilter extends Filter
     protected $filters = ['eventTitle'];
 
     /**
+     * ------------------------
+     * Remember that the string and the protected method should be same name
+     * just to make it readable for you
+     * and also you need to name your param like your table name.
+     * make it clean :)
+     * -------------------------------
+     */
+
+    /**
      * Filter query by the given eventTitle
      * 
      * @param string title
