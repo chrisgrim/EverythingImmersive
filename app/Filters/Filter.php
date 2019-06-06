@@ -3,7 +3,7 @@ namespace App\Filters;
 
 use Illuminate\Http\Request;
 
-abstract class Filters
+abstract class Filter
 {
     /**
      * @var Request
