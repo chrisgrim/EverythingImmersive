@@ -8,7 +8,7 @@
 		<h2>Our Latest Events</h2>
 		<div id="app">
 			<div id="grid-section">
-				<!-- What is this filter by name? -->
+				<!-- What is this filter by name? i disabled this because i dont know why you should filter the title-->
 				<!-- <div>
 					<multiselect 
 			        v-model="eventName" 
@@ -26,7 +26,8 @@
 			    	<vue-slide-bar @input="filterPrice"/>
 				</div>
 				<div>
-					<input type="text" placeholder="Location" @change="filterEvent" name="eventCity">
+					<!-- Disabled this location filter -->
+					<!-- <input type="text" placeholder="Location" @change="filterEvent" name="eventCity"> -->
 					<button @click="getEvents()">Go</button>
 				</div>
 				<div>
@@ -56,12 +57,11 @@
 				<!-- <div v-for="event in allEvents">
 					<event-listing-item :user="user" :event="event"></event-listing-item>
 				</div> -->
-				<ul v-if="events.length">
-					<li v-for="event in events" :key="event.id">
-						{{event.eventTitle}}
-					</li>
-				</ul>
-				<p v-else>No Data</p>
+				<div v-if="events.length">
+					<div v-for="event in events" :key="event.id">
+						<event-listing-item-two :event="event"></event-listing-item-two>
+					</div>
+				</div>
 			</div>
 		</div>
     </div>
@@ -112,6 +112,19 @@
 		methods: {
 			getEvents(){
 				this.$store.dispatch('events/index');
+				// comment this section. you can add the logic or me. but i need time to know the exact result
+				// const {eventCity} = this.$store.state.events.params;
+				// if(eventCity){
+				// 	let params = {
+		    	// 		key: 'af4b25e28c2b00',
+		    	// 		q: eventCity
+				// 	};
+				// 	let url = `https://cors-anywhere.herokuapp.com/https://us1.locationiq.com/v1/search.php?key=af4b25e28c2b00&q=` + eventCity + `&format=json`;
+				// 	axios.get(url)
+				// 		.then(res => {
+				// 			console.log(res.data);
+				// 		})
+				// }
 			},
 			...mapMutations({
 				'filterEvent':'events/filterEvent',
