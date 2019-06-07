@@ -75,6 +75,10 @@ Vue.component('create-image', require('./components/Create-Event/create-image.vu
 Vue.component('event-listing', require('./components/Show-Event/event-listing.vue').default);
 Vue.component('event-listing-item', require('./components/Show-Event/event-listing-item.vue').default);
 
+//i dont want to overwrite the old version listing
+Vue.component('event-listing-two',require('./components/Show-Event/event-listing-2.vue').default);
+Vue.component('event-listing-item-two',require('./components/Show-Event/event-listing-item-2.vue').default);  
+
 Vue.component('airtable', require('./components/Send-Event/airtable.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
