@@ -26,7 +26,7 @@
 			    	<vue-slide-bar @input="filterPrice"/>
 				</div>
 				<div>
-					<input type="text" placeholder="Location" v-model="location">
+					<input type="text" placeholder="Location" @change="filterEvent" name="eventCity">
 					<button @click="getEvents()">Go</button>
 				</div>
 				<div>
@@ -74,7 +74,7 @@
     import usersMixin from '../../mixins/users.js';
     import InfiniteLoading from 'vue-infinite-loading';
     import VueSlideBar from 'vue-slide-bar';
-    import {mapState} from 'vuex';
+    import {mapState,mapMutations} from 'vuex';
 
 
 	export default {
@@ -113,6 +113,9 @@
 			getEvents(){
 				this.$store.dispatch('events/index');
 			},
+			...mapMutations({
+				'filterEvent':'events/filterEvent',
+			}),
         	formatDates(dateOne, dateTwo) {
 		    	let formattedDates = ''
 		    	if (dateOne) {
