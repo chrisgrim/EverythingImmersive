@@ -158,6 +158,7 @@
 				this.$store.commit('events/filterEvent',event);
 			},
 			filterDateOne(val){
+				this.dateOne = val;
 				const event = {
 					target:{
 						value:val,
@@ -167,6 +168,7 @@
 				this.$store.commit('events/filterEvent',event);
 			},
 			filterDateTwo(val){
+				this.dateTwo = val;
 				const event = {
 					target:{
 						value:val,
