@@ -10,7 +10,7 @@ class EventFilter extends Filter
      * 
      * @var array
      */
-    protected $filters = ['eventTitle','eventGeneralCost','openingDate','closingDate'];
+    protected $filters = ['eventTitle','eventGeneralCost','openingDate'];
 
     /**
      * ------------------------
@@ -37,6 +37,7 @@ class EventFilter extends Filter
 
     /**
      * Filter the query by the given eventGeneralCost
+     * 
      * @param int|string $eventGeneralCost
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -50,12 +51,18 @@ class EventFilter extends Filter
 
     /**
      * Filter the query by the given opening date
+     * 
      * @param string $openingDate
      * @return \Illuminate\Database\Eloquent\Builder
      */
     protected function openingDate($openingDate)
     {
         if($openingDate){
+            if($this->request->has('closingDate')){
+                return $this->builder->where(function($q) use($openingDate){
+                    return $q->whereDate('openingDate','>=',$openingDate)->whereDate('closingDate','<=',$this->request->closingDate);
+                });
+            }
             return $this->builder->where('openingDate','=',$openingDate);
         }
         return $this->builder;
