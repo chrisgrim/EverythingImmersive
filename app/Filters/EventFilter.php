@@ -79,4 +79,18 @@ class EventFilter extends Filter
         }
         return $this->builder;
     }
+
+    /**
+     * Filter the query by the given eventCity
+     * 
+     * @param string $eventCity
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function eventCity($eventCity)
+    {
+        if($eventCity){
+            return $this->builder->where('eventCity',$eventCity);
+        }
+        return $this->builder;
+    }
 }
