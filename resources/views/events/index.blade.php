@@ -19,7 +19,7 @@
 				</a>
 			@endforeach
 		</div>
-		<event-listing :events="{{$events}}"></event-listing>
-
+		{{-- <event-listing :events="{{$events}}"></event-listing> --}}
+		<event-listing-two></event-listing-two>
 	</div>
 @endsection

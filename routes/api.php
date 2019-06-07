@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// this will be load all Controller inside the app\Http\Api
+Route::namespace('Api')->prefix('events')->group(function(){
+    Route::get('/','EventsController@index')->name('api.events.index');
+});

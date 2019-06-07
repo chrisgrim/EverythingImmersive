@@ -5,7 +5,7 @@ namespace App;
 use App\Genre;
 use Illuminate\Database\Eloquent\Model;
 use Intervention\Image\ImageManagerStatic as Image;
-
+use App\Filters\EventFilter;
 
 class Event extends Model
 {
@@ -137,6 +137,9 @@ class Event extends Model
         $fileNameToStore= $title.'.'.$extension;
         return $fileNameToStore;
     }
+
+    // You can delete the scope filter, start from line 143 to 168
+
      public function scopePriceFilter($query, $param)
     {
         return $query->where('eventGeneralCost', '<=', $param);
@@ -162,5 +165,17 @@ class Event extends Model
     {
         $locationName = $request->locationName;
         return $query->where('eventCity', '=', $locationName);
+    }
+
+    /**
+     * Scope filter for events
+     * 
+     * @param $query
+     * @param EventFilter $filter
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilter($query, EventFilter $filter)
+    {
+        return $filter->apply($query);
     }
 }
