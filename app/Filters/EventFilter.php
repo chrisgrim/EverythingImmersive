@@ -18,6 +18,9 @@ class EventFilter extends Filter
      * just to make it readable for you
      * and also you need to name your param like your table name.
      * make it clean :)
+     * 
+     * The if statement inside the all protected method is check that if the user are requested the query parameter
+     * if the query parameter is null, it will not run query filter
      * -------------------------------
      */
 
@@ -58,11 +61,20 @@ class EventFilter extends Filter
     protected function openingDate($openingDate)
     {
         if($openingDate){
+            /**
+             * check if user is also searching the closing date
+             * then the query should run where openingDate greater or equal from request 'openingDate' value
+             * and where closingDate less or equal from 'closingDate' value
+             */
             if($this->request->has('closingDate')){
                 return $this->builder->where(function($q) use($openingDate){
                     return $q->whereDate('openingDate','>=',$openingDate)->whereDate('closingDate','<=',$this->request->closingDate);
                 });
             }
+            /**
+             * Otherwise, the query run where openingDate equal from request opening date
+             * not require request from closing date
+             */
             return $this->builder->where('openingDate','=',$openingDate);
         }
         return $this->builder;
