@@ -10,7 +10,7 @@ class EventFilter extends Filter
      * 
      * @var array
      */
-    protected $filters = ['eventTitle','eventGeneralCost','openingDate'];
+    protected $filters = ['eventTitle','eventGeneralCost','openingDate','eventCity'];
 
     /**
      * ------------------------
@@ -89,7 +89,7 @@ class EventFilter extends Filter
     protected function eventCity($eventCity)
     {
         if($eventCity){
-            return $this->builder->where('eventCity',$eventCity);
+            return $this->builder->where('eventCity','LIKE',"%$eventCity%");
         }
         return $this->builder;
     }
